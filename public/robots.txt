@@ -1,2 +1,15 @@
+# Robots.txt - Portfolio Website
+# Allow all search engines to crawl the site
+
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /admin/
+Disallow: /storage/
+Disallow: /*.json$
+Disallow: /*.xml$
+
+# Sitemap location
+Sitemap: https://vedategunduz.dev/sitemap.xml
+
+# Crawl-delay (optional, in seconds)
+# Crawl-delay: 10
