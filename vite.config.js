@@ -24,9 +24,6 @@ export default defineConfig({
             output: {
                 manualChunks: (id) => {
                     // Vendor çünklerini ayır
-                    if (id.includes('node_modules/gsap')) {
-                        return 'gsap';
-                    }
                     if (id.includes('node_modules/alpinejs')) {
                         return 'alpine';
                     }

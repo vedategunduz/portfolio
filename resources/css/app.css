@@ -114,17 +114,29 @@ button:not([disabled]) {
 }
 
 .scroll-item {
-    opacity: 0;
-    transform: translateY(24px);
+  opacity: 1;
+  transform: none;
+}
+
+.js .scroll-item {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 900ms cubic-bezier(0.22, 1, 0.36, 1), transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
     will-change: opacity, transform;
 }
 
+.js .scroll-item.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
 .scroll-parallax-bg {
-    will-change: transform;
+  transform: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .scroll-item,
+  .scroll-item,
+  .js .scroll-item,
     .scroll-parallax-bg {
         opacity: 1 !important;
         transform: none !important;

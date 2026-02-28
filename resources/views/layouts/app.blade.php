@@ -18,11 +18,9 @@
     <link rel="preload" as="font" type="font/woff2" href="{{ asset('build/assets/instrument-sans-latin-400-normal-DRC__1Mx.woff2') }}" crossorigin>
     <link rel="preload" as="font" type="font/woff2" href="{{ asset('build/assets/instrument-sans-latin-600-normal-B7fBEWYG.woff2') }}" crossorigin>
 
-    {{-- LCP Element hint: hero başlığının critical olduğunu belirt --}}
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-
     <script>
         (() => {
+            document.documentElement.classList.add('js');
             const stored = localStorage.getItem('theme');
             const theme = stored || 'dark';
             if (theme === 'dark') {
@@ -47,12 +45,6 @@
         /* LCP Optimization: Hero başlığı için ilk render optimizasyonu */
         #home h1 {
             contain: layout style paint;
-        }
-
-        /* Scroll animasyonları için başlangıç durumu */
-        .scroll-item {
-            opacity: 0;
-            transform: translateY(24px);
         }
     </style>
 </head>

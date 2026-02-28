@@ -23,12 +23,6 @@ import {
     Wrench,
 } from 'lucide';
 
-// GSAP - Scroll animasyonları critical, hemen yükle
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
-
 // // (commented out - lazy loaded on demand)
 // import { initSwiper } from './swiper-helper';
 // import { initEditor } from './ckeditor-helper';
@@ -82,85 +76,45 @@ window.Dialog = Dialog;
 window.createIcons = createIcons;
 window.lucideIcons = lucideIcons;
 
-const initGSAPScrollDriven = () => {
+const initScrollReveal = () => {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduceMotion) {
+    const scrollItems = document.querySelectorAll('.scroll-item');
+    if (scrollItems.length === 0) {
         return;
     }
 
-    const scrollItems = document.querySelectorAll('.scroll-item');
-    if (scrollItems.length > 0) {
-        scrollItems.forEach((item, idx) => {
-            gsap.fromTo(
-                item,
-                {
-                    opacity: 0,
-                    y: 24,
-                },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 1,
-                    scrollTrigger: {
-                        trigger: item,
-                        start: 'top 85%',
-                        end: 'top 40%',
-                        scrub: 1.2,
-                        markers: false,
-                    },
-                }
-            );
-        });
+    if (reduceMotion) {
+        scrollItems.forEach((item) => item.classList.add('is-visible'));
+        return;
     }
 
-    const scrollCards = document.querySelectorAll('[data-scroll-card]');
-    if (scrollCards.length > 0) {
-        scrollCards.forEach((card, idx) => {
-            const delay = idx * 0.15;
-            gsap.fromTo(
-                card,
-                {
-                    opacity: 0,
-                    y: 24,
-                    scale: 0.95,
-                },
-                {
-                    opacity: 1,
-                    y: 0,
-                    scale: 1,
-                    duration: 1.2,
-                    delay: delay,
-                    scrollTrigger: {
-                        trigger: card.closest('[data-scroll-section]'),
-                        start: 'top 80%',
-                        end: 'top 20%',
-                        scrub: 1,
-                        markers: false,
-                    },
-                }
-            );
-        });
+    if (!('IntersectionObserver' in window)) {
+        scrollItems.forEach((item) => item.classList.add('is-visible'));
+        return;
     }
 
-    const parallaxBg = document.querySelector('.scroll-parallax-bg');
-    if (parallaxBg) {
-        gsap.fromTo(
-            parallaxBg,
-            {
-                y: 0,
-            },
-            {
-                y: -40,
-                scrollTrigger: {
-                    trigger: 'body',
-                    start: 'top top',
-                    end: 'bottom bottom',
-                    scrub: 0.5,
-                    markers: false,
-                },
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                requestAnimationFrame(() => {
+                    entry.target.classList.add('is-visible');
+                });
+                obs.unobserve(entry.target);
             }
-        );
-    }
+        });
+    }, {
+        root: null,
+        threshold: 0.12,
+        rootMargin: '0px 0px -8% 0px',
+    });
+
+    scrollItems.forEach((item, index) => {
+        item.style.transitionDelay = `${Math.min(index * 90, 420)}ms`;
+    });
+
+    requestAnimationFrame(() => {
+        scrollItems.forEach((item) => observer.observe(item));
+    });
 };
 
 // Alpine.js - smart lazy load (only load if Alpine components exist)
@@ -265,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function () {
         reset: true,
     });
 
-    // 8. GSAP scroll-driven animations (scrub-based timeline)
-    initGSAPScrollDriven();
+    // 8. Lightweight scroll reveal (GSAP yerine)
+    initScrollReveal();
 
 });
