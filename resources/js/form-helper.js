@@ -1,5 +1,13 @@
-import { Http } from './http-helper';
 import { Dialog } from './dialog-helper';
+
+let Http = null;
+const getHttp = async () => {
+    if (!Http) {
+        const { Http: HttpClass } = await import('./http-helper');
+        Http = HttpClass;
+    }
+    return Http;
+};
 
 const clearFormMessages = (form) => {
     const errorBox = form.parentElement?.querySelector('[data-form-error]') || form.querySelector('[data-form-error]');
@@ -130,12 +138,13 @@ export const initForm = (selector, options = {}) => {
         }
 
         try {
+            const HttpClass = await getHttp();
             let response;
             if (method === 'get') {
                 const params = Object.fromEntries(formData);
-                response = await Http.get(url, params);
+                response = await HttpClass.get(url, params);
             } else {
-                response = await Http[method](url, formData);
+                response = await HttpClass[method](url, formData);
             }
 
             if (shouldReset) form.reset();
@@ -212,7 +221,8 @@ export const initAction = (selectorOrElement, options = {}) => {
         const method = (options.method || 'get').toLowerCase();
 
         try {
-            const response = await Http[method](url);
+            const HttpClass = await getHttp();
+            const response = await HttpClass[method](url);
 
             if (options.onSuccess) {
                 options.onSuccess(response);

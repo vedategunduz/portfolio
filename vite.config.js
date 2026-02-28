@@ -19,11 +19,11 @@ export default defineConfig({
         minify: 'terser',
         target: 'esnext',
         chunkSizeWarningLimit: 500,
+        reportCompressedSize: false,
         rollupOptions: {
             output: {
                 manualChunks: {
                     'vendor-alpine': ['alpinejs'],
-                    'vendor-http': ['axios'],
                 },
             },
         },
@@ -31,6 +31,12 @@ export default defineConfig({
             compress: {
                 drop_console: true,
                 drop_debugger: true,
+                passes: 2,
+                unused: true,
+            },
+            mangle: true,
+            format: {
+                comments: false,
             },
         },
     },

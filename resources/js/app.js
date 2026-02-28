@@ -25,7 +25,7 @@ import {
 } from 'lucide';
 // import { initSwiper } from './swiper-helper';
 // import { initEditor } from './ckeditor-helper';
-import { Http } from './http-helper';
+// Http is lazy-loaded in form-helper.js to reduce bundle size
 import { initForm, initAction } from './form-helper';
 import { Dialog } from './dialog-helper';
 import { initThemeToggle } from './theme-toggle';
@@ -57,7 +57,6 @@ const lucideIcons = {
 // 1. Helper Fonksiyonlarını Global Yap
 // window.createSlider = initSwiper;
 // window.createEditor = initEditor;
-window.Http = Http;
 window.initForm = initForm;
 window.initAction = initAction;
 window.Dialog = Dialog;
