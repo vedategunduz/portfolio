@@ -6,7 +6,7 @@
                 <h3 class="text-sm font-semibold text-[#1b1b18] dark:text-[#EDEDEC] mb-4">
                     {{ config('app.name', 'Portfolio') }}
                 </h3>
-                <p class="text-sm text-[#706f6c] dark:text-[#A1A09A]">
+                <p class="text-sm text-[#706f6c] dark:text-[#D4D3D0]">
                     Profesyonel web geliştirme ve tasarım hizmetleri.
                 </p>
             </div>
@@ -18,22 +18,22 @@
                 </h3>
                 <ul class="space-y-2">
                     <li>
-                        <a href="#home" class="text-sm text-[#706f6c] dark:text-[#A1A09A] hover:text-[#1b1b18] dark:hover:text-[#EDEDEC] transition-colors">
+                        <a href="#home" class="text-sm text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#1b1b18] dark:hover:text-[#EDEDEC] transition-colors">
                             Ana Sayfa
                         </a>
                     </li>
                     <li>
-                        <a href="#about" class="text-sm text-[#706f6c] dark:text-[#A1A09A] hover:text-[#1b1b18] dark:hover:text-[#EDEDEC] transition-colors">
+                        <a href="#about" class="text-sm text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#1b1b18] dark:hover:text-[#EDEDEC] transition-colors">
                             Hakkımda
                         </a>
                     </li>
                     <li>
-                        <a href="#projects" class="text-sm text-[#706f6c] dark:text-[#A1A09A] hover:text-[#1b1b18] dark:hover:text-[#EDEDEC] transition-colors">
+                        <a href="#projects" class="text-sm text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#1b1b18] dark:hover:text-[#EDEDEC] transition-colors">
                             Projeler
                         </a>
                     </li>
                     <li>
-                        <a href="#contact" class="text-sm text-[#706f6c] dark:text-[#A1A09A] hover:text-[#1b1b18] dark:hover:text-[#EDEDEC] transition-colors">
+                        <a href="#contact" class="text-sm text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#1b1b18] dark:hover:text-[#EDEDEC] transition-colors">
                             İletişim
                         </a>
                     </li>
@@ -46,16 +46,16 @@
                     Sosyal Medya
                 </h3>
                 <div class="flex gap-4">
-                    <a href="https://github.com/vedategunduz" target="_blank" rel="noopener noreferrer" class="text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] dark:hover:text-[#FF2D20] transition-colors" title="GitHub">
+                    <a href="https://github.com/vedategunduz" target="_blank" rel="noopener noreferrer" class="text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#FF2D20] dark:hover:text-[#FF2D20] transition-colors" title="GitHub" aria-label="Vedat'ın GitHub profiline git">
                         <i data-lucide="github" class="w-5 h-5"></i>
                     </a>
-                    <a href="https://www.linkedin.com/in/vedategunduz/" target="_blank" rel="noopener noreferrer" class="text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] dark:hover:text-[#FF2D20] transition-colors" title="LinkedIn">
+                    <a href="https://www.linkedin.com/in/vedategunduz/" target="_blank" rel="noopener noreferrer" class="text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#FF2D20] dark:hover:text-[#FF2D20] transition-colors" title="LinkedIn" aria-label="Vedat'ın LinkedIn profiline git">
                         <i data-lucide="linkedin" class="w-5 h-5"></i>
                     </a>
-                    <a href="https://www.instagram.com/vedategunduz/" target="_blank" rel="noopener noreferrer" class="text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] dark:hover:text-[#FF2D20] transition-colors" title="Instagram">
+                    <a href="https://www.instagram.com/vedategunduz/" target="_blank" rel="noopener noreferrer" class="text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#FF2D20] dark:hover:text-[#FF2D20] transition-colors" title="Instagram" aria-label="Vedat'ın Instagram profiline git">
                         <i data-lucide="instagram" class="w-5 h-5"></i>
                     </a>
-                    <a href="mailto:vedat.bilisim@outlook.com" class="text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] dark:hover:text-[#FF2D20] transition-colors" title="Email">
+                    <a href="mailto:vedat.bilisim@outlook.com" class="text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#FF2D20] dark:hover:text-[#FF2D20] transition-colors" title="Email" aria-label="Vedat'a e-posta gönder">
                         <i data-lucide="mail" class="w-5 h-5"></i>
                     </a>
                 </div>
@@ -64,7 +64,7 @@
 
         <!-- Copyright -->
         <div class="mt-8 pt-8 border-t border-[#e3e3e0] dark:border-[#3E3E3A]">
-            <p class="text-sm text-[#706f6c] dark:text-[#A1A09A] text-center">
+            <p class="text-sm text-[#706f6c] dark:text-[#D4D3D0] text-center">
                 &copy; {{ date('Y') }} {{ config('app.name', 'Portfolio') }}. Tüm hakları saklıdır.
             </p>
         </div>

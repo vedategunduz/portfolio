@@ -11,19 +11,19 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden md:flex items-center gap-6">
-                    <a href="#home" class="text-xs text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] transition-colors duration-300 relative group">
+                    <a href="#home" class="text-xs text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#FF2D20] transition-colors duration-300 relative group">
                         Ana Sayfa
                         <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF2D20] group-hover:w-full transition-all duration-300"></span>
                     </a>
-                    <a href="#about" class="text-xs text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] transition-colors duration-300 relative group">
+                    <a href="#about" class="text-xs text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#FF2D20] transition-colors duration-300 relative group">
                         Hakkımda
                         <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF2D20] group-hover:w-full transition-all duration-300"></span>
                     </a>
-                    <a href="#projects" class="text-xs text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] transition-colors duration-300 relative group">
+                    <a href="#projects" class="text-xs text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#FF2D20] transition-colors duration-300 relative group">
                         Projeler
                         <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF2D20] group-hover:w-full transition-all duration-300"></span>
                     </a>
-                    <a href="#contact" class="text-xs text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] transition-colors duration-300 relative group">
+                    <a href="#contact" class="text-xs text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#FF2D20] transition-colors duration-300 relative group">
                         İletişim
                         <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF2D20] group-hover:w-full transition-all duration-300"></span>
                     </a>
@@ -33,22 +33,22 @@
                 <div class="flex items-center gap-3">
                     <!-- Social Icons -->
                     <div class="hidden sm:flex items-center gap-2">
-                        <a href="https://github.com/vedategunduz" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] transition-colors" title="GitHub">
+                        <a href="https://github.com/vedategunduz" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#FF2D20] transition-colors" title="GitHub" aria-label="Vedat'ın GitHub profiline git">
                             <i data-lucide="github" class="w-4 h-4"></i>
                         </a>
-                        <a href="https://www.linkedin.com/in/vedategunduz/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] transition-colors" title="LinkedIn">
+                        <a href="https://www.linkedin.com/in/vedategunduz/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#FF2D20] transition-colors" title="LinkedIn" aria-label="Vedat'ın LinkedIn profiline git">
                             <i data-lucide="linkedin" class="w-4 h-4"></i>
                         </a>
-                        <a href="https://www.instagram.com/vedategunduz/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] transition-colors" title="Instagram">
+                        <a href="https://www.instagram.com/vedategunduz/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#FF2D20] transition-colors" title="Instagram" aria-label="Vedat'ın Instagram profiline git">
                             <i data-lucide="instagram" class="w-4 h-4"></i>
                         </a>
-                        <a href="mailto:vedat.bilisim@outlook.com" class="inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] transition-colors" title="Email">
+                        <a href="mailto:vedat.bilisim@outlook.com" class="inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#FF2D20] transition-colors" title="Email" aria-label="Vedat'a e-posta gönder">
                             <i data-lucide="mail" class="w-4 h-4"></i>
                         </a>
                     </div>
 
                     <!-- Theme Toggle -->
-                    <button id="theme-toggle" class="inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] transition-colors" title="Temayı Değiştir">
+                    <button id="theme-toggle" class="inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#FF2D20] transition-colors" title="Temayı Değiştir" aria-label="Açık ve koyu tema arasında geçiş yap">
                         <span class="dark:hidden inline-flex">
                             <i data-lucide="sun" class="w-4 h-4"></i>
                         </span>
@@ -58,7 +58,7 @@
                     </button>
 
                     <!-- Mobile Menu Button -->
-                    <button type="button" class="md:hidden inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] focus:outline-none" id="mobile-menu-button">
+                    <button type="button" class="md:hidden inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#FF2D20] focus:outline-none" id="mobile-menu-button" aria-label="Mobil menüyü aç veya kapat" aria-expanded="false" aria-controls="mobile-menu">
                         <i data-lucide="menu" class="w-5 h-5"></i>
                     </button>
                 </div>
@@ -67,31 +67,31 @@
             <!-- Mobile Menu -->
             <div class="hidden md:hidden pb-4 px-6 border-t border-[#e3e3e0] dark:border-[#3E3E3A]" id="mobile-menu">
                 <div class="flex flex-col gap-4 pt-4">
-                    <a href="#home" class="text-xs text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] transition-colors">
+                    <a href="#home" class="text-xs text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#FF2D20] transition-colors">
                         Ana Sayfa
                     </a>
-                    <a href="#about" class="text-xs text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] transition-colors">
+                    <a href="#about" class="text-xs text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#FF2D20] transition-colors">
                         Hakkımda
                     </a>
-                    <a href="#projects" class="text-xs text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] transition-colors">
+                    <a href="#projects" class="text-xs text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#FF2D20] transition-colors">
                         Projeler
                     </a>
-                    <a href="#contact" class="text-xs text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] transition-colors">
+                    <a href="#contact" class="text-xs text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#FF2D20] transition-colors">
                         İletişim
                     </a>
 
                     <!-- Social Icons (Mobile) -->
                     <div class="flex items-center gap-3 pt-2 border-t border-[#e3e3e0] dark:border-[#3E3E3A]">
-                        <a href="https://github.com/vedategunduz" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] transition-colors" title="GitHub">
+                        <a href="https://github.com/vedategunduz" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#FF2D20] transition-colors" title="GitHub" aria-label="Vedat'ın GitHub profiline git">
                             <i data-lucide="github" class="w-4 h-4"></i>
                         </a>
-                        <a href="https://www.linkedin.com/in/vedategunduz/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] transition-colors" title="LinkedIn">
+                        <a href="https://www.linkedin.com/in/vedategunduz/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#FF2D20] transition-colors" title="LinkedIn" aria-label="Vedat'ın LinkedIn profiline git">
                             <i data-lucide="linkedin" class="w-4 h-4"></i>
                         </a>
-                        <a href="https://www.instagram.com/vedategunduz/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] transition-colors" title="Instagram">
+                        <a href="https://www.instagram.com/vedategunduz/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#FF2D20] transition-colors" title="Instagram" aria-label="Vedat'ın Instagram profiline git">
                             <i data-lucide="instagram" class="w-4 h-4"></i>
                         </a>
-                        <a href="mailto:vedat.bilisim@outlook.com" class="inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] transition-colors" title="Email">
+                        <a href="mailto:vedat.bilisim@outlook.com" class="inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#FF2D20] transition-colors" title="Email" aria-label="Vedat'a e-posta gönder">
                             <i data-lucide="mail" class="w-4 h-4"></i>
                         </a>
                     </div>

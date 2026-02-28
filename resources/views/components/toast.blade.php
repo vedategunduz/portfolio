@@ -53,7 +53,8 @@
 
                 {{-- Kapat --}}
                 <button @click="remove(toast.id)"
-                    class="text-zinc-400 hover:text-zinc-600 transition-colors p-1 rounded-md hover:bg-zinc-100">
+                    class="text-zinc-400 hover:text-zinc-600 transition-colors p-1 rounded-md hover:bg-zinc-100"
+                    aria-label="Bildirimi kapat">
                     <i data-lucide="x" class="h-4 w-4"></i>
                 </button>
             </div>

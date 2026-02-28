@@ -33,7 +33,7 @@
         <h3 class="text-xl font-semibold text-[#1b1b18] dark:text-[#EDEDEC] mb-3 group-hover:text-[#FF2D20] transition-colors">
             {{ $title }}
         </h3>
-        <p class="text-[#706f6c] dark:text-[#A1A09A] text-sm mb-4"
+        <p class="text-[#706f6c] dark:text-[#D4D3D0] text-sm mb-4"
            x-show="!expanded || expanded"
            x-transition>
             {{ $description }}
@@ -43,7 +43,7 @@
         @if(count($tags) > 0)
             <div class="flex flex-wrap gap-2">
                 @foreach($tags as $tag)
-                    <span class="px-3 py-1 text-xs bg-[#f8f8f7] dark:bg-[#161615] text-[#706f6c] dark:text-[#A1A09A] rounded-full hover:bg-[#FF2D20] hover:text-white hover:shadow-lg transition-all duration-300 cursor-pointer">
+                    <span class="px-3 py-1 text-xs bg-[#f8f8f7] dark:bg-[#161615] text-[#706f6c] dark:text-[#D4D3D0] rounded-full hover:bg-[#FF2D20] hover:text-white hover:shadow-lg transition-all duration-300 cursor-pointer">
                         {{ $tag }}
                     </span>
                 @endforeach

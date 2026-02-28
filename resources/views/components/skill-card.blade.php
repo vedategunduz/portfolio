@@ -21,7 +21,7 @@
         :class="hover ? 'text-[#FF2D20]' : 'text-[#1b1b18] dark:text-[#EDEDEC]'">
         {{ $title }}
     </h3>
-    <p class="text-[#706f6c] dark:text-[#A1A09A] text-sm">
+    <p class="text-[#706f6c] dark:text-[#D4D3D0] text-sm">
         {{ $description }}
     </p>
 </div>

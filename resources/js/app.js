@@ -90,7 +90,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (mobileMenuButton && mobileMenu) {
         mobileMenuButton.addEventListener('click', function() {
-            mobileMenu.classList.toggle('hidden');
+            const isHidden = mobileMenu.classList.toggle('hidden');
+            mobileMenuButton.setAttribute('aria-expanded', !isHidden);
         });
 
         // Mobile menüdeki linklere tıklandığında menüyü kapat
@@ -98,26 +99,36 @@ document.addEventListener('DOMContentLoaded', function() {
         mobileMenuLinks.forEach(link => {
             link.addEventListener('click', function() {
                 mobileMenu.classList.add('hidden');
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
             });
         });
     }
 
-    // 5. Navbar Show/Hide on Scroll
+    // 5. Navbar Show/Hide on Scroll (optimized with RAF)
     const navbar = document.getElementById('navbar');
     let lastScrollTop = 0;
+    let isNavbarVisible = false;
+    let rafId = null;
 
-    window.addEventListener('scroll', function() {
-        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const updateNavbarVisibility = () => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const shouldBeVisible = scrollTop > 100;
 
-        if (scrollTop > 100) {
-            // Scroll down - show navbar
-            navbar.style.transform = 'translateY(0)';
-        } else {
-            // At top or small scroll - hide navbar
-            navbar.style.transform = 'translateY(-100%)';
+        // Only update DOM if visibility state changed
+        if (shouldBeVisible !== isNavbarVisible) {
+            navbar.style.transform = shouldBeVisible ? 'translateY(0)' : 'translateY(-100%)';
+            isNavbarVisible = shouldBeVisible;
         }
 
         lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        rafId = null;
+    };
+
+    window.addEventListener('scroll', function() {
+        // Debounce with RAF - only schedule one update per frame
+        if (rafId === null) {
+            rafId = requestAnimationFrame(updateNavbarVisibility);
+        }
     });
 
     // (moved to early init above)

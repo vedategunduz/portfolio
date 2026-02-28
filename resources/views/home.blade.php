@@ -45,7 +45,7 @@
             Merhaba, ben
             <span class="text-[#FF2D20]">Vedat</span>
         </h1>
-        <p class="text-xl md:text-2xl text-[#706f6c] dark:text-[#A1A09A] max-w-3xl mx-auto mb-8 transition-all duration-1000 delay-200"
+        <p class="text-xl md:text-2xl text-[#706f6c] dark:text-[#D4D3D0] max-w-3xl mx-auto mb-8 transition-all duration-1000 delay-200"
            :class="loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'">
             Backend ağırlıklı çalışan bir full-stack geliştiriciyim. Ölçeklenebilir, temiz ve sürdürülebilir yazılım geliştirmeye odaklanıyorum.
         </p>
@@ -71,10 +71,10 @@
                 <h3 class="text-2xl font-semibold text-[#1b1b18] dark:text-[#EDEDEC] mb-4">
                     Ben Kimim?
                 </h3>
-                <p class="text-lg text-[#706f6c] dark:text-[#A1A09A] mb-4">
+                <p class="text-lg text-[#706f6c] dark:text-[#D4D3D0] mb-4">
                     PHP/Laravel ile backend geliştirme odaklı çalışıyorum. RESTful API, JWT kimlik doğrulama ve üçüncü parti entegrasyonlar (özellikle .NET servisleriyle) konusunda deneyimliyim. Ödeme akışları ve veritabanı tasarımı alanlarında özellikle titiz çalışırım.
                 </p>
-                <p class="text-lg text-[#706f6c] dark:text-[#A1A09A] mb-6">
+                <p class="text-lg text-[#706f6c] dark:text-[#D4D3D0] mb-6">
                     Sağlam backend mimarileri kurma, RESTful API geliştirme ve modern frontend entegrasyonu alanlarında uzmanlaşıyorum. Temiz ve okunabilir kod yazarım, en iyi uygulamalara sadık kalırım ve problemi geçici çözümlerle yamamak yerine doğru mimariyi kurarım.
                 </p>
             </div>
@@ -124,7 +124,7 @@
                 initial="E"
                 :tags="['Laravel', 'Next.js', 'RESTful API', 'MySQL']"
             >
-                <div class="text-sm text-[#706f6c] dark:text-[#A1A09A]">
+                <div class="text-sm text-[#706f6c] dark:text-[#D4D3D0]">
                     <p class="mb-2"><strong>Özellikler:</strong></p>
                     <ul class="list-disc list-inside space-y-1">
                         <li>RESTful API mimarisi</li>
@@ -142,7 +142,7 @@
                 initial="3D"
                 :tags="['PHP', 'Payment Gateway', 'API', 'Security']"
             >
-                <div class="text-sm text-[#706f6c] dark:text-[#A1A09A]">
+                <div class=\"text-sm text-[#706f6c] dark:text-[#D4D3D0]\">
                     <p class="mb-2"><strong>Özellikler:</strong></p>
                     <ul class="list-disc list-inside space-y-1">
                         <li>3D Secure 2.0 protokolü</li>
@@ -160,7 +160,7 @@
                 initial="E"
                 :tags="['Laravel', 'MySQL', 'RESTful API', 'JWT']"
             >
-                <div class="text-sm text-[#706f6c] dark:text-[#A1A09A]">
+                <div class=\"text-sm text-[#706f6c] dark:text-[#D4D3D0]\">
                     <p class="mb-2"><strong>Özellikler:</strong></p>
                     <ul class="list-disc list-inside space-y-1">
                         <li>Gelişmiş arama ve filtreleme</li>
