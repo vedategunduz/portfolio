@@ -185,32 +185,45 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // 5. Navbar Show/Hide on Scroll (optimized with RAF)
+    // 5. Navbar Show/Hide (IntersectionObserver - forced reflow riskini azaltır)
     const navbar = document.getElementById('navbar');
-    let lastScrollTop = 0;
-    let isNavbarVisible = false;
-    let rafId = null;
+    const homeSection = document.getElementById('home');
 
-    const updateNavbarVisibility = () => {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const shouldBeVisible = scrollTop > 100;
+    if (navbar) {
+        const setNavbarVisible = (visible) => {
+            navbar.style.transform = visible ? 'translateY(0)' : 'translateY(-100%)';
+        };
 
-        // Only update DOM if visibility state changed
-        if (shouldBeVisible !== isNavbarVisible) {
-            navbar.style.transform = shouldBeVisible ? 'translateY(0)' : 'translateY(-100%)';
-            isNavbarVisible = shouldBeVisible;
+        if (homeSection && 'IntersectionObserver' in window) {
+            const navbarObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    // Hero görünürdeyse navbar gizli, çıkınca görünür
+                    setNavbarVisible(!entry.isIntersecting);
+                });
+            }, {
+                root: null,
+                threshold: 0,
+                rootMargin: '-100px 0px 0px 0px',
+            });
+
+            navbarObserver.observe(homeSection);
+        } else {
+            // Fallback: eski davranış, sadece gerekli olduğunda style yaz
+            let isNavbarVisible = false;
+            const updateNavbarVisibility = () => {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const shouldBeVisible = scrollTop > 100;
+
+                if (shouldBeVisible !== isNavbarVisible) {
+                    setNavbarVisible(shouldBeVisible);
+                    isNavbarVisible = shouldBeVisible;
+                }
+            };
+
+            window.addEventListener('scroll', updateNavbarVisibility, { passive: true });
+            updateNavbarVisibility();
         }
-
-        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-        rafId = null;
-    };
-
-    window.addEventListener('scroll', function () {
-        // Debounce with RAF - only schedule one update per frame
-        if (rafId === null) {
-            rafId = requestAnimationFrame(updateNavbarVisibility);
-        }
-    }, { passive: true });
+    }
 
     // (moved to early init above)
 
