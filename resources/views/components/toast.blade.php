@@ -18,7 +18,7 @@
         } [type] || { icon: 'info', color: 'text-zinc-600', bgIcon: 'bg-zinc-100', bar: 'bg-zinc-500' };
     }
 }" @toast:show.window="add($event.detail.type, $event.detail.title, $event.detail.message)"
-    class="fixed bottom-4 right-4 z-[90] flex flex-col-reverse gap-3 w-11/12 lg:w-full max-w-sm pointer-events-none items-end"
+    class="fixed bottom-4 right-4 z-90 flex flex-col-reverse gap-3 w-11/12 lg:w-full max-w-sm pointer-events-none items-end"
     x-cloak>
 
     <template x-for="toast in toasts" :key="toast.id">

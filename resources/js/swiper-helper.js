@@ -1,7 +1,6 @@
 import Swiper from 'swiper';
 import { Navigation, Pagination, Autoplay, EffectFade, Grid, Scrollbar } from 'swiper/modules';
 
-// CSS dosyalarını burada bir kere çağırmak yeterli
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/navigation';
@@ -15,22 +14,19 @@ import 'swiper/css/grid';
  * @param {object} options - Swiper ayarları (override etmek için)
  */
 export const initSwiper = (selector, options = {}) => {
-
-    // Varsayılan ayarlar (Her slider'da olmasını istediklerin)
     const defaultOptions = {
         modules: [Navigation, Pagination, Autoplay, EffectFade, Grid, Scrollbar],
         loop: true,
-        // effect: 'fade',
         autoplay: {
             delay: 5000,
             disableOnInteraction: false,
         },
         pagination: {
-            el: selector + ' .swiper-pagination', // Dinamik seçim
+            el: selector + ' .swiper-pagination',
             clickable: true,
         },
         navigation: {
-            nextEl: selector + ' .swiper-button-next', // Dinamik seçim
+            nextEl: selector + ' .swiper-button-next',
             prevEl: selector + ' .swiper-button-prev',
         },
         scrollbar: {
@@ -39,9 +35,7 @@ export const initSwiper = (selector, options = {}) => {
         },
     };
 
-    // Varsayılan ayarlarla gelen ayarları birleştir (Merge)
     const finalOptions = { ...defaultOptions, ...options };
 
-    // Swiper'ı başlat ve instance'ı döndür
     return new Swiper(selector, finalOptions);
 };

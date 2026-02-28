@@ -1,7 +1,6 @@
 <footer class="w-full border-t border-[#e3e3e0] dark:border-[#3E3E3A] bg-white dark:bg-[#161615] mt-auto">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- About Section -->
             <div>
                 <h3 class="text-sm font-semibold text-[#1b1b18] dark:text-[#EDEDEC] mb-4">
                     {{ config('app.name', 'Portfolio') }}
@@ -11,7 +10,6 @@
                 </p>
             </div>
 
-            <!-- Quick Links -->
             <div>
                 <h3 class="text-sm font-semibold text-[#1b1b18] dark:text-[#EDEDEC] mb-4">
                     Hızlı Bağlantılar
@@ -40,7 +38,6 @@
                 </ul>
             </div>
 
-            <!-- Social Links -->
             <div>
                 <h3 class="text-sm font-semibold text-[#1b1b18] dark:text-[#EDEDEC] mb-4">
                     Sosyal Medya
@@ -62,14 +59,12 @@
             </div>
         </div>
 
-        <!-- Copyright -->
         <div class="mt-8 pt-8 border-t border-[#e3e3e0] dark:border-[#3E3E3A]">
             <p class="text-sm text-[#706f6c] dark:text-[#D4D3D0] text-center">
                 &copy; {{ date('Y') }} {{ config('app.name', 'Portfolio') }}. Tüm hakları saklıdır.
             </p>
         </div>
 
-        <!-- Name -->
         <div class="mt-12 text-center">
             <p class="text-[6rem] md:text-[12rem] lg:text-[16rem] font-black text-[#D62113] leading-none tracking-tighter select-none">
                 VEDAT

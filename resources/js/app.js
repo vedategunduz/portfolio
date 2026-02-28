@@ -78,9 +78,9 @@ window.lucideIcons = lucideIcons;
 const LoadAlpineIfNeeded = () => {
     // Check for Alpine components
     const hasAlpineComponents = document.querySelector('[x-data]') ||
-                                document.querySelector('[x-show]') ||
-                                document.querySelector('[x-for]') ||
-                                document.querySelector('[x-cloak]');
+        document.querySelector('[x-show]') ||
+        document.querySelector('[x-for]') ||
+        document.querySelector('[x-cloak]');
 
     if (hasAlpineComponents) {
         getAlpine().then(AlpineModule => {
@@ -111,12 +111,12 @@ createIcons({
 });
 
 // 4. Mobile Menu Toggle
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
 
     if (mobileMenuButton && mobileMenu) {
-        mobileMenuButton.addEventListener('click', function() {
+        mobileMenuButton.addEventListener('click', function () {
             const isOpen = mobileMenu.classList.contains('max-h-[500px]');
             if (isOpen) {
                 // Close menu
@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Mobile menüdeki linklere tıklandığında menüyü kapat
         const mobileMenuLinks = mobileMenu.querySelectorAll('a');
         mobileMenuLinks.forEach(link => {
-            link.addEventListener('click', function() {
+            link.addEventListener('click', function () {
                 mobileMenu.classList.remove('max-h-[500px]', 'opacity-100', 'py-4');
                 mobileMenu.classList.add('max-h-0', 'opacity-0');
                 mobileMenuButton.setAttribute('aria-expanded', 'false');
@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
         rafId = null;
     };
 
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function () {
         // Debounce with RAF - only schedule one update per frame
         if (rafId === null) {
             rafId = requestAnimationFrame(updateNavbarVisibility);

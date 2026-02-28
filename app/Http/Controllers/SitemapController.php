@@ -29,7 +29,6 @@ class SitemapController extends Controller
         $baseUrl = config('app.url');
         $currentDate = now()->toAtomString();
 
-        // Ana sayfa ve bölümler
         $urls = [
             [
                 'loc' => $baseUrl,
@@ -63,7 +62,6 @@ class SitemapController extends Controller
             ],
         ];
 
-        // XML oluştur
         $xml = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;
         $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL;
 
