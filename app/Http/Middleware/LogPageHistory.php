@@ -18,6 +18,11 @@ class LogPageHistory
     {
         $response = $next($request);
 
+        // Admin sayfalarını loglama
+        if ($request->is('admin/*')) {
+            return $response;
+        }
+
         // Sayfa ziyaretini kaydet (response gittikten sonra)
         try {
             PageHistory::create([
