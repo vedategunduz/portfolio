@@ -106,12 +106,12 @@ async function optimizeImages() {
 
     console.log('✅ Image Optimization Tamamlandı!\n');
     console.log('💡 Tavsiyeler:');
-    console.log('  1. HTML dosyalarında <picture> tag'ı kullanın:');
+    console.log('  1. HTML dosyalarında <picture> tag\'ı kullanın: ');
     console.log('     <picture>');
     console.log('       <source srcset="image.webp" type="image/webp">');
     console.log('       <img src="image.jpg" alt="...">');
     console.log('     </picture>');
-    console.log('  2. Vite'da image optimization plugin ekleyin');
+    console.log('  2. Vite\'da image optimization plugin ekleyin');
     console.log('  3. CDN üzerinden image delivery yapın');
 }
 

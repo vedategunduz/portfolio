@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ContactFormRequest;
+use App\Models\ContactMessage;
 
 class ContactController extends Controller
 {
@@ -11,11 +12,11 @@ class ContactController extends Controller
         $validated = $request->validated();
 
         try {
+            // Veritabanına kaydet
+            ContactMessage::create($validated);
+
             // E-posta gönderme işlemi (opsiyonel)
             // Mail::to(config('mail.from.address'))->send(new ContactMail($validated));
-
-            // Basit DB kaydı yapılabilir
-            // ContactRequest::create($validated);
 
             if ($request->expectsJson()) {
                 return response()->json([
@@ -44,3 +45,4 @@ class ContactController extends Controller
         }
     }
 }
+
