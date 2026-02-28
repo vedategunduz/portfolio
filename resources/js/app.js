@@ -1,11 +1,58 @@
 import Alpine from 'alpinejs';
-import { createIcons, icons } from 'lucide';
+import {
+    createIcons,
+    Github,
+    Linkedin,
+    Instagram,
+    Mail,
+    Sun,
+    Moon,
+    Menu,
+    XCircle,
+    CheckCircle,
+    Send,
+    Check,
+    Ban,
+    AlertTriangle,
+    AlertOctagon,
+    Info,
+    X,
+    ChevronDown,
+    Server,
+    Code,
+    Database,
+    Wrench,
+} from 'lucide';
 // import { initSwiper } from './swiper-helper';
 // import { initEditor } from './ckeditor-helper';
 import { Http } from './http-helper';
 import { initForm, initAction } from './form-helper';
 import { Dialog } from './dialog-helper';
 import { initThemeToggle } from './theme-toggle';
+
+const lucideIcons = {
+    Github,
+    Linkedin,
+    Instagram,
+    Mail,
+    Sun,
+    Moon,
+    Menu,
+    XCircle,
+    CheckCircle,
+    Send,
+    Check,
+    Ban,
+    AlertTriangle,
+    AlertOctagon,
+    Info,
+    X,
+    ChevronDown,
+    Server,
+    Code,
+    Database,
+    Wrench,
+};
 
 // 1. Helper Fonksiyonlarını Global Yap
 // window.createSlider = initSwiper;
@@ -18,11 +65,14 @@ window.Dialog = Dialog;
 // 2. YENİ EKLENEN: Lucide Fonksiyonlarını Global Yap
 // Böylece dialog.blade.php içinden 'window.createIcons(...)' diyebileceğiz.
 window.createIcons = createIcons;
-window.lucideIcons = icons;
+window.lucideIcons = lucideIcons;
 
 // Alpine.js
 window.Alpine = Alpine;
 Alpine.start();
+
+// Theme Toggle (early init)
+initThemeToggle(createIcons, lucideIcons);
 
 // 3. Sayfa Yüklendiğinde İkonları Tara
 createIcons({
@@ -30,7 +80,7 @@ createIcons({
         width: 16,
         height: 16,
     },
-    icons
+    icons: lucideIcons,
 });
 
 // 4. Mobile Menu Toggle
@@ -70,8 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
         lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
     });
 
-    // 6. Theme Toggle
-    initThemeToggle(createIcons, icons);
+    // (moved to early init above)
 
     // 7. AJAX Contact Form
     initForm('#contact-form', {
