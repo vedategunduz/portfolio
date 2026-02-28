@@ -6,7 +6,7 @@
     <x-sections.background>
         <div class="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-10">
             <div class="w-full max-w-md">
-                <div class="rounded-2xl border border-black/60 dark:border-white/15 bg-white/35 dark:bg-[#1a1a18]/35 backdrop-blur-2xl shadow-lg dark:shadow-2xl dark:shadow-black/50 p-8 sm:p-10">
+                <div class="rounded-2xl border border-black/10 dark:border-white/15 bg-white/35 dark:bg-[#1a1a18]/35 backdrop-blur-2xl shadow-lg dark:shadow-2xl dark:shadow-black/50 p-8 sm:p-10">
                     <div class="mb-8 flex items-start justify-between gap-4">
                         <div>
                             <p class="text-xs uppercase tracking-[0.22em] text-[#706f6c] dark:text-[#8F8F8B]">Yönetim Paneli</p>
