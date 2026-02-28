@@ -1,6 +1,6 @@
 <div class="max-w-3xl mx-auto w-full">
     @if (session('contact_error'))
-        <div x-data x-show="true"
+        <div x-cloak x-data x-show="true"
              x-transition:enter="transition ease-out duration-300"
              x-transition:enter-start="opacity-0 transform scale-90"
              x-transition:enter-end="opacity-100 transform scale-100"
@@ -13,7 +13,7 @@
     @endif
 
     @if (session('contact_success'))
-        <div x-data x-show="true"
+        <div x-cloak x-data x-show="true"
              x-transition:enter="transition ease-out duration-300"
              x-transition:enter-start="opacity-0 transform scale-90"
              x-transition:enter-end="opacity-100 transform scale-100"

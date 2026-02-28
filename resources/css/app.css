@@ -75,6 +75,10 @@ button:not([disabled]) {
     cursor: pointer;
 }
 
+[x-cloak] {
+    display: none !important;
+}
+
 #navbar {
     transform: translateY(-100%);
 }

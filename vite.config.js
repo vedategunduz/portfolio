@@ -22,9 +22,7 @@ export default defineConfig({
         reportCompressedSize: false,
         rollupOptions: {
             output: {
-                manualChunks: {
-                    'vendor-alpine': ['alpinejs'],
-                },
+                manualChunks: {},
             },
         },
         terserOptions: {

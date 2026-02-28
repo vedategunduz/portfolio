@@ -1,4 +1,3 @@
-import Alpine from 'alpinejs';
 import {
     createIcons,
     Github,
@@ -30,6 +29,16 @@ import { initForm, initAction } from './form-helper';
 import { Dialog } from './dialog-helper';
 import { initThemeToggle } from './theme-toggle';
 
+// Lazy load Alpine.js - only when needed (after page interactive)
+let Alpine = null;
+const getAlpine = async () => {
+    if (!Alpine) {
+        const { default: AlpineModule } = await import('alpinejs');
+        Alpine = AlpineModule;
+    }
+    return Alpine;
+};
+
 const lucideIcons = {
     Github,
     Linkedin,
@@ -53,7 +62,6 @@ const lucideIcons = {
     Database,
     Wrench,
 };
-
 // 1. Helper Fonksiyonlarını Global Yap
 // window.createSlider = initSwiper;
 // window.createEditor = initEditor;
@@ -66,9 +74,12 @@ window.Dialog = Dialog;
 window.createIcons = createIcons;
 window.lucideIcons = lucideIcons;
 
-// Alpine.js
-window.Alpine = Alpine;
-Alpine.start();
+// Alpine.js - lazy loaded after page interaction
+document.addEventListener('DOMContentLoaded', async () => {
+    const AlpineModule = await getAlpine();
+    window.Alpine = AlpineModule;
+    AlpineModule.start();
+}, { once: true });
 
 // Theme Toggle (early init)
 initThemeToggle(createIcons, lucideIcons);
