@@ -77,11 +77,11 @@ window.lucideIcons = lucideIcons;
 // Alpine.js - smart lazy load (only load if Alpine components exist)
 const LoadAlpineIfNeeded = () => {
     // Check for Alpine components
-    const hasAlpineComponents = document.querySelector('[x-data]') || 
+    const hasAlpineComponents = document.querySelector('[x-data]') ||
                                 document.querySelector('[x-show]') ||
                                 document.querySelector('[x-for]') ||
                                 document.querySelector('[x-cloak]');
-    
+
     if (hasAlpineComponents) {
         getAlpine().then(AlpineModule => {
             window.Alpine = AlpineModule;
