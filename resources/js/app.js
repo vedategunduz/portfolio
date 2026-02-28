@@ -89,15 +89,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (mobileMenuButton && mobileMenu) {
         mobileMenuButton.addEventListener('click', function() {
-            const isHidden = mobileMenu.classList.toggle('hidden');
-            mobileMenuButton.setAttribute('aria-expanded', !isHidden);
+            const isOpen = mobileMenu.classList.contains('max-h-[500px]');
+            if (isOpen) {
+                // Close menu
+                mobileMenu.classList.remove('max-h-[500px]', 'opacity-100', 'py-4');
+                mobileMenu.classList.add('max-h-0', 'opacity-0');
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+            } else {
+                // Open menu
+                mobileMenu.classList.remove('max-h-0', 'opacity-0');
+                mobileMenu.classList.add('max-h-[500px]', 'opacity-100', 'py-4');
+                mobileMenuButton.setAttribute('aria-expanded', 'true');
+            }
         });
 
         // Mobile menüdeki linklere tıklandığında menüyü kapat
         const mobileMenuLinks = mobileMenu.querySelectorAll('a');
         mobileMenuLinks.forEach(link => {
             link.addEventListener('click', function() {
-                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('max-h-[500px]', 'opacity-100', 'py-4');
+                mobileMenu.classList.add('max-h-0', 'opacity-0');
                 mobileMenuButton.setAttribute('aria-expanded', 'false');
             });
         });
@@ -128,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (rafId === null) {
             rafId = requestAnimationFrame(updateNavbarVisibility);
         }
-    });
+    }, { passive: true });
 
     // (moved to early init above)
 

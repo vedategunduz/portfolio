@@ -65,8 +65,8 @@
             </div>
 
             <!-- Mobile Menu -->
-            <div class="hidden md:hidden pb-4 px-6 border-t border-[#e3e3e0] dark:border-[#3E3E3A]" id="mobile-menu">
-                <div class="flex flex-col gap-4 pt-4">
+            <div class="md:hidden max-h-0 overflow-hidden opacity-0 transition-all duration-300 ease-out px-6 border-t border-[#e3e3e0] dark:border-[#3E3E3A]" id="mobile-menu">
+                <div class="flex flex-col gap-4">
                     <a href="#home" class="text-xs text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#D62113] transition-colors">
                         Ana Sayfa
                     </a>
