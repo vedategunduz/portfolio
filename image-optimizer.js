@@ -2,7 +2,7 @@
 /**
  * Image Optimization Script
  * PNG, JPG görüntülerini WebP'ye dönüştür ve optimize et
- * 
+ *
  * Kullanım: node image-optimizer.js
  */
 
@@ -57,7 +57,7 @@ async function optimizeImages() {
             const inputPath = path.join(imageDir, file);
             const ext = path.extname(file).toLowerCase();
             const basename = path.basename(file, ext);
-            
+
             try {
                 // Orijinal boyut
                 const originalStat = fs.statSync(inputPath);
@@ -69,10 +69,10 @@ async function optimizeImages() {
                     await sharp(inputPath)
                         .webp(OPTIMIZATION_CONFIG.webp)
                         .toFile(webpPath);
-                    
+
                     const webpStat = fs.statSync(webpPath);
                     const savings = (((originalSize - webpStat.size) / originalSize) * 100).toFixed(1);
-                    
+
                     console.log(`  ✓ ${file} → ${basename}.webp (${savings}% smaller)`);
                 }
 

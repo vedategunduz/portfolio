@@ -1,9 +1,9 @@
 <?php
 /**
  * Critical CSS Helper
- * 
+ *
  * Above-the-fold CSS'i inlinelemeye yardımcı
- * 
+ *
  * Kullanım:
  * @include('critical-css')
  * atau
@@ -12,7 +12,7 @@
 ?>
 <style>
     /* Critical CSS - Above the fold optimizasyon */
-    
+
     /* Reset & Base */
     * {
         margin: 0;
