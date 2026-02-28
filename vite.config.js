@@ -22,7 +22,28 @@ export default defineConfig({
         reportCompressedSize: false,
         rollupOptions: {
             output: {
-                manualChunks: {},
+                manualChunks: (id) => {
+                    // Vendor çünklerini ayır
+                    if (id.includes('node_modules/gsap')) {
+                        return 'gsap';
+                    }
+                    if (id.includes('node_modules/alpinejs')) {
+                        return 'alpine';
+                    }
+                    if (id.includes('node_modules/lucide')) {
+                        return 'lucide';
+                    }
+                    if (id.includes('node_modules')) {
+                        return 'vendor';
+                    }
+                    // Yardımcı dosyaları ayır
+                    if (id.includes('resources/js/')) {
+                        const fileName = id.split('/').pop().split('.')[0];
+                        if (fileName !== 'app') {
+                            return fileName;
+                        }
+                    }
+                },
             },
         },
         terserOptions: {

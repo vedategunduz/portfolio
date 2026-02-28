@@ -22,6 +22,14 @@ import {
     Database,
     Wrench,
 } from 'lucide';
+
+// GSAP - Scroll animasyonları critical, hemen yükle
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
+
+// // (commented out - lazy loaded on demand)
 // import { initSwiper } from './swiper-helper';
 // import { initEditor } from './ckeditor-helper';
 // Http is lazy-loaded in form-helper.js to reduce bundle size
@@ -73,6 +81,87 @@ window.Dialog = Dialog;
 // Böylece dialog.blade.php içinden 'window.createIcons(...)' diyebileceğiz.
 window.createIcons = createIcons;
 window.lucideIcons = lucideIcons;
+
+const initGSAPScrollDriven = () => {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) {
+        return;
+    }
+
+    const scrollItems = document.querySelectorAll('.scroll-item');
+    if (scrollItems.length > 0) {
+        scrollItems.forEach((item, idx) => {
+            gsap.fromTo(
+                item,
+                {
+                    opacity: 0,
+                    y: 24,
+                },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1,
+                    scrollTrigger: {
+                        trigger: item,
+                        start: 'top 85%',
+                        end: 'top 40%',
+                        scrub: 1.2,
+                        markers: false,
+                    },
+                }
+            );
+        });
+    }
+
+    const scrollCards = document.querySelectorAll('[data-scroll-card]');
+    if (scrollCards.length > 0) {
+        scrollCards.forEach((card, idx) => {
+            const delay = idx * 0.15;
+            gsap.fromTo(
+                card,
+                {
+                    opacity: 0,
+                    y: 24,
+                    scale: 0.95,
+                },
+                {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    duration: 1.2,
+                    delay: delay,
+                    scrollTrigger: {
+                        trigger: card.closest('[data-scroll-section]'),
+                        start: 'top 80%',
+                        end: 'top 20%',
+                        scrub: 1,
+                        markers: false,
+                    },
+                }
+            );
+        });
+    }
+
+    const parallaxBg = document.querySelector('.scroll-parallax-bg');
+    if (parallaxBg) {
+        gsap.fromTo(
+            parallaxBg,
+            {
+                y: 0,
+            },
+            {
+                y: -40,
+                scrollTrigger: {
+                    trigger: 'body',
+                    start: 'top top',
+                    end: 'bottom bottom',
+                    scrub: 0.5,
+                    markers: false,
+                },
+            }
+        );
+    }
+};
 
 // Alpine.js - smart lazy load (only load if Alpine components exist)
 const LoadAlpineIfNeeded = () => {
@@ -175,5 +264,8 @@ document.addEventListener('DOMContentLoaded', function () {
     initForm('#contact-form', {
         reset: true,
     });
+
+    // 8. GSAP scroll-driven animations (scrub-based timeline)
+    initGSAPScrollDriven();
 
 });

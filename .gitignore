@@ -21,3 +21,7 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+# Performance Reports (temporary files)
+performance-report.html
+stats.html
+.vite-inspect

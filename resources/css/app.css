@@ -112,3 +112,21 @@ button:not([disabled]) {
     transform-origin: left;
     animation: toast-progress 4s linear forwards;
 }
+
+.scroll-item {
+    opacity: 0;
+    transform: translateY(24px);
+    will-change: opacity, transform;
+}
+
+.scroll-parallax-bg {
+    will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .scroll-item,
+    .scroll-parallax-bg {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}

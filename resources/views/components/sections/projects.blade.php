@@ -1,12 +1,14 @@
-<section id="projects" class="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-20">
+<section id="projects" data-scroll-section class="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-20">
     <div class="max-w-7xl mx-auto w-full">
         <x-section-title
+            class="scroll-item"
             title="Projelerim"
             subtitle="Son zamanlarda üzerinde çalıştığım projelerden bazıları"
         />
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <x-project-card
+                data-scroll-card
                 title="Laravel + Next.js E-Ticaret Altyapısı"
                 description="Modern e-ticaret platformu. Laravel backend API ve Next.js frontend ile ölçeklenebilir mimari. Ödeme entegrasyonu, sepet yönetimi ve admin paneli."
                 color="#D62113"
@@ -25,6 +27,7 @@
             </x-project-card>
 
             <x-project-card
+                data-scroll-card
                 title="3D Secure Ödeme Entegrasyonu"
                 description="Bankalar arası güvenli ödeme sistemi entegrasyonu. 3D Secure protokolü ile kredi kartı işlemleri ve transaction yönetimi."
                 color="#3B82F6"
@@ -43,6 +46,7 @@
             </x-project-card>
 
             <x-project-card
+                data-scroll-card
                 title="Emlak Platformu Backend Mimarisi"
                 description="Ölçeklenebilir emlak yönetim sistemi. İlan yönetimi, kullanıcı rolleri ve gelişmiş filtreleme özellikleri ile RESTful API."
                 color="#10B981"

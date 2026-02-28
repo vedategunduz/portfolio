@@ -1,9 +1,9 @@
-<section id="about" class="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-20">
+<section id="about" data-scroll-section class="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-20">
     <div class="max-w-7xl mx-auto">
-        <x-section-title title="Hakkımda" />
+        <x-section-title class="scroll-item" title="Hakkımda" />
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
+            <div class="scroll-item">
                 <h3 class="text-2xl font-semibold text-[#1b1b18] dark:text-[#EDEDEC] mb-4">
                     Ben Kimim?
                 </h3>
@@ -17,24 +17,28 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <x-skill-card
+                    data-scroll-card
                     title="Backend (Ana Odak)"
                     description="PHP / Laravel, RESTful API, JWT Auth, Payment Flows, .NET Integration"
                     icon="server"
                 />
 
                 <x-skill-card
+                    data-scroll-card
                     title="Frontend"
                     description="JavaScript (ES6+), Next.js, HTML/CSS, Tailwind CSS, Bootstrap"
                     icon="code"
                 />
 
                 <x-skill-card
+                    data-scroll-card
                     title="Database"
                     description="MySQL, SQL & Relational Design, Query Optimization"
                     icon="database"
                 />
 
                 <x-skill-card
+                    data-scroll-card
                     title="Tools & Workflow"
                     description="Git / GitHub, Linux Deployment, Debugging & Logging"
                     icon="wrench"
