@@ -1,5 +1,3 @@
-// resources/js/http-helper.js
-
 import axios from 'axios';
 
 // 1. Temel Ayarlar

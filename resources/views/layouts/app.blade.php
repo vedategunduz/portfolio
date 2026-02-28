@@ -21,8 +21,6 @@
     <!-- Styles / Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    @livewireStyles
-
     @stack('styles')
 
     <style>
@@ -44,8 +42,8 @@
     <!-- Footer -->
     @include('partials.footer')
 
-    @stack('scripts')
+    <x-toast />
 
-    @livewireScripts
+    @stack('scripts')
 </body>
 </html>

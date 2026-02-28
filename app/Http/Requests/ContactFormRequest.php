@@ -6,6 +6,17 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class ContactFormRequest extends FormRequest
 {
+    protected function getRedirectUrl(): string
+    {
+        $url = parent::getRedirectUrl();
+
+        if (str_contains($url, '#')) {
+            return $url;
+        }
+
+        return $url . '#contact';
+    }
+
     public function authorize(): bool
     {
         return true;

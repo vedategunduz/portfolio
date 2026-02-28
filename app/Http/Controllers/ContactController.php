@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ContactFormRequest;
-use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
@@ -18,17 +17,30 @@ class ContactController extends Controller
             // Basit DB kaydı yapılabilir
             // ContactRequest::create($validated);
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Mesajınız başarıyla gönderildi!',
-            ], 200);
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Mesajınız başarıyla gönderildi!',
+                ], 200);
+            }
+
+            return back()
+                ->with('contact_success', 'Mesajınız başarıyla gönderildi!')
+                ->withFragment('contact');
 
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Bir hata oluştu. Lütfen daha sonra tekrar deneyin.',
-                'error' => $e->getMessage(),
-            ], 500);
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Bir hata oluştu. Lütfen daha sonra tekrar deneyin.',
+                    'error' => $e->getMessage(),
+                ], 500);
+            }
+
+            return back()
+                ->withInput()
+                ->with('contact_error', 'Bir hata oluştu. Lütfen daha sonra tekrar deneyin.')
+                ->withFragment('contact');
         }
     }
 }

@@ -1,10 +1,10 @@
+import Alpine from 'alpinejs';
 import { createIcons, icons } from 'lucide';
 // import { initSwiper } from './swiper-helper';
 // import { initEditor } from './ckeditor-helper';
 import { Http } from './http-helper';
 import { initForm, initAction } from './form-helper';
 import { Dialog } from './dialog-helper';
-import { initBlobAnimations } from './blob-animations';
 import { initThemeToggle } from './theme-toggle';
 
 // 1. Helper Fonksiyonlarını Global Yap
@@ -19,6 +19,10 @@ window.Dialog = Dialog;
 // Böylece dialog.blade.php içinden 'window.createIcons(...)' diyebileceğiz.
 window.createIcons = createIcons;
 window.lucideIcons = icons;
+
+// Alpine.js
+window.Alpine = Alpine;
+Alpine.start();
 
 // 3. Sayfa Yüklendiğinde İkonları Tara
 createIcons({
@@ -69,6 +73,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // 6. Theme Toggle
     initThemeToggle(createIcons, icons);
 
-    // 7. Blob Animations
-    initBlobAnimations();
+    // 7. AJAX Contact Form
+    initForm('#contact-form', {
+        reset: true,
+    });
+
 });

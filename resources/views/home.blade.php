@@ -17,19 +17,19 @@
     <!-- Decorative Background Blobs -->
     <div class="absolute inset-0 z-0" aria-hidden="true">
         <!-- Blob 1: Top Left (Purple to Cyan) -->
-        <div class="absolute -top-32 -left-32 w-96 h-96 md:w-150 md:h-150 lg:w-175 lg:h-175 rounded-full bg-linear-to-br from-purple-500/35 to-cyan-400/25 blur-3xl pointer-events-none animate-float-blob-1"></div>
+        <div class="absolute -top-32 -left-32 w-96 h-96 md:w-150 md:h-150 lg:w-175 lg:h-175 rounded-full bg-linear-to-br from-purple-500/35 to-cyan-400/25 blur-3xl pointer-events-none"></div>
 
         <!-- Blob 2: Top Right (Pink to Amber) -->
-        <div class="absolute -top-20 -right-40 w-80 h-80 md:w-150 md:h-125 lg:w-150 lg:h-150 rounded-full bg-linear-to-br from-pink-500/30 to-amber-400/20 blur-[120px] pointer-events-none animate-float-blob-2"></div>
+        <div class="absolute -top-20 -right-40 w-80 h-80 md:w-150 md:h-125 lg:w-150 lg:h-150 rounded-full bg-linear-to-br from-pink-500/30 to-amber-400/20 blur-[120px] pointer-events-none"></div>
 
         <!-- Blob 3: Mid Left (Cyan to Purple) -->
-        <div class="absolute top-1/3 -left-48 w-72 h-72 md:w-112.5 md:h-112.5 lg:w-137.5 lg:h-137.5 rounded-full bg-linear-to-br from-cyan-400/25 to-purple-500/30 blur-3xl pointer-events-none animate-float-blob-3"></div>
+        <div class="absolute top-1/3 -left-48 w-72 h-72 md:w-112.5 md:h-112.5 lg:w-137.5 lg:h-137.5 rounded-full bg-linear-to-br from-cyan-400/25 to-purple-500/30 blur-3xl pointer-events-none"></div>
 
         <!-- Blob 4: Mid Right (Amber to Pink) -->
-        <div class="absolute top-1/2 -right-32 w-96 h-96 md:w-137.5 md:h-137.5 lg:w-162.5 lg:h-162.5 rounded-full bg-linear-to-br from-amber-400/20 to-pink-500/25 blur-[120px] pointer-events-none animate-float-blob-4"></div>
+        <div class="absolute top-1/2 -right-32 w-96 h-96 md:w-137.5 md:h-137.5 lg:w-162.5 lg:h-162.5 rounded-full bg-linear-to-br from-amber-400/20 to-pink-500/25 blur-[120px] pointer-events-none"></div>
 
         <!-- Blob 5: Bottom Left (Purple to Cyan) -->
-        <div class="absolute -bottom-40 -left-20 w-80 h-80 md:w-150 md:h-125 lg:w-150 lg:h-150 rounded-full bg-linear-to-br from-purple-600/30 to-cyan-500/20 blur-3xl pointer-events-none animate-float-blob-5"></div>
+        <div class="absolute -bottom-40 -left-20 w-80 h-80 md:w-150 md:h-125 lg:w-150 lg:h-150 rounded-full bg-linear-to-br from-purple-600/30 to-cyan-500/20 blur-3xl pointer-events-none"></div>
 
         <!-- Optional: Subtle Noise Overlay -->
         <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNhKSIgb3BhY2l0eT0iLjA1Ii8+PC9zdmc+')] opacity-[0.06] mix-blend-overlay pointer-events-none"></div>
@@ -42,7 +42,7 @@
     <div class="max-w-7xl mx-auto text-center" x-data="{ loaded: false }" x-init="setTimeout(() => loaded = true, 100)">
         <h1 class="text-5xl md:text-7xl font-bold text-[#1b1b18] dark:text-[#EDEDEC] mb-6 transition-all duration-1000"
             :class="loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'">
-            Merhaba, Ben
+            Merhaba, ben
             <span class="text-[#FF2D20]">Vedat</span>
         </h1>
         <p class="text-xl md:text-2xl text-[#706f6c] dark:text-[#A1A09A] max-w-3xl mx-auto mb-8 transition-all duration-1000 delay-200"
@@ -69,13 +69,13 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
                 <h3 class="text-2xl font-semibold text-[#1b1b18] dark:text-[#EDEDEC] mb-4">
-                    Kim Ben?
+                    Ben Kimim?
                 </h3>
                 <p class="text-lg text-[#706f6c] dark:text-[#A1A09A] mb-4">
-                    PHP/Laravel ile backend geliştirme odaklı çalışıyorum. RESTful API, JWT authentication ve third-party entegrasyonlar (özellikle .NET servisleriyle) konusunda deneyimliyim. Payment flows ve database design alanlarında özellikle titiz çalışırım.
+                    PHP/Laravel ile backend geliştirme odaklı çalışıyorum. RESTful API, JWT kimlik doğrulama ve üçüncü parti entegrasyonlar (özellikle .NET servisleriyle) konusunda deneyimliyim. Ödeme akışları ve veritabanı tasarımı alanlarında özellikle titiz çalışırım.
                 </p>
                 <p class="text-lg text-[#706f6c] dark:text-[#A1A09A] mb-6">
-                    Sağlam backend mimarileri kurmak, RESTful API geliştirme ve modern frontend ile entegrasyon alanlarında uzmanlaşıyorum. Temiz ve okunabilir kod yazarım, best practice'lere sadık kalırım ve problemi hacklemek yerine doğru mimari kurarım.
+                    Sağlam backend mimarileri kurma, RESTful API geliştirme ve modern frontend entegrasyonu alanlarında uzmanlaşıyorum. Temiz ve okunabilir kod yazarım, en iyi uygulamalara sadık kalırım ve problemi geçici çözümlerle yamamak yerine doğru mimariyi kurarım.
                 </p>
             </div>
 
@@ -129,8 +129,8 @@
                     <ul class="list-disc list-inside space-y-1">
                         <li>RESTful API mimarisi</li>
                         <li>JWT Authentication</li>
-                        <li>Payment gateway entegrasyonu</li>
-                        <li>Real-time stok yönetimi</li>
+                        <li>Ödeme altyapısı entegrasyonu</li>
+                        <li>Gerçek zamanlı stok yönetimi</li>
                     </ul>
                 </div>
             </x-project-card>
@@ -146,9 +146,9 @@
                     <p class="mb-2"><strong>Özellikler:</strong></p>
                     <ul class="list-disc list-inside space-y-1">
                         <li>3D Secure 2.0 protokolü</li>
-                        <li>Transaction logging</li>
-                        <li>Callback handling</li>
-                        <li>Error recovery mekanizması</li>
+                        <li>İşlem (transaction) loglama</li>
+                        <li>Callback yönetimi</li>
+                        <li>Hata kurtarma mekanizması</li>
                     </ul>
                 </div>
             </x-project-card>
@@ -163,10 +163,10 @@
                 <div class="text-sm text-[#706f6c] dark:text-[#A1A09A]">
                     <p class="mb-2"><strong>Özellikler:</strong></p>
                     <ul class="list-disc list-inside space-y-1">
-                        <li>Advanced search & filtering</li>
-                        <li>Role-based access control</li>
-                        <li>Image optimization</li>
-                        <li>Third-party map integration</li>
+                        <li>Gelişmiş arama ve filtreleme</li>
+                        <li>Rol bazlı erişim kontrolü</li>
+                        <li>Görsel optimizasyonu</li>
+                        <li>Üçüncü parti harita entegrasyonu</li>
                     </ul>
                 </div>
             </x-project-card>
@@ -179,10 +179,10 @@
     <div class="max-w-3xl mx-auto w-full">
         <x-section-title
             title="İletişim"
-            subtitle="Bir projeniz mi var veya benimle çalışmak mı istiyorsunuz? Benimle iletişime geçin!"
+            subtitle="Bir projeniz mi var ya da benimle çalışmak mı istiyorsunuz? Benimle iletişime geçin!"
         />
 
-        <livewire:contact-form />
+        @include('partials.contact-form')
     </div>
 </section>
     </div>

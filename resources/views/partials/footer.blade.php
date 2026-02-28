@@ -18,22 +18,22 @@
                 </h3>
                 <ul class="space-y-2">
                     <li>
-                        <a href="{{ url('/') }}" class="text-sm text-[#706f6c] dark:text-[#A1A09A] hover:text-[#1b1b18] dark:hover:text-[#EDEDEC] transition-colors">
+                        <a href="#home" class="text-sm text-[#706f6c] dark:text-[#A1A09A] hover:text-[#1b1b18] dark:hover:text-[#EDEDEC] transition-colors">
                             Ana Sayfa
                         </a>
                     </li>
                     <li>
-                        <a href="{{ url('/about') }}" class="text-sm text-[#706f6c] dark:text-[#A1A09A] hover:text-[#1b1b18] dark:hover:text-[#EDEDEC] transition-colors">
+                        <a href="#about" class="text-sm text-[#706f6c] dark:text-[#A1A09A] hover:text-[#1b1b18] dark:hover:text-[#EDEDEC] transition-colors">
                             Hakkımda
                         </a>
                     </li>
                     <li>
-                        <a href="{{ url('/projects') }}" class="text-sm text-[#706f6c] dark:text-[#A1A09A] hover:text-[#1b1b18] dark:hover:text-[#EDEDEC] transition-colors">
+                        <a href="#projects" class="text-sm text-[#706f6c] dark:text-[#A1A09A] hover:text-[#1b1b18] dark:hover:text-[#EDEDEC] transition-colors">
                             Projeler
                         </a>
                     </li>
                     <li>
-                        <a href="{{ url('/contact') }}" class="text-sm text-[#706f6c] dark:text-[#A1A09A] hover:text-[#1b1b18] dark:hover:text-[#EDEDEC] transition-colors">
+                        <a href="#contact" class="text-sm text-[#706f6c] dark:text-[#A1A09A] hover:text-[#1b1b18] dark:hover:text-[#EDEDEC] transition-colors">
                             İletişim
                         </a>
                     </li>

@@ -33,22 +33,22 @@
                 <div class="flex items-center gap-3">
                     <!-- Social Icons -->
                     <div class="hidden sm:flex items-center gap-2">
-                        <a href="https://github.com/vedategunduz" target="_blank" rel="noopener noreferrer" class="p-1.5 text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] transition-colors" title="GitHub">
+                        <a href="https://github.com/vedategunduz" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] transition-colors" title="GitHub">
                             <i data-lucide="github" class="w-4 h-4"></i>
                         </a>
-                        <a href="https://www.linkedin.com/in/vedategunduz/" target="_blank" rel="noopener noreferrer" class="p-1.5 text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] transition-colors" title="LinkedIn">
+                        <a href="https://www.linkedin.com/in/vedategunduz/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] transition-colors" title="LinkedIn">
                             <i data-lucide="linkedin" class="w-4 h-4"></i>
                         </a>
-                        <a href="https://www.instagram.com/vedategunduz/" target="_blank" rel="noopener noreferrer" class="p-1.5 text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] transition-colors" title="Instagram">
+                        <a href="https://www.instagram.com/vedategunduz/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] transition-colors" title="Instagram">
                             <i data-lucide="instagram" class="w-4 h-4"></i>
                         </a>
-                        <a href="mailto:vedat.bilisim@outlook.com" class="p-1.5 text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] transition-colors" title="Email">
+                        <a href="mailto:vedat.bilisim@outlook.com" class="inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] transition-colors" title="Email">
                             <i data-lucide="mail" class="w-4 h-4"></i>
                         </a>
                     </div>
 
                     <!-- Theme Toggle -->
-                    <button id="theme-toggle" class="p-1.5 text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] transition-colors" title="Tema Değiştir">
+                    <button id="theme-toggle" class="inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] transition-colors" title="Temayı Değiştir">
                         <span class="dark:hidden inline-flex">
                             <i data-lucide="sun" class="w-4 h-4"></i>
                         </span>
@@ -58,7 +58,7 @@
                     </button>
 
                     <!-- Mobile Menu Button -->
-                    <button type="button" class="md:hidden p-1.5 text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] focus:outline-none" id="mobile-menu-button">
+                    <button type="button" class="md:hidden inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] focus:outline-none" id="mobile-menu-button">
                         <i data-lucide="menu" class="w-5 h-5"></i>
                     </button>
                 </div>
@@ -82,16 +82,16 @@
 
                     <!-- Social Icons (Mobile) -->
                     <div class="flex items-center gap-3 pt-2 border-t border-[#e3e3e0] dark:border-[#3E3E3A]">
-                        <a href="https://github.com/vedategunduz" target="_blank" rel="noopener noreferrer" class="p-1.5 text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] transition-colors" title="GitHub">
+                        <a href="https://github.com/vedategunduz" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] transition-colors" title="GitHub">
                             <i data-lucide="github" class="w-4 h-4"></i>
                         </a>
-                        <a href="https://www.linkedin.com/in/vedategunduz/" target="_blank" rel="noopener noreferrer" class="p-1.5 text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] transition-colors" title="LinkedIn">
+                        <a href="https://www.linkedin.com/in/vedategunduz/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] transition-colors" title="LinkedIn">
                             <i data-lucide="linkedin" class="w-4 h-4"></i>
                         </a>
-                        <a href="https://www.instagram.com/vedategunduz/" target="_blank" rel="noopener noreferrer" class="p-1.5 text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] transition-colors" title="Instagram">
+                        <a href="https://www.instagram.com/vedategunduz/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] transition-colors" title="Instagram">
                             <i data-lucide="instagram" class="w-4 h-4"></i>
                         </a>
-                        <a href="mailto:vedat.bilisim@outlook.com" class="p-1.5 text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] transition-colors" title="Email">
+                        <a href="mailto:vedat.bilisim@outlook.com" class="inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#A1A09A] hover:text-[#FF2D20] transition-colors" title="Email">
                             <i data-lucide="mail" class="w-4 h-4"></i>
                         </a>
                     </div>

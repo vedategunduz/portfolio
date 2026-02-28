@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\SitemapController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -8,3 +9,5 @@ Route::get('/', function () {
 });
 
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+
+Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');

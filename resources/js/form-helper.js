@@ -1,6 +1,71 @@
 import { Http } from './http-helper';
 import { Dialog } from './dialog-helper';
 
+const clearFormMessages = (form) => {
+    const errorBox = form.parentElement?.querySelector('[data-form-error]') || form.querySelector('[data-form-error]');
+    const successBox = form.parentElement?.querySelector('[data-form-success]') || form.querySelector('[data-form-success]');
+
+    if (errorBox) errorBox.classList.add('hidden');
+    if (successBox) successBox.classList.add('hidden');
+};
+
+const showFormMessage = (form, type, message) => {
+    const isError = type === 'error';
+
+    const box = (form.parentElement?.querySelector(isError ? '[data-form-error]' : '[data-form-success]')
+        || form.querySelector(isError ? '[data-form-error]' : '[data-form-success]'));
+
+    if (!box) return false;
+
+    const messageEl = box.querySelector(isError ? '[data-form-error-message]' : '[data-form-success-message]');
+    if (messageEl) {
+        messageEl.textContent = message;
+    }
+
+    box.classList.remove('hidden');
+    return true;
+};
+
+const clearValidationErrors = (form) => {
+    form.querySelectorAll('[data-field-error]').forEach((el) => {
+        el.textContent = '';
+        el.classList.add('hidden');
+    });
+
+    form.querySelectorAll('[data-field-input]').forEach((el) => {
+        el.classList.remove('border-red-500');
+    });
+};
+
+const renderValidationErrors = (form, errors) => {
+    if (!errors || typeof errors !== 'object') return;
+
+    const escapeCss = (value) => {
+        const str = String(value);
+        if (window.CSS && typeof window.CSS.escape === 'function') {
+            return window.CSS.escape(str);
+        }
+        return str.replace(/"/g, '\\"');
+    };
+
+    Object.entries(errors).forEach(([field, messages]) => {
+        const msg = Array.isArray(messages) ? (messages[0] || '') : String(messages || '');
+        if (!msg) return;
+
+        const errorEl = form.querySelector(`[data-field-error="${escapeCss(field)}"]`);
+        if (errorEl) {
+            errorEl.textContent = msg;
+            errorEl.classList.remove('hidden');
+        }
+
+        const inputEl = form.querySelector(`[data-field-input="${escapeCss(field)}"]`)
+            || form.querySelector(`[name="${escapeCss(field)}"]`);
+        if (inputEl) {
+            inputEl.classList.add('border-red-500');
+        }
+    });
+};
+
 // --- YARDIMCI: Hata Mesajını Analiz Et ---
 const parseErrorMessage = (error) => {
     let message = 'Beklenmedik bir hata oluştu.';
@@ -40,6 +105,9 @@ export const initForm = (selector, options = {}) => {
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
+        clearFormMessages(form);
+        clearValidationErrors(form);
+
         // Ayarlar
         const url = options.url || form.action;
         let method = (options.method || form.getAttribute('method') || 'post').toLowerCase();
@@ -72,20 +140,35 @@ export const initForm = (selector, options = {}) => {
 
             if (shouldReset) form.reset();
 
+            const successMessage = response?.data?.message;
+            if (successMessage) {
+                const rendered = showFormMessage(form, 'success', successMessage);
+                if (!rendered) {
+                    Dialog.success(successMessage);
+                }
+            }
+
             // Başarılı
             if (options.onSuccess) {
                 options.onSuccess(response);
-            } else if (response.data && response.data.message) {
-                Dialog.success(response.data.message);
             }
 
         } catch (error) {
             const errorMsg = parseErrorMessage(error);
 
+            const status = error?.response?.status;
+            const data = error?.response?.data;
+            if (status === 422 && data?.errors) {
+                renderValidationErrors(form, data.errors);
+            }
+
             if (options.onError) {
                 options.onError(error);
             } else {
-                Dialog.error(errorMsg, 'İşlem Başarısız');
+                const rendered = showFormMessage(form, 'error', errorMsg);
+                if (!rendered) {
+                    Dialog.error(errorMsg, 'İşlem Başarısız');
+                }
             }
 
         } finally {

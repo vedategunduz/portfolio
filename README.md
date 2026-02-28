@@ -1,6 +1,6 @@
 # Vedat Egündüz - Portfolio Website
 
-Modern ve responsive portfolio websitesi. Laravel + Livewire ile geliştirilmiştir.
+Modern ve responsive portfolio websitesi. Laravel ile geliştirilmiştir.
 
 ## 🚀 Özellikler
 
@@ -8,7 +8,7 @@ Modern ve responsive portfolio websitesi. Laravel + Livewire ile geliştirilmiş
 - 🌓 Dark/Light mode desteği
 - 📱 Responsive (Mobil uyumlu)
 - 🎭 Smooth animasyonlar
-- 📧 İletişim formu (Livewire)
+- 📧 İletişim formu
 - 🔍 SEO optimize edilmiş
 - 🗺️ XML Sitemap
 - 📊 Structured Data (Schema.org)
@@ -16,7 +16,7 @@ Modern ve responsive portfolio websitesi. Laravel + Livewire ile geliştirilmiş
 ## 🛠️ Teknolojiler
 
 - **Backend:** Laravel 11.x
-- **Frontend:** Tailwind CSS, Alpine.js, Livewire
+- **Frontend:** Tailwind CSS, Alpine.js
 - **Icons:** Lucide Icons
 - **Database:** MySQL
 - **Build Tool:** Vite
