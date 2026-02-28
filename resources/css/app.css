@@ -75,7 +75,8 @@ button:not([disabled]) {
     cursor: pointer;
 }
 
-[x-cloak] {
+[x-cloak],
+[v-cloak] {
     display: none !important;
 }
 

@@ -29,7 +29,7 @@ import { initForm, initAction } from './form-helper';
 import { Dialog } from './dialog-helper';
 import { initThemeToggle } from './theme-toggle';
 
-// Lazy load Alpine.js - only when needed (after page interactive)
+// Lazy load Alpine.js - only when needed
 let Alpine = null;
 const getAlpine = async () => {
     if (!Alpine) {
@@ -74,12 +74,29 @@ window.Dialog = Dialog;
 window.createIcons = createIcons;
 window.lucideIcons = lucideIcons;
 
-// Alpine.js - lazy loaded after page interaction
-document.addEventListener('DOMContentLoaded', async () => {
-    const AlpineModule = await getAlpine();
-    window.Alpine = AlpineModule;
-    AlpineModule.start();
-}, { once: true });
+// Alpine.js - smart lazy load (only load if Alpine components exist)
+const LoadAlpineIfNeeded = () => {
+    // Check for Alpine components
+    const hasAlpineComponents = document.querySelector('[x-data]') || 
+                                document.querySelector('[x-show]') ||
+                                document.querySelector('[x-for]') ||
+                                document.querySelector('[x-cloak]');
+    
+    if (hasAlpineComponents) {
+        getAlpine().then(AlpineModule => {
+            window.Alpine = AlpineModule;
+            AlpineModule.start();
+        });
+    }
+};
+
+// Load when DOM is ready (ensures all HTML is parsed)
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', LoadAlpineIfNeeded, { once: true });
+} else {
+    // DOM already loaded
+    LoadAlpineIfNeeded();
+}
 
 // Theme Toggle (early init)
 initThemeToggle(createIcons, lucideIcons);
