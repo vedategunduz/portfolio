@@ -1,5 +1,5 @@
 <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-    <nav class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 mb-4">
+    <nav class="max-w-2xl md:max-w-3xl lg:max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 mb-4">
         <div class="border border-[#e3e3e0] dark:border-[#3E3E3A] rounded-lg bg-white/80 dark:bg-[#161615]/80 backdrop-blur-md">
             <div class="flex justify-between items-center h-14 px-6">
                 <!-- Logo -->
