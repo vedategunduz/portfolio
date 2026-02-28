@@ -2,15 +2,15 @@
     'title',
     'description',
     'tags' => [],
-    'gradient' => 'from-[#FF2D20] to-[#FF6B6B]',
-    'color' => '#FF2D20',
+    'gradient' => 'from-[#D62113] to-[#FF6B6B]',
+    'color' => '#D62113',
     'initial' => 'P',
 ])
 
 <div
     x-data="{ expanded: false }"
     class="group border-2 rounded-sm overflow-hidden transition-all duration-500"
-    :class="expanded ? 'border-[#FF2D20] shadow-2xl shadow-[#FF2D20]/50 scale-[1.02]' : 'border-[#e3e3e0] dark:border-[#3E3E3A] hover:border-[#FF2D20] hover:shadow-xl hover:shadow-[#FF2D20]/30'"
+    :class="expanded ? 'border-[#D62113] shadow-2xl shadow-[#D62113]/50 scale-[1.02]' : 'border-[#e3e3e0] dark:border-[#3E3E3A] hover:border-[#D62113] hover:shadow-xl hover:shadow-[#D62113]/30'"
 >
     <!-- Project Image/Placeholder -->
     <div class="aspect-video flex items-center justify-center cursor-pointer relative overflow-hidden"
@@ -30,7 +30,7 @@
 
     <!-- Project Content -->
     <div class="p-6">
-        <h3 class="text-xl font-semibold text-[#1b1b18] dark:text-[#EDEDEC] mb-3 group-hover:text-[#FF2D20] transition-colors">
+        <h3 class="text-xl font-semibold text-[#1b1b18] dark:text-[#EDEDEC] mb-3 group-hover:text-[#D62113] transition-colors">
             {{ $title }}
         </h3>
         <p class="text-[#706f6c] dark:text-[#D4D3D0] text-sm mb-4"
@@ -43,7 +43,7 @@
         @if(count($tags) > 0)
             <div class="flex flex-wrap gap-2">
                 @foreach($tags as $tag)
-                    <span class="px-3 py-1 text-xs bg-[#f8f8f7] dark:bg-[#161615] text-[#706f6c] dark:text-[#D4D3D0] rounded-full hover:bg-[#FF2D20] hover:text-white hover:shadow-lg transition-all duration-300 cursor-pointer">
+                    <span class="px-3 py-1 text-xs bg-[#f8f8f7] dark:bg-[#161615] text-[#706f6c] dark:text-[#D4D3D0] rounded-full hover:bg-[#D62113] hover:text-white hover:shadow-lg transition-all duration-300 cursor-pointer">
                         {{ $tag }}
                     </span>
                 @endforeach
@@ -58,3 +58,4 @@
         @endif
     </div>
 </div>
+

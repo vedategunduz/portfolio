@@ -14,12 +14,13 @@
     ];
 
     $variantClasses = [
-        'primary' => 'bg-[#FF2D20] text-white hover:bg-[#e02915] hover:shadow-2xl hover:shadow-[#FF2D20]/50 hover:scale-105',
-        'secondary' => 'border border-[#19140035] dark:border-[#3E3E3A] text-[#1b1b18] dark:text-[#EDEDEC] hover:border-[#FF2D20] hover:text-[#FF2D20] hover:shadow-lg',
-        'outline' => 'border-2 border-[#FF2D20] text-[#FF2D20] hover:bg-[#FF2D20] hover:text-white hover:scale-105',
+        'primary' => 'bg-[#D62113] text-white hover:bg-[#b81a0f] hover:shadow-2xl hover:shadow-[#D62113]/50 hover:scale-105',
+        'secondary' => 'border border-[#e3e3e0] dark:border-[#3E3E3A] text-[#1b1b18] dark:text-[#EDEDEC] hover:border-[#D62113] hover:text-[#D62113] hover:shadow-lg',
+        'outline' => 'border-2 border-[#D62113] text-[#D62113] hover:bg-[#D62113] hover:text-white hover:scale-105',
     ];
 @endphp
 
 <a href="{{ $href }}" {{ $attributes->merge(['class' => $baseClasses . ' ' . $sizeClasses[$size] . ' ' . $variantClasses[$variant]]) }}>
     {{ $slot }}
 </a>
+

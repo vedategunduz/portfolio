@@ -46,16 +46,16 @@
                     Sosyal Medya
                 </h3>
                 <div class="flex gap-4">
-                    <a href="https://github.com/vedategunduz" target="_blank" rel="noopener noreferrer" class="text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#FF2D20] dark:hover:text-[#FF2D20] transition-colors" title="GitHub" aria-label="Vedat'ın GitHub profiline git">
+                    <a href="https://github.com/vedategunduz" target="_blank" rel="noopener noreferrer" class="text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#D62113] dark:hover:text-[#D62113] transition-colors" title="GitHub" aria-label="Vedat'ın GitHub profiline git">
                         <i data-lucide="github" class="w-5 h-5"></i>
                     </a>
-                    <a href="https://www.linkedin.com/in/vedategunduz/" target="_blank" rel="noopener noreferrer" class="text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#FF2D20] dark:hover:text-[#FF2D20] transition-colors" title="LinkedIn" aria-label="Vedat'ın LinkedIn profiline git">
+                    <a href="https://www.linkedin.com/in/vedategunduz/" target="_blank" rel="noopener noreferrer" class="text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#D62113] dark:hover:text-[#D62113] transition-colors" title="LinkedIn" aria-label="Vedat'ın LinkedIn profiline git">
                         <i data-lucide="linkedin" class="w-5 h-5"></i>
                     </a>
-                    <a href="https://www.instagram.com/vedategunduz/" target="_blank" rel="noopener noreferrer" class="text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#FF2D20] dark:hover:text-[#FF2D20] transition-colors" title="Instagram" aria-label="Vedat'ın Instagram profiline git">
+                    <a href="https://www.instagram.com/vedategunduz/" target="_blank" rel="noopener noreferrer" class="text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#D62113] dark:hover:text-[#D62113] transition-colors" title="Instagram" aria-label="Vedat'ın Instagram profiline git">
                         <i data-lucide="instagram" class="w-5 h-5"></i>
                     </a>
-                    <a href="mailto:vedat.bilisim@outlook.com" class="text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#FF2D20] dark:hover:text-[#FF2D20] transition-colors" title="Email" aria-label="Vedat'a e-posta gönder">
+                    <a href="mailto:vedat.bilisim@outlook.com" class="text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#D62113] dark:hover:text-[#D62113] transition-colors" title="Email" aria-label="Vedat'a e-posta gönder">
                         <i data-lucide="mail" class="w-5 h-5"></i>
                     </a>
                 </div>
@@ -71,9 +71,10 @@
 
         <!-- Name -->
         <div class="mt-16 text-center">
-            <p class="text-[6rem] md:text-[12rem] lg:text-[16rem] font-black text-[#FF2D20] leading-none tracking-tighter select-none">
+            <p class="text-[6rem] md:text-[12rem] lg:text-[16rem] font-black text-[#D62113] leading-none tracking-tighter select-none">
                 VEDAT
             </p>
         </div>
     </div>
 </footer>
+

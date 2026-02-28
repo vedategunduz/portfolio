@@ -55,7 +55,7 @@
 @endif
 
 <!-- Additional SEO Tags -->
-<meta name="theme-color" content="#FF2D20">
+<meta name="theme-color" content="#D62113">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="format-detection" content="telephone=no">
@@ -86,3 +86,4 @@
 <script type="application/ld+json">
 {!! json_encode($structuredData, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
 </script>
+

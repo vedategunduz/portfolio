@@ -50,7 +50,7 @@
 
         <div>
             <label for="name" class="block text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC] mb-2">
-                Ad Soyadınız <span class="text-[#FF2D20]">*</span>
+                Ad Soyadınız <span class="text-[#D62113]">*</span>
             </label>
             <input
                 type="text"
@@ -59,14 +59,14 @@
                 data-field-input="name"
                 value="{{ old('name') }}"
                 placeholder="Adınız ve Soyadınız"
-                class="w-full px-4 py-3 border rounded-sm bg-white dark:bg-[#161615] text-[#1b1b18] dark:text-[#EDEDEC] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#FF2D20] border-[#e3e3e0] dark:border-[#3E3E3A] {{ $errors->has('name') ? 'border-red-500' : '' }}"
+                class="w-full px-4 py-3 border rounded-sm bg-white dark:bg-[#161615] text-[#1b1b18] dark:text-[#EDEDEC] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#D62113] border-[#e3e3e0] dark:border-[#3E3E3A] {{ $errors->has('name') ? 'border-red-500' : '' }}"
             >
             <p class="mt-1 text-sm text-red-500 {{ $errors->has('name') ? '' : 'hidden' }}" data-field-error="name">{{ $errors->first('name') }}</p>
         </div>
 
         <div>
             <label for="email" class="block text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC] mb-2">
-                E-posta <span class="text-[#FF2D20]">*</span>
+                E-posta <span class="text-[#D62113]">*</span>
             </label>
             <input
                 type="email"
@@ -75,14 +75,14 @@
                 data-field-input="email"
                 value="{{ old('email') }}"
                 placeholder="ornek@eposta.com"
-                class="w-full px-4 py-3 border rounded-sm bg-white dark:bg-[#161615] text-[#1b1b18] dark:text-[#EDEDEC] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#FF2D20] border-[#e3e3e0] dark:border-[#3E3E3A] {{ $errors->has('email') ? 'border-red-500' : '' }}"
+                class="w-full px-4 py-3 border rounded-sm bg-white dark:bg-[#161615] text-[#1b1b18] dark:text-[#EDEDEC] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#D62113] border-[#e3e3e0] dark:border-[#3E3E3A] {{ $errors->has('email') ? 'border-red-500' : '' }}"
             >
             <p class="mt-1 text-sm text-red-500 {{ $errors->has('email') ? '' : 'hidden' }}" data-field-error="email">{{ $errors->first('email') }}</p>
         </div>
 
         <div>
             <label for="message" class="block text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC] mb-2">
-                Mesaj <span class="text-[#FF2D20]">*</span>
+                Mesaj <span class="text-[#D62113]">*</span>
             </label>
             <textarea
                 id="message"
@@ -90,14 +90,14 @@
                 data-field-input="message"
                 rows="6"
                 placeholder="Mesajınızı buraya yazın..."
-                class="w-full px-4 py-3 border rounded-sm bg-white dark:bg-[#161615] text-[#1b1b18] dark:text-[#EDEDEC] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#FF2D20] resize-none border-[#e3e3e0] dark:border-[#3E3E3A] {{ $errors->has('message') ? 'border-red-500' : '' }}"
+                class="w-full px-4 py-3 border rounded-sm bg-white dark:bg-[#161615] text-[#1b1b18] dark:text-[#EDEDEC] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#D62113] resize-none border-[#e3e3e0] dark:border-[#3E3E3A] {{ $errors->has('message') ? 'border-red-500' : '' }}"
             >{{ old('message') }}</textarea>
             <p class="mt-1 text-sm text-red-500 {{ $errors->has('message') ? '' : 'hidden' }}" data-field-error="message">{{ $errors->first('message') }}</p>
         </div>
 
         <button
             type="submit"
-            class="w-full px-8 py-4 bg-[#FF2D20] text-white rounded-sm text-sm font-medium transition-all duration-300 hover:bg-[#e02915] hover:shadow-2xl hover:shadow-[#FF2D20]/50 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            class="w-full px-8 py-4 bg-[#D62113] text-white rounded-sm text-sm font-medium transition-all duration-300 hover:bg-[#b81a0f] hover:shadow-2xl hover:shadow-[#D62113]/50 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
             <span class="flex items-center gap-2">
                 <i data-lucide="send" class="w-4 h-4"></i>
@@ -106,3 +106,4 @@
         </button>
     </form>
 </div>
+

@@ -43,7 +43,7 @@
         <h1 class="text-5xl md:text-7xl font-bold text-[#1b1b18] dark:text-[#EDEDEC] mb-6 transition-all duration-1000"
             :class="loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'">
             Merhaba, ben
-            <span class="text-[#FF2D20]">Vedat</span>
+            <span class="text-[#D62113]">Vedat</span>
         </h1>
         <p class="text-xl md:text-2xl text-[#706f6c] dark:text-[#D4D3D0] max-w-3xl mx-auto mb-8 transition-all duration-1000 delay-200"
            :class="loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'">
@@ -120,7 +120,7 @@
             <x-project-card
                 title="Laravel + Next.js E-Ticaret Altyapısı"
                 description="Modern e-ticaret platformu. Laravel backend API ve Next.js frontend ile ölçeklenebilir mimari. Ödeme entegrasyonu, sepet yönetimi ve admin paneli."
-                color="#FF2D20"
+                color="#D62113"
                 initial="E"
                 :tags="['Laravel', 'Next.js', 'RESTful API', 'MySQL']"
             >
@@ -189,3 +189,4 @@
 </div>
 <!-- End Background Wrapper -->
 @endsection
+
