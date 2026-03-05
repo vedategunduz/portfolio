@@ -21,6 +21,9 @@ import {
     Code,
     Database,
     Wrench,
+    Eye,
+    Users,
+    Inbox,
 } from 'lucide';
 
 // // (commented out - lazy loaded on demand)
@@ -63,6 +66,9 @@ const lucideIcons = {
     Code,
     Database,
     Wrench,
+    Eye,
+    Users,
+    Inbox,
 };
 // 1. Helper Fonksiyonlarını Global Yap
 // window.createSlider = initSwiper;

@@ -29,20 +29,28 @@
 
     @stack('styles')
 </head>
-<body class="bg-gray-50 dark:bg-gray-900 antialiased">
-    <div class="min-h-screen">
+<body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] dark:text-[#EDEDEC] antialiased min-h-screen">
+    <div class="min-h-screen flex flex-col">
         <!-- Header -->
-        <header class="bg-white dark:bg-gray-800 shadow">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-                <div class="flex justify-between items-center">
-                    <h1 class="text-2xl font-bold text-gray-900 dark:text-white">@yield('page-title', 'Admin Panel')</h1>
-                    <div class="flex items-center space-x-4">
-                        <span class="text-sm text-gray-600 dark:text-gray-400">{{ Auth::user()->email }}</span>
-                        <a href="/" class="text-blue-600 hover:text-blue-800 dark:text-blue-400">Ana Sayfa</a>
+        <header class="sticky top-0 z-40 border-b border-[#e3e3e0] dark:border-[#3E3E3A] bg-white/80 dark:bg-[#161615]/80 backdrop-blur-md">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <h1 class="text-xl font-semibold text-[#1b1b18] dark:text-[#EDEDEC] tracking-tight">
+                        @yield('page-title', 'Admin Panel')
+                    </h1>
+                    <div class="flex items-center gap-4">
+                        <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] hidden sm:inline">{{ Auth::user()->email }}</span>
+                        <a href="/" class="text-xs font-medium text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#D62113] transition-colors duration-200">
+                            Ana Sayfa
+                        </a>
+                        <button type="button" id="theme-toggle" class="inline-flex items-center justify-center p-2 rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#D62113] transition-colors" title="Temayı Değiştir" aria-label="Açık ve koyu tema arasında geçiş yap">
+                            <span class="dark:hidden inline-flex"><i data-lucide="sun" class="w-4 h-4"></i></span>
+                            <span class="hidden dark:inline-flex"><i data-lucide="moon" class="w-4 h-4"></i></span>
+                        </button>
                         <form action="{{ route('admin.logout') }}" method="POST" class="inline">
                             @csrf
-                            <button type="submit" class="text-red-600 hover:text-red-800 dark:text-red-400">
-                                Çıkış Yap
+                            <button type="submit" class="text-xs font-medium text-[#D62113] hover:text-[#b81a0f] transition-colors duration-200">
+                                Çıkış
                             </button>
                         </form>
                     </div>
@@ -51,16 +59,16 @@
         </header>
 
         <!-- Navigation -->
-        <nav class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+        <nav class="border-b border-[#e3e3e0] dark:border-[#3E3E3A] bg-white/50 dark:bg-[#161615]/50 backdrop-blur-sm">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex space-x-8">
-                    <a href="{{ route('admin.dashboard') }}" class="border-b-2 {{ request()->routeIs('admin.dashboard') ? 'border-blue-500 text-blue-600 dark:text-blue-400' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400' }} py-4 px-1 text-sm font-medium">
+                <div class="flex gap-1 -mb-px">
+                    <a href="{{ route('admin.dashboard') }}" class="py-4 px-4 text-xs font-medium border-b-2 transition-colors duration-200 {{ request()->routeIs('admin.dashboard') ? 'border-[#D62113] text-[#D62113]' : 'border-transparent text-[#706f6c] dark:text-[#8F8F8B] hover:text-[#1b1b18] dark:hover:text-[#EDEDEC] hover:border-[#e3e3e0] dark:hover:border-[#3E3E3A]' }}">
                         Dashboard
                     </a>
-                    <a href="{{ route('admin.page-history') }}" class="border-b-2 {{ request()->routeIs('admin.page-history') ? 'border-blue-500 text-blue-600 dark:text-blue-400' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400' }} py-4 px-1 text-sm font-medium">
+                    <a href="{{ route('admin.page-history') }}" class="py-4 px-4 text-xs font-medium border-b-2 transition-colors duration-200 {{ request()->routeIs('admin.page-history') ? 'border-[#D62113] text-[#D62113]' : 'border-transparent text-[#706f6c] dark:text-[#8F8F8B] hover:text-[#1b1b18] dark:hover:text-[#EDEDEC] hover:border-[#e3e3e0] dark:hover:border-[#3E3E3A]' }}">
                         Sayfa Ziyaretleri
                     </a>
-                    <a href="{{ route('admin.contact-messages') }}" class="border-b-2 {{ request()->routeIs('admin.contact-messages') || request()->routeIs('admin.message.mark-read') ? 'border-blue-500 text-blue-600 dark:text-blue-400' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400' }} py-4 px-1 text-sm font-medium">
+                    <a href="{{ route('admin.contact-messages') }}" class="py-4 px-4 text-xs font-medium border-b-2 transition-colors duration-200 {{ request()->routeIs('admin.contact-messages') || request()->routeIs('admin.message.mark-read') ? 'border-[#D62113] text-[#D62113]' : 'border-transparent text-[#706f6c] dark:text-[#8F8F8B] hover:text-[#1b1b18] dark:hover:text-[#EDEDEC] hover:border-[#e3e3e0] dark:hover:border-[#3E3E3A]' }}">
                         İletişim Mesajları
                     </a>
                 </div>
@@ -68,7 +76,7 @@
         </nav>
 
         <!-- Main Content -->
-        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
             @yield('content')
         </main>
     </div>
@@ -78,4 +86,3 @@
     @stack('scripts')
 </body>
 </html>
-
