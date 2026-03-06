@@ -24,6 +24,7 @@ class ServerStatsService
                 'php_fpm_status' => $this->getPhpFpmStatus(),
                 'last_deploy' => $this->getLastDeployTime(),
                 'failed_jobs_count' => $this->getFailedJobsCount(),
+                'updated_at' => now()->format('H:i:s'),
             ];
         });
     }
@@ -176,21 +177,33 @@ class ServerStatsService
         $m = (int) (($seconds % 3600) / 60);
         $parts = [];
         if ($d > 0) {
-            $parts[] = $d . ' gün';
+            $parts[] = $d . 'g';
         }
-        $parts[] = sprintf('%d saat %d dk', $h, $m);
-        return implode(', ', $parts);
+        $parts[] = $h . 's';
+        $parts[] = $m . 'dk';
+        return implode(' ', $parts);
     }
 
     private function getLoadAverage(): ?string
     {
         if (is_readable('/proc/loadavg')) {
             $s = @file_get_contents('/proc/loadavg');
-            return $s !== false ? trim(explode(' ', $s)[0] ?? '') : null;
+            if ($s === false) {
+                return null;
+            }
+            $parts = preg_split('/\s+/', trim($s), 0, PREG_SPLIT_NO_EMPTY);
+            if (count($parts) >= 3) {
+                return $parts[0] . ' / ' . $parts[1] . ' / ' . $parts[2];
+            }
+            return $parts[0] ?? null;
         }
         $out = [];
         @exec('uptime 2>/dev/null', $out);
-        if (!empty($out) && preg_match('/load average[s]?:\s*([\d.,]+)/', $out[0], $m)) {
+        if (!empty($out) && preg_match('/load average[s]?:\s*([\d.,\s]+)/', $out[0], $m)) {
+            $nums = array_map('trim', explode(',', $m[1]));
+            if (count($nums) >= 3) {
+                return $nums[0] . ' / ' . $nums[1] . ' / ' . $nums[2];
+            }
             return trim($m[1]);
         }
         return null;
