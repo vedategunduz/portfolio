@@ -24,11 +24,11 @@
     <x-admin.card class="p-6 mb-8">
         <h3 class="text-sm font-semibold text-[#1b1b18] dark:text-[#EDEDEC] mb-4 uppercase tracking-wider">Sunucu Durumu</h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-            <div class="flex justify-between items-center py-2 border-b border-[#e3e3e0] dark:border-[#3E3E3A] sm:border-b-0 sm:border-r border-[#e3e3e0] dark:border-[#3E3E3A] pr-4">
+            <div class="flex justify-between items-center py-2 border-b border-[#e3e3e0] dark:border-[#3E3E3A] sm:border-b-0 sm:border-r pr-4">
                 <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">CPU</span>
                 <span class="text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC]">{{ $serverStatsData['cpu_percent'] !== null ? $serverStatsData['cpu_percent'] . '%' : '—' }}</span>
             </div>
-            <div class="flex justify-between items-center py-2 border-b border-[#e3e3e0] dark:border-[#3E3E3A] sm:border-b-0 sm:border-r border-[#e3e3e0] dark:border-[#3E3E3A] pr-4">
+            <div class="flex justify-between items-center py-2 border-b border-[#e3e3e0] dark:border-[#3E3E3A] sm:border-b-0 sm:border-r pr-4">
                 <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">RAM</span>
                 <span class="text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC]">
                     @if(is_array($serverStatsData['ram_percent'] ?? null))
@@ -38,7 +38,7 @@
                     @endif
                 </span>
             </div>
-            <div class="flex justify-between items-center py-2 border-b border-[#e3e3e0] dark:border-[#3E3E3A] sm:border-b-0 sm:border-r border-[#e3e3e0] dark:border-[#3E3E3A] pr-4">
+            <div class="flex justify-between items-center py-2 border-b border-[#e3e3e0] dark:border-[#3E3E3A] sm:border-b-0 sm:border-r pr-4">
                 <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">Disk</span>
                 <span class="text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC]">
                     @if(is_array($serverStatsData['disk_percent'] ?? null))
@@ -48,7 +48,7 @@
                     @endif
                 </span>
             </div>
-            <div class="flex justify-between items-center py-2 border-b border-[#e3e3e0] dark:border-[#3E3E3A] sm:border-b-0 sm:border-r border-[#e3e3e0] dark:border-[#3E3E3A] pr-4">
+            <div class="flex justify-between items-center py-2 border-b border-[#e3e3e0] dark:border-[#3E3E3A] sm:border-b-0 sm:border-r pr-4">
                 <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">Uptime</span>
                 <span class="text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC]">{{ $serverStatsData['uptime'] ?? '—' }}</span>
             </div>
