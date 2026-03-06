@@ -131,3 +131,7 @@
         </x-admin.card>
     </div>
 @endsection
+
+@push('scripts')
+    @vite('resources/js/pages/admin/dashboard.js')
+@endpush

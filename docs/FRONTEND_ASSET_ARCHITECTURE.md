@@ -2,20 +2,19 @@
 
 ## Admin page modülleri – standartlar
 
-Bu üç kural tüm admin sayfa modüllerinde geçerli:
+Bu kurallar tüm admin sayfa modüllerinde geçerli:
 
 1. **Dosya ismi:** `pages/admin/` altında **kebab-case** kullan.
    - Örnek: `page-history.js`, `contact-messages.js`. Tek kelime ise `dashboard.js` gibi kalır.
 
-2. **Tek giriş fonksiyonu:** Her modülde yalnızca **bir** init fonksiyonu export et; adı tutarlı olsun.
+2. **Tek giriş fonksiyonu:** Her modülde yalnızca **bir** init fonksiyonu export et.
    - `dashboard.js` → `initServerStats()`
    - `page-history.js` → `initPageHistory()`
    - `contact-messages.js` → `initContactMessages()`
 
-3. **Root selector:** Dynamic import için Blade’de **tek bir root element id’si** kullan. Aynı convention:
-   - Dashboard: `#server-stats-card`
-   - Diğer sayfalar: `#<modül>-root` (örn. `#page-history-root`, `#contact-messages-root`).
-   - `admin.js` bu id’lere göre ilgili modülü yükler.
+3. **Yükleme:** Sayfa script’i **Blade’de** ilgili view içinde `@push('scripts')` + `@vite('resources/js/pages/admin/<sayfa>.js')` ile dahil edilir. admin.js içinde root selector / dynamic import **yok**; sayfa–script ilişkisi doğrudan Blade üzerinden kurulur.
+
+4. **Root id (isteğe bağlı):** Sayfa modülü kendi DOM’unu bulmak için `#server-stats-card`, `#page-history-root`, `#contact-messages-root` gibi id’ler kullanabilir; script zaten sadece o sayfada yüklendiği için routing mantığı gerekmez.
 
 ---
 
@@ -24,7 +23,7 @@ Bu üç kural tüm admin sayfa modüllerinde geçerli:
 ```
 resources/js/
 ├── app.js                      # Public entry – genel/ortak davranışlar
-├── admin.js                    # Admin entry – admin layout ortak + sayfa yönlendirici
+├── admin.js                    # Admin entry – sadece ortak davranışlar (tema, Lucide, Dialog, getHttp)
 ├── core/                       # Hem public hem admin tarafından kullanılan temel yapılar
 │   ├── http.js                 # Axios instance, getHttp, CSRF, 401 yönlendirmesi
 │   └── theme-toggle.js         # Tema (dark/light) toggle
@@ -61,8 +60,8 @@ resources/js/
 | **helpers/form.js** | initForm / initAction; `core/http` ve `ui/dialog` kullanır. |
 | **features/slider/swiper.js** | Slider başlatıcı; lazy import ile kullan. |
 | **features/editor/ckeditor.js** | Editör başlatıcı; lazy import ile kullan. |
-| **pages/admin/dashboard.js** | Sadece dashboard: getHttp import eder, API + DOM güncelleme. |
-| **admin.js** | Admin entry: tema, Lucide, getHttp/Dialog (gerekirse window), sayfa modülü yönlendirici. |
+| **pages/admin/dashboard.js** | Sadece dashboard sayfasında yüklenir; initServerStats(). |
+| **admin.js** | Admin layout ortak: tema, Lucide, getHttp/Dialog (window). Sayfa modülü yüklemez. |
 
 ## Window globals
 
@@ -74,26 +73,17 @@ Mümkün olduğunca az global kullan. Şu an:
 ## Blade entegrasyonu
 
 - **layouts/app.blade.php**: `@vite(['resources/css/app.css', 'resources/js/app.js'])`
-- **layouts/admin.blade.php**: `@vite(['resources/css/app.css', 'resources/js/admin.js'])`
+- **layouts/admin.blade.php**: `@vite(['resources/css/app.css', 'resources/js/admin.js'])` + body kapanmadan önce `@stack('scripts')`
 - **layouts/empty.blade.php**: (admin login) `app.js` – tema + toast.
-- Sayfa özel JS Blade’de değil; ilgili sayfa modülü (pages/admin/…) dynamic import ile yüklenir.
-
-## Dynamic import (admin)
-
-`admin.js` DOMContentLoaded sonrası, sayfadaki root id’ye göre ilgili modülü yükler:
-
-| Root selector        | Dosya                    | Giriş fonksiyonu      |
-|----------------------|--------------------------|------------------------|
-| `#server-stats-card` | `pages/admin/dashboard.js` | `initServerStats()`   |
-| `#page-history-root` | `pages/admin/page-history.js` | `initPageHistory()` |
-| `#contact-messages-root` | `pages/admin/contact-messages.js` | `initContactMessages()` |
-
-Slider veya editör kullanacak sayfada: `import('./features/slider/swiper.js')` / `import('./features/editor/ckeditor.js')` ile lazy yükle.
+- **Admin sayfa script’leri:** Her admin view kendi script’ini ekler:
+  - `dashboard.blade.php` → `@push('scripts')` + `@vite('resources/js/pages/admin/dashboard.js')`
+  - `page-history.blade.php` → `@push('scripts')` + `@vite('resources/js/pages/admin/page-history.js')`
+  - `contact-messages.blade.php` → `@push('scripts')` + `@vite('resources/js/pages/admin/contact-messages.js')`
 
 ## Vite
 
-- `input`: `['resources/css/app.css', 'resources/js/app.js', 'resources/js/admin.js']`
-- Sayfa ve feature modülleri dynamic import ile ayrı chunk’lara gider.
+- **input:** `resources/css/app.css`, `resources/js/app.js`, `resources/js/admin.js`, ve admin sayfa entry’leri: `resources/js/pages/admin/dashboard.js`, `page-history.js`, `contact-messages.js`. Sayfa dosyaları Blade’deki `@vite()` ile ayrı entry olarak yüklenir.
+- Slider veya editör kullanacak sayfada: `import('./features/slider/swiper.js')` / `import('./features/editor/ckeditor.js')` ile lazy yükle.
 
 ## Eski / kaldırılan
 

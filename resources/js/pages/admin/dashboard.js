@@ -100,3 +100,9 @@ export function initServerStats() {
     fetchStats();
     setInterval(fetchStats, REFRESH_INTERVAL_MS);
 }
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initServerStats, { once: true });
+} else {
+    initServerStats();
+}

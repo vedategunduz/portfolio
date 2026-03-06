@@ -76,3 +76,7 @@
         @endif
     </x-admin.card>
 @endsection
+
+@push('scripts')
+    @vite('resources/js/pages/admin/page-history.js')
+@endpush

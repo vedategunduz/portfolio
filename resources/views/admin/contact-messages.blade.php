@@ -66,3 +66,7 @@
         </div>
     @endif
 @endsection
+
+@push('scripts')
+    @vite('resources/js/pages/admin/contact-messages.js')
+@endpush
