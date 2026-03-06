@@ -1,0 +1,78 @@
+/* Error Page Premium Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes pulse-glow {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(1.03);
+    }
+}
+
+@keyframes pulse-glow-dark {
+    0%, 100% {
+        opacity: 0.4;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.6;
+        transform: scale(1.03);
+    }
+}
+
+.error-card {
+    animation: fadeInUp 0.7s ease-out forwards;
+}
+
+.error-blob-1 {
+    animation: float 8s ease-in-out infinite, pulse-glow 6s ease-in-out infinite;
+}
+
+.error-blob-2 {
+    animation: float 10s ease-in-out infinite reverse, pulse-glow 7s ease-in-out infinite;
+    animation-delay: -2s;
+}
+
+.error-code-bg {
+    animation: pulse-glow 8s ease-in-out infinite;
+}
+
+:is(.dark .error-code-bg) {
+    animation: pulse-glow-dark 8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .error-card,
+    .error-blob-1,
+    .error-blob-2,
+    .error-code-bg {
+        animation: none !important;
+        opacity: 1;
+        transform: none;
+    }
+}
+
+kbd {
+    font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Monaco, 'Courier New', monospace;
+}

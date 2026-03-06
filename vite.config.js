@@ -7,8 +7,10 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/css/app.css',
+                'resources/css/error-page.css',
                 'resources/js/app.js',
                 'resources/js/admin.js',
+                'resources/js/error-page-init.js',
                 'resources/js/pages/admin/dashboard.js',
                 'resources/js/pages/admin/page-history.js',
                 'resources/js/pages/admin/contact-messages.js',

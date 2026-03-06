@@ -19,37 +19,72 @@
             }
         })();
     </script>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/css/error-page.css', 'resources/js/error-page-init.js'])
 </head>
 <body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] dark:text-[#EDEDEC] antialiased min-h-screen flex flex-col">
+    @php
+        $statusCode = $statusCode ?? ($code ?? (isset($exception) ? $exception->getStatusCode() : 500));
+        $showCountdown = in_array($statusCode, [500, 503]);
+    @endphp
     <x-sections.background>
         <div class="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
-            <div class="w-full max-w-lg text-center">
-                <div class="rounded-2xl border border-black/10 dark:border-white/15 bg-white/35 dark:bg-[#1a1a18]/35 backdrop-blur-2xl shadow-lg dark:shadow-2xl dark:shadow-black/50 p-8 sm:p-12">
-                    <div class="flex justify-end mb-4">
+            <div class="w-full max-w-3xl">
+                <div data-error-page data-status-code="{{ $statusCode }}" class="error-card relative overflow-hidden rounded-xl border border-black/10 dark:border-white/15 bg-white/45 dark:bg-[#1a1a18]/45 backdrop-blur-2xl shadow-xl dark:shadow-2xl dark:shadow-black/55 p-7 sm:p-10 md:p-12 opacity-0 translate-y-4 transition-all duration-700 ease-out" style="animation: fadeInUp 0.7s ease-out forwards;">
+                    <div class="error-blob-1 pointer-events-none absolute -top-16 -right-16 h-52 w-52 rounded-full bg-[#D62113]/10 blur-3xl"></div>
+                    <div class="error-blob-2 pointer-events-none absolute -bottom-20 -left-16 h-60 w-60 rounded-full bg-black/5 dark:bg-white/5 blur-3xl"></div>
+                    <p class="pointer-events-none absolute right-4 sm:right-8 top-10 text-7xl sm:text-8xl md:text-9xl font-bold tracking-tighter text-[#D62113]/30 dark:text-[#D62113]/40 leading-none select-none error-code-bg">
+                        {{ $statusCode }}
+                    </p>
+
+                    <div class="relative flex items-center justify-end">
                         <button type="button" id="theme-toggle" class="inline-flex items-center justify-center p-2 rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#D62113] transition-colors" title="Temayı Değiştir" aria-label="Açık ve koyu tema arasında geçiş yap">
                             <span class="dark:hidden inline-flex"><i data-lucide="sun" class="w-4 h-4"></i></span>
                             <span class="hidden dark:inline-flex"><i data-lucide="moon" class="w-4 h-4"></i></span>
                         </button>
                     </div>
-                    <p class="text-6xl sm:text-7xl font-bold text-[#D62113] tracking-tight">{{ $statusCode }}</p>
-                    <h1 class="mt-4 text-xl sm:text-2xl font-semibold text-[#1b1b18] dark:text-[#EDEDEC]">
-                        @yield('heading', $title ?? 'Bir hata oluştu')
-                    </h1>
-                    <p class="mt-2 text-sm text-[#706f6c] dark:text-[#8F8F8B]">
-                        @yield('message', $message ?? 'Lütfen daha sonra tekrar deneyin.')
-                    </p>
-                    <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <a href="{{ url('/') }}" class="inline-flex items-center justify-center px-6 py-3 rounded-sm font-medium bg-[#D62113] text-white hover:bg-[#b81a0f] transition-colors">
+
+                    <div class="relative mt-10 text-center sm:text-left sm:max-w-2xl">
+                        <h1 class="text-3xl sm:text-4xl font-semibold text-[#1b1b18] dark:text-[#EDEDEC] leading-tight">
+                            @yield('heading', $title ?? 'Bir hata oluştu')
+                        </h1>
+                        <p class="mt-3 text-sm sm:text-base text-[#706f6c] dark:text-[#8F8F8B] max-w-xl sm:mx-0 mx-auto">
+                            @yield('message', $message ?? 'Lütfen daha sonra tekrar deneyin.')
+                        </p>
+                        @if($showCountdown)
+                            <div class="mt-4 inline-flex items-center gap-2 rounded-full bg-[#D62113]/10 dark:bg-[#D62113]/20 px-4 py-2 text-sm font-medium text-[#D62113]">
+                                <i data-lucide="refresh-cw" class="w-4 h-4 animate-spin"></i>
+                                <span>Sayfa <span id="countdown-timer" class="font-bold">10</span> saniye içinde yenilenecek</span>
+                            </div>
+                        @endif
+                    </div>
+
+                    <div class="relative mt-10 flex flex-col sm:flex-row items-center sm:items-start sm:justify-start gap-3 sm:gap-4">
+                        <a href="{{ url('/') }}" class="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-6 py-3 rounded-sm font-medium bg-[#D62113] text-white hover:bg-[#b81a0f] transition-all hover:scale-105 active:scale-95">
+                            <i data-lucide="home" class="w-4 h-4"></i>
                             Ana Sayfaya Dön
                         </a>
+                        <button onclick="history.back()" class="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-6 py-3 rounded-sm font-medium border border-[#e3e3e0] dark:border-[#3E3E3A] text-[#1b1b18] dark:text-[#EDEDEC] hover:border-[#D62113] hover:text-[#D62113] transition-all hover:scale-105 active:scale-95">
+                            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                            Geri Dön
+                        </button>
                         @hasSection('extra-link')
                             @yield('extra-link')
                         @endif
                     </div>
                 </div>
-                <p class="mt-8 text-xs text-[#706f6c] dark:text-[#8F8F8B]">
-                    {{ config('app.name') }} · {{ $statusCode }}
+                <div class="mt-6 flex items-center justify-center gap-6 text-xs text-[#706f6c] dark:text-[#8F8F8B]">
+                    <p>{{ config('app.name') }}</p>
+                    <span class="hidden sm:inline opacity-50">·</span>
+                    <p class="hidden sm:inline-flex items-center gap-2">
+                        <kbd class="px-2 py-1 rounded bg-black/5 dark:bg-white/10 font-mono text-xs">ESC</kbd>
+                        Ana sayfa
+                        <span class="opacity-50">·</span>
+                        <kbd class="px-2 py-1 rounded bg-black/5 dark:bg-white/10 font-mono text-xs">R</kbd>
+                        Yenile
+                    </p>
+                </div>
+                <p class="mt-3 text-center text-xs text-[#706f6c]/50 dark:text-[#8F8F8B]/50 font-mono konami-hint opacity-0 transition-opacity">
+                    ↑ ↑ ↓ ↓ ← → ← → B A
                 </p>
             </div>
         </div>
