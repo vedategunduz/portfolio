@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\PageHistory;
 use App\Models\ContactMessage;
+use App\Services\ServerStatsService;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    public function dashboard()
+    public function dashboard(ServerStatsService $serverStats)
     {
         $stats = [
             'total_visits' => PageHistory::count(),
@@ -17,7 +18,9 @@ class AdminController extends Controller
             'unread_messages' => ContactMessage::where('status', 'unread')->count(),
         ];
 
-        return view('admin.dashboard', compact('stats'));
+        $serverStatsData = $serverStats->getStats();
+
+        return view('admin.dashboard', compact('stats', 'serverStatsData'));
     }
 
     public function pageHistory(Request $request)

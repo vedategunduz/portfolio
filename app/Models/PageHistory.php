@@ -15,6 +15,7 @@ class PageHistory extends Model
         'user_agent',
         'referer',
         'session_id',
+        'response_time_ms',
     ];
 
     public $timestamps = true;

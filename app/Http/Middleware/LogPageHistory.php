@@ -16,6 +16,8 @@ class LogPageHistory
      */
     public function handle(Request $request, Closure $next): Response
     {
+        $start = microtime(true);
+
         $response = $next($request);
 
         // Admin sayfalarını loglama
@@ -25,13 +27,17 @@ class LogPageHistory
 
         // Sayfa ziyaretini kaydet (response gittikten sonra)
         try {
+            $pathWithQuery = $request->getRequestUri();
+            $responseTimeMs = (int) round((microtime(true) - $start) * 1000);
+
             PageHistory::create([
                 'ip_address' => $request->ip(),
-                'path' => $request->path(),
+                'path' => $pathWithQuery,
                 'method' => $request->method(),
                 'user_agent' => $request->userAgent(),
                 'referer' => $request->header('referer'),
                 'session_id' => $request->getSession()?->getId(),
+                'response_time_ms' => $responseTimeMs,
             ]);
         } catch (\Exception $e) {
             // Sessiz hata yönetimi

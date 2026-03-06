@@ -5,7 +5,7 @@
 
 @section('content')
     <!-- Stats Summary -->
-    <div class="rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] bg-white dark:bg-[#1a1a18] p-6 mb-6">
+    <x-admin.card class="p-6 mb-6">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
                 <p class="text-xs font-medium text-[#706f6c] dark:text-[#8F8F8B] uppercase tracking-wider">Toplam Ziyaret</p>
@@ -20,19 +20,19 @@
                 <p class="text-2xl font-semibold text-[#1b1b18] dark:text-[#EDEDEC] mt-1">{{ $history->currentPage() }} / {{ $history->lastPage() }}</p>
             </div>
         </div>
-    </div>
+    </x-admin.card>
 
     <!-- Table -->
-    <div class="rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] bg-white dark:bg-[#1a1a18] overflow-hidden">
+    <x-admin.card>
         <div class="overflow-x-auto">
             <table class="min-w-full">
                 <thead>
                     <tr class="border-b border-[#e3e3e0] dark:border-[#3E3E3A] bg-[#FDFDFC] dark:bg-[#0a0a0a]/50">
                         <th class="px-6 py-3 text-left text-xs font-medium text-[#706f6c] dark:text-[#8F8F8B] uppercase tracking-wider">Tarih</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-[#706f6c] dark:text-[#8F8F8B] uppercase tracking-wider">IP Adresi</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-[#706f6c] dark:text-[#8F8F8B] uppercase tracking-wider">Sayfa (path)</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-[#706f6c] dark:text-[#8F8F8B] uppercase tracking-wider">Gidilen URL</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-[#706f6c] dark:text-[#8F8F8B] uppercase tracking-wider">Metod</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-[#706f6c] dark:text-[#8F8F8B] uppercase tracking-wider">Yanıt süresi</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-[#706f6c] dark:text-[#8F8F8B] uppercase tracking-wider">Tarayıcı</th>
                     </tr>
                 </thead>
@@ -43,18 +43,18 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm">
                                 <a href="{{ route('admin.page-history', ['ip' => $log->ip_address]) }}" class="text-[#D62113] hover:underline">{{ $log->ip_address }}</a>
                             </td>
-                            <td class="px-6 py-4 text-sm text-[#1b1b18] dark:text-[#EDEDEC] font-mono">{{ $log->path }}</td>
                             <td class="px-6 py-4 text-sm">
                                 <a href="{{ url($log->path) }}" target="_blank" rel="noopener noreferrer" class="text-[#D62113] hover:underline break-all" title="{{ url($log->path) }}">{{ url($log->path) }}</a>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="px-2 py-0.5 text-xs font-medium rounded-sm
-                                    @if($log->method == 'GET') bg-emerald-500/15 text-emerald-700 dark:text-emerald-400
-                                    @elseif($log->method == 'POST') bg-[#D62113]/15 text-[#D62113]
-                                    @else bg-[#706f6c]/15 text-[#706f6c] dark:text-[#8F8F8B]
-                                    @endif">
-                                    {{ $log->method }}
-                                </span>
+                                <x-admin.method-badge :method="$log->method" />
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-[#1b1b18] dark:text-[#EDEDEC]">
+                                @if($log->response_time_ms !== null)
+                                    {{ number_format($log->response_time_ms) }} ms
+                                @else
+                                    <span class="text-[#706f6c] dark:text-[#8F8F8B]">—</span>
+                                @endif
                             </td>
                             <td class="px-6 py-4 text-sm text-[#706f6c] dark:text-[#8F8F8B] max-w-xs truncate" title="{{ $log->user_agent }}">{{ Str::limit($log->user_agent, 50) }}</td>
                         </tr>
@@ -74,5 +74,5 @@
                 {{ $history->links() }}
             </div>
         @endif
-    </div>
+    </x-admin.card>
 @endsection

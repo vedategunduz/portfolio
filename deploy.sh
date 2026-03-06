@@ -58,3 +58,4 @@ sudo systemctl reload php8.2-fpm
 sudo systemctl reload nginx
 
 echo "==> Deploy finished: $(date -u)"
+date '+%Y-%m-%d %H:%M:%S' > "$APP_DIR/deploy_last_at.txt"

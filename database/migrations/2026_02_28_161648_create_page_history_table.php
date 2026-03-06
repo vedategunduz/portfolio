@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('page_history', function (Blueprint $table) {
             $table->id();
             $table->string('ip_address')->index();
-            $table->string('path');
+            $table->text('path');
             $table->string('method')->default('GET');
             $table->text('user_agent')->nullable();
             $table->string('referer')->nullable();
             $table->string('session_id')->nullable()->index();
+            $table->unsignedInteger('response_time_ms')->nullable();
             $table->timestamps();
         });
     }

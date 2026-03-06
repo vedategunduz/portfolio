@@ -54,11 +54,9 @@
                 </div>
             </div>
         @empty
-            <div class="rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] bg-white dark:bg-[#1a1a18] p-12 text-center">
-                <i data-lucide="inbox" class="mx-auto w-12 h-12 text-[#706f6c] dark:text-[#8F8F8B]"></i>
-                <h3 class="mt-4 text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC]">Mesaj bulunamadı</h3>
-                <p class="mt-1 text-xs text-[#706f6c] dark:text-[#8F8F8B]">Henüz hiç mesaj gelmemiş.</p>
-            </div>
+            <x-admin.empty-state title="Mesaj bulunamadı" description="Henüz hiç mesaj gelmemiş.">
+                <x-slot:icon><i data-lucide="inbox" class="mx-auto w-12 h-12"></i></x-slot:icon>
+            </x-admin.empty-state>
         @endforelse
     </div>
 
