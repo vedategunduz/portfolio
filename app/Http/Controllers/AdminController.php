@@ -20,7 +20,7 @@ class AdminController extends Controller
 
         $serverStatsData = $serverStats->getStats();
 
-        return view('admin.dashboard', compact('stats', 'serverStatsData'));
+        return view('admin.dashboard.index', compact('stats', 'serverStatsData'));
     }
 
     public function serverStatsApi(ServerStatsService $serverStats)
@@ -42,7 +42,7 @@ class AdminController extends Controller
 
         $history = $query->paginate(50);
 
-        return view('admin.page-history', compact('history'));
+        return view('admin.page-history.index', compact('history'));
     }
 
     public function contactMessages(Request $request)
@@ -55,7 +55,7 @@ class AdminController extends Controller
 
         $messages = $query->paginate(20);
 
-        return view('admin.contact-messages', compact('messages'));
+        return view('admin.contact-messages.index', compact('messages'));
     }
 
     public function markMessageAsRead($id)
