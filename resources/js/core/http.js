@@ -14,52 +14,30 @@ http.interceptors.request.use(config => {
         config.headers['X-CSRF-TOKEN'] = token.content;
     }
     return config;
-}, error => {
-    return Promise.reject(error);
-});
+}, error => Promise.reject(error));
 
 http.interceptors.response.use(
-    response => {
-        return response;
-    },
+    response => response,
     error => {
         if (error.response) {
             const status = error.response.status;
-
+            // 401: path /admin ile başlıyorsa admin login, değilse public login sayfasına yönlendir
             if (status === 401) {
                 alert('Oturum süreniz doldu, lütfen tekrar giriş yapın.');
-                window.location.href = '/login';
-            }
-
-            else if (status === 422) {
-                const errors = error.response.data.errors;
-                let errorMessages = '';
-
-                Object.values(errors).forEach(err => {
-                    errorMessages += `- ${err[0]}\n`;
-                });
-
-                console.warn('Validasyon Hatası:', errors);
-                // alert('Lütfen bilgileri kontrol edin:\n' + errorMessages);
-            }
-
-            else if (status === 403) {
+                const isAdmin = window.location.pathname.startsWith('/admin');
+                window.location.href = isAdmin ? '/admin/login' : '/login';
+            } else if (status === 422) {
+                console.warn('Validasyon Hatası:', error.response.data?.errors);
+            } else if (status === 403) {
                 console.error('Bu işlem için yetkiniz yok.');
-            }
-
-            else if (status >= 500) {
+            } else if (status >= 500) {
                 console.error('Sunucu hatası oluştu.');
             }
         }
-
         return Promise.reject(error);
     }
 );
 
-/**
- * Yardımcı Fonksiyonlar
- * Doğrudan http.get() de kullanabilirsin ama bunları window'a açacağız.
- */
 export const Http = {
     get: (url, params = {}) => http.get(url, { params }),
     post: (url, data = {}) => http.post(url, data),
@@ -67,3 +45,5 @@ export const Http = {
     delete: (url, params = {}) => http.delete(url, { params }),
     client: http
 };
+
+export const getHttp = async () => Http;

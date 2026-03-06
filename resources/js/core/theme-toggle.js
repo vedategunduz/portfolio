@@ -1,6 +1,5 @@
 export function initThemeToggle(createIcons, icons) {
     const themeToggle = document.getElementById('theme-toggle');
-
     const applyTheme = (theme) => {
         if (theme === 'dark') {
             document.documentElement.classList.add('dark');
@@ -12,23 +11,15 @@ export function initThemeToggle(createIcons, icons) {
     const currentTheme = localStorage.getItem('theme') || 'dark';
     applyTheme(currentTheme);
 
-    if (!themeToggle) {
-        return;
-    }
+    if (!themeToggle) return;
 
-    themeToggle.addEventListener('click', function() {
+    themeToggle.addEventListener('click', function () {
         const isDark = document.documentElement.classList.contains('dark');
         const nextTheme = isDark ? 'light' : 'dark';
-
         applyTheme(nextTheme);
         localStorage.setItem('theme', nextTheme);
-
-        createIcons({
-            attrs: {
-                width: 16,
-                height: 16,
-            },
-            icons,
-        });
+        if (createIcons && icons) {
+            createIcons({ attrs: { width: 16, height: 16 }, icons });
+        }
     });
 }
