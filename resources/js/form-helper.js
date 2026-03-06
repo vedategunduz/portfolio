@@ -1,7 +1,7 @@
 import { Dialog } from './dialog-helper';
 
 let Http = null;
-const getHttp = async () => {
+export const getHttp = async () => {
     if (!Http) {
         const { Http: HttpClass } = await import('./http-helper');
         Http = HttpClass;

@@ -24,6 +24,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 // Admin Routes (Protected)
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::get('/api/server-stats', [AdminController::class, 'serverStatsApi'])->name('api.server-stats');
     Route::get('/page-history', [AdminController::class, 'pageHistory'])->name('page-history');
     Route::get('/contact-messages', [AdminController::class, 'contactMessages'])->name('contact-messages');
     Route::post('/contact-messages/{id}/mark-read', [AdminController::class, 'markMessageAsRead'])->name('message.mark-read');

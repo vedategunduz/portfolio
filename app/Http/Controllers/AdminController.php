@@ -23,6 +23,15 @@ class AdminController extends Controller
         return view('admin.dashboard', compact('stats', 'serverStatsData'));
     }
 
+    public function serverStatsApi(ServerStatsService $serverStats)
+    {
+        $data = $serverStats->getStats();
+        $data['last_deploy_formatted'] = $data['last_deploy']
+            ? \Carbon\Carbon::parse($data['last_deploy'])->format('d.m.Y H:i')
+            : null;
+        return response()->json($data);
+    }
+
     public function pageHistory(Request $request)
     {
         $query = PageHistory::query()->orderBy('created_at', 'desc');
