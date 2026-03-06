@@ -65,9 +65,9 @@
                 <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">Uptime</span>
                 <span id="server-stats-uptime" class="text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC] font-mono">{{ $serverStatsData['uptime'] ?? '—' }}</span>
             </div>
-            <div class="flex justify-between items-center py-2">
-                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">Load avg (1/5/15 dk)</span>
-                <span id="server-stats-load" class="text-xs font-medium text-[#1b1b18] dark:text-[#EDEDEC] font-mono" title="1 dk / 5 dk / 15 dk">{{ $serverStatsData['load_average'] ?? '—' }}</span>
+            <div class="flex justify-between items-center gap-3 py-2">
+                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0" title="1, 5 ve 15 dakika yük ortalaması">Load avg</span>
+                <span id="server-stats-load" class="text-xs font-medium text-[#1b1b18] dark:text-[#EDEDEC] font-mono whitespace-nowrap text-right" title="1 dk / 5 dk / 15 dk">{{ $serverStatsData['load_average'] ?? '—' }}</span>
             </div>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mt-4 pt-4 border-t border-[#e3e3e0] dark:border-[#3E3E3A]">
