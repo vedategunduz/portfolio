@@ -17,6 +17,10 @@ import {
     Info,
     X,
     ChevronDown,
+    Server,
+    Code,
+    Database,
+    Wrench,
 } from 'lucide';
 import { initForm, initAction } from './helpers/form.js';
 import { Dialog } from './ui/dialog.js';
@@ -41,6 +45,10 @@ const lucideIcons = {
     Info,
     X,
     ChevronDown,
+    Server,
+    Code,
+    Database,
+    Wrench,
 };
 
 window.initForm = initForm;
