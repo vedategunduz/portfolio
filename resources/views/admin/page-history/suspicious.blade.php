@@ -74,12 +74,13 @@
                             <td class="px-6 py-4 text-sm max-w-xs" title="{{ $log->title }}">{{ Str::limit($log->title, 40) }}</td>
                             <td class="px-6 py-4 text-sm text-[#706f6c] dark:text-[#8F8F8B] max-w-xs truncate" title="{{ $log->matched_rule }}">{{ Str::limit($log->matched_rule, 25) }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="px-2 py-0.5 text-xs font-medium rounded-sm
-                                    @if($log->severity === 'critical') bg-red-500/20 text-red-700 dark:text-red-400
-                                    @elseif($log->severity === 'high') bg-amber-500/20 text-amber-700 dark:text-amber-400
-                                    @elseif($log->severity === 'medium') bg-[#706f6c]/15 text-[#706f6c] dark:text-[#8F8F8B]
-                                    @else bg-emerald-500/15 text-emerald-700 dark:text-emerald-400
-                                    @endif">{{ $log->severity }}</span>
+                                <span @class([
+                                    'px-2 py-0.5 text-xs font-medium rounded-sm',
+                                    'bg-red-500/20 text-red-700 dark:text-red-400' => $log->severity === 'critical',
+                                    'bg-amber-500/20 text-amber-700 dark:text-amber-400' => $log->severity === 'high',
+                                    'bg-[#706f6c]/15 text-[#706f6c] dark:text-[#8F8F8B]' => $log->severity === 'medium',
+                                    'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400' => in_array($log->severity, ['low', null]),
+                                ])>{{ $log->severity }}</span>
                             </td>
                             <td class="px-6 py-4 text-sm max-w-xs truncate" title="{{ $log->full_url }}">{{ Str::limit($log->full_url, 40) }}</td>
                             <td class="px-6 py-4 text-sm text-[#706f6c] dark:text-[#8F8F8B] max-w-xs truncate" title="{{ $log->user_agent }}">{{ Str::limit($log->user_agent, 35) }}</td>

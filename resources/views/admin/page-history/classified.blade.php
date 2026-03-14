@@ -66,12 +66,12 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 @php $t = $log->traffic_type; @endphp
-                                <span class="px-2 py-0.5 text-xs font-medium rounded-sm
-                                    @if($t->value === 'human') bg-emerald-500/15 text-emerald-700 dark:text-emerald-400
-                                    @elseif($t->value === 'known_bot') bg-[#706f6c]/15 text-[#706f6c] dark:text-[#8F8F8B]
-                                    @elseif($t->value === 'suspicious_bot') bg-amber-500/15 text-amber-700 dark:text-amber-400
-                                    @else bg-[#706f6c]/15 text-[#706f6c] dark:text-[#8F8F8B]
-                                    @endif">{{ $t->label() }}</span>
+                                <span @class([
+                                    'px-2 py-0.5 text-xs font-medium rounded-sm',
+                                    'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400' => $t->value === 'human',
+                                    'bg-[#706f6c]/15 text-[#706f6c] dark:text-[#8F8F8B]' => in_array($t->value, ['known_bot', 'monitoring', 'internal']),
+                                    'bg-amber-500/15 text-amber-700 dark:text-amber-400' => $t->value === 'suspicious_bot',
+                                ])>{{ $t->label() }}</span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm">{{ $log->risk_level->label() }}</td>
                             <td class="px-6 py-4 text-sm text-[#706f6c] dark:text-[#8F8F8B] max-w-xs truncate" title="{{ $log->matched_rule }}">{{ Str::limit($log->matched_rule, 25) }}</td>
