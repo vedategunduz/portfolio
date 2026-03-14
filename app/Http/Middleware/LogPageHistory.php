@@ -29,7 +29,8 @@ class LogPageHistory
             return $response;
         }
 
-        if ($request->is('admin/*')) {
+        // Admin sayfaları atlanır; sadece login sayfası loglansın (kimler denemiş görmek için).
+        if ($request->is('admin/*') && ! $request->is('admin/login')) {
             return $response;
         }
 
