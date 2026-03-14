@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('ip_address', 45)->index();
             $table->string('method', 10)->index();
             $table->text('full_url');
-            $table->string('path', 2048)->index();
+            // path için index yok: 2048 utf8mb4 = 8192 byte, InnoDB max key 3072 byte. LIKE filtreleri index kullanmaz.
+            $table->string('path', 2048);
             $table->text('query_string')->nullable();
             $table->text('user_agent')->nullable();
             $table->string('referer', 2048)->nullable();
