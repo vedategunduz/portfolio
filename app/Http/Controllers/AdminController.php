@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateAdminProfileRequest;
 use App\Models\ClassifiedVisitLog;
 use App\Models\ContactMessage;
 use App\Models\ExploitSuspiciousEvent;
@@ -66,6 +67,34 @@ class AdminController extends Controller
             ? \Carbon\Carbon::parse($data['last_deploy'])->format('d.m.Y H:i')
             : null;
         return response()->json($data);
+    }
+
+    public function profile(Request $request)
+    {
+        return view('admin.profile.edit', [
+            'user' => $request->user(),
+        ]);
+    }
+
+    public function updateProfile(UpdateAdminProfileRequest $request)
+    {
+        $user = $request->user();
+
+        $data = $request->safe()->only(['name', 'email']);
+
+        if ($request->filled('password')) {
+            $data['password'] = $request->input('password');
+        }
+
+        $user->update($data);
+
+        if ($request->expectsJson()) {
+            return response()->json([
+                'message' => 'Admin bilgileri güncellendi.',
+            ]);
+        }
+
+        return back()->with('success', 'Admin bilgileri güncellendi.');
     }
 
     public function contactMessages(Request $request)
