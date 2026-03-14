@@ -14,12 +14,6 @@ if [ ! -f ".env" ]; then
   exit 1
 fi
 
-echo "==> Export .env into shell environment"
-set -a
-# shellcheck disable=SC1091
-. "$APP_DIR/.env"
-set +a
-
 echo "==> Git pull"
 git pull --rebase
 
