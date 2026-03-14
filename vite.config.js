@@ -12,7 +12,6 @@ export default defineConfig({
                 'resources/js/admin.js',
                 'resources/js/error-page-init.js',
                 'resources/js/pages/admin/dashboard.js',
-                'resources/js/pages/admin/page-history.js',
                 'resources/js/pages/admin/contact-messages.js',
             ],
             refresh: true,

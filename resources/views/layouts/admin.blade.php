@@ -65,8 +65,8 @@
                     <a href="{{ route('admin.dashboard') }}" class="py-4 px-4 text-xs font-medium border-b-2 transition-colors duration-200 {{ request()->routeIs('admin.dashboard') ? 'border-[#D62113] text-[#D62113]' : 'border-transparent text-[#706f6c] dark:text-[#8F8F8B] hover:text-[#1b1b18] dark:hover:text-[#EDEDEC] hover:border-[#e3e3e0] dark:hover:border-[#3E3E3A]' }}">
                         Dashboard
                     </a>
-                    <a href="{{ route('admin.page-history') }}" class="py-4 px-4 text-xs font-medium border-b-2 transition-colors duration-200 {{ request()->routeIs('admin.page-history') ? 'border-[#D62113] text-[#D62113]' : 'border-transparent text-[#706f6c] dark:text-[#8F8F8B] hover:text-[#1b1b18] dark:hover:text-[#EDEDEC] hover:border-[#e3e3e0] dark:hover:border-[#3E3E3A]' }}">
-                        Sayfa Ziyaretleri
+                    <a href="{{ route('admin.page-history.raw') }}" class="py-4 px-4 text-xs font-medium border-b-2 transition-colors duration-200 {{ request()->routeIs('admin.page-history.*') ? 'border-[#D62113] text-[#D62113]' : 'border-transparent text-[#706f6c] dark:text-[#8F8F8B] hover:text-[#1b1b18] dark:hover:text-[#EDEDEC] hover:border-[#e3e3e0] dark:hover:border-[#3E3E3A]' }}">
+                        Sayfa Geçmişi
                     </a>
                     <a href="{{ route('admin.contact-messages') }}" class="py-4 px-4 text-xs font-medium border-b-2 transition-colors duration-200 {{ request()->routeIs('admin.contact-messages') || request()->routeIs('admin.message.mark-read') ? 'border-[#D62113] text-[#D62113]' : 'border-transparent text-[#706f6c] dark:text-[#8F8F8B] hover:text-[#1b1b18] dark:hover:text-[#EDEDEC] hover:border-[#e3e3e0] dark:hover:border-[#3E3E3A]' }}">
                         İletişim Mesajları

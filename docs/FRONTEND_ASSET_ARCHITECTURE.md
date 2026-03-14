@@ -5,11 +5,10 @@
 Bu kurallar tüm admin sayfa modüllerinde geçerli:
 
 1. **Dosya ismi:** `pages/admin/` altında **kebab-case** kullan.
-   - Örnek: `page-history.js`, `contact-messages.js`. Tek kelime ise `dashboard.js` gibi kalır.
+   - Örnek: `contact-messages.js`. Tek kelime ise `dashboard.js` gibi kalır.
 
 2. **Tek giriş fonksiyonu:** Her modülde yalnızca **bir** init fonksiyonu export et.
    - `dashboard.js` → `initServerStats()`
-   - `page-history.js` → `initPageHistory()`
    - `contact-messages.js` → `initContactMessages()`
 
 3. **Yükleme:** Sayfa script’i **Blade’de** ilgili view içinde `@push('scripts')` + `@vite('resources/js/pages/admin/<sayfa>.js')` ile dahil edilir. admin.js içinde root selector / dynamic import **yok**; sayfa–script ilişkisi doğrudan Blade üzerinden kurulur.
@@ -40,7 +39,6 @@ resources/js/
     ├── public/                 # (ileride) Public sayfa özel
     └── admin/
         ├── dashboard.js        # Sunucu istatistikleri
-        ├── page-history.js     # (ileride)
         └── contact-messages.js # (ileride)
 ```
 
@@ -77,12 +75,11 @@ Mümkün olduğunca az global kullan. Şu an:
 - **layouts/empty.blade.php**: (admin login) `app.js` – tema + toast.
 - **Admin sayfa script’leri:** Her admin view kendi script’ini ekler:
   - `dashboard.blade.php` → `@push('scripts')` + `@vite('resources/js/pages/admin/dashboard.js')`
-  - `page-history.blade.php` → `@push('scripts')` + `@vite('resources/js/pages/admin/page-history.js')`
   - `contact-messages.blade.php` → `@push('scripts')` + `@vite('resources/js/pages/admin/contact-messages.js')`
 
 ## Vite
 
-- **input:** `resources/css/app.css`, `resources/js/app.js`, `resources/js/admin.js`, ve admin sayfa entry’leri: `resources/js/pages/admin/dashboard.js`, `page-history.js`, `contact-messages.js`. Sayfa dosyaları Blade’deki `@vite()` ile ayrı entry olarak yüklenir.
+- **input:** `resources/css/app.css`, `resources/js/app.js`, `resources/js/admin.js`, ve admin sayfa entry’leri: `resources/js/pages/admin/dashboard.js`, `contact-messages.js`. Sayfa dosyaları Blade’deki `@vite()` ile ayrı entry olarak yüklenir.
 - Slider veya editör kullanacak sayfada: `import('./features/slider/swiper.js')` / `import('./features/editor/ckeditor.js')` ile lazy yükle.
 
 ## Eski / kaldırılan

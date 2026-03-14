@@ -4,12 +4,17 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+/**
+ * Eski page_history tablosunu kaldırır (yeni sistem raw_request_logs + classified_visit_logs kullanıyor).
+ */
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
+    {
+        Schema::dropIfExists('page_history');
+    }
+
+    public function down(): void
     {
         Schema::create('page_history', function (Blueprint $table) {
             $table->id();
@@ -22,13 +27,5 @@ return new class extends Migration
             $table->unsignedInteger('response_time_ms')->nullable();
             $table->timestamps();
         });
-    }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('page_history');
     }
 };

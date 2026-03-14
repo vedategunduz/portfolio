@@ -20,6 +20,76 @@
         </x-admin.stat-card>
     </div>
 
+    <!-- Ziyaretçi / Trafik Özeti (sınıflandırılmış) -->
+    <x-admin.card class="p-6 mb-8">
+        <h3 class="text-sm font-semibold text-[#1b1b18] dark:text-[#EDEDEC] mb-4 uppercase tracking-wider">Trafik Özeti (İnsan / Bot Ayrımı)</h3>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            <div>
+                <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">Toplam hit</p>
+                <p class="text-xl font-semibold text-[#1b1b18] dark:text-[#EDEDEC]">{{ number_format($stats['total_hits'] ?? 0) }}</p>
+            </div>
+            <div>
+                <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">İnsan hit</p>
+                <p class="text-xl font-semibold text-emerald-600 dark:text-emerald-400">{{ number_format($stats['human_hits'] ?? 0) }}</p>
+            </div>
+            <div>
+                <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">Bilinen bot</p>
+                <p class="text-xl font-semibold text-[#1b1b18] dark:text-[#EDEDEC]">{{ number_format($stats['known_bot_hits'] ?? 0) }}</p>
+            </div>
+            <div>
+                <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">Şüpheli hit</p>
+                <p class="text-xl font-semibold text-amber-600 dark:text-amber-400">{{ number_format($stats['suspicious_hits'] ?? 0) }}</p>
+            </div>
+            <div>
+                <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">Benzersiz insan</p>
+                <p class="text-xl font-semibold text-[#1b1b18] dark:text-[#EDEDEC]">{{ number_format($stats['unique_human_visitors'] ?? 0) }}</p>
+            </div>
+            <div>
+                <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">Bugünkü hit</p>
+                <p class="text-xl font-semibold text-[#1b1b18] dark:text-[#EDEDEC]">{{ number_format($stats['today_hits'] ?? 0) }}</p>
+            </div>
+            <div>
+                <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">Son 24h şüpheli</p>
+                <p class="text-xl font-semibold text-red-600 dark:text-red-400">{{ number_format($stats['suspicious_last_24h'] ?? 0) }}</p>
+            </div>
+            <div>
+                <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">En çok istek atan IP</p>
+                <p class="text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC] truncate" title="{{ $stats['top_request_ip']?->ip_address ?? '—' }}">
+                    @if(!empty($stats['top_request_ip']))
+                        {{ $stats['top_request_ip']->ip_address }} ({{ number_format($stats['top_request_ip']->c) }})
+                    @else
+                        —
+                    @endif
+                </p>
+            </div>
+            <div>
+                <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">En hedeflenen URL</p>
+                <p class="text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC] truncate" title="{{ $stats['top_target_url']?->path ?? '—' }}">
+                    @if(!empty($stats['top_target_url']))
+                        {{ Str::limit($stats['top_target_url']->path, 40) }} ({{ number_format($stats['top_target_url']->c) }})
+                    @else
+                        —
+                    @endif
+                </p>
+            </div>
+            <div>
+                <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">En sık şüpheli pattern</p>
+                <p class="text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC] truncate" title="{{ $stats['top_suspicious_pattern']?->matched_rule ?? '—' }}">
+                    @if(!empty($stats['top_suspicious_pattern']))
+                        {{ Str::limit($stats['top_suspicious_pattern']->matched_rule, 30) }} ({{ number_format($stats['top_suspicious_pattern']->c) }})
+                    @else
+                        —
+                    @endif
+                </p>
+            </div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-[#e3e3e0] dark:border-[#3E3E3A] flex flex-wrap gap-3">
+            <a href="{{ route('admin.page-history.raw') }}" class="text-xs font-medium text-[#D62113] hover:underline">Ham istekler</a>
+            <a href="{{ route('admin.page-history.classified') }}" class="text-xs font-medium text-[#D62113] hover:underline">Sınıflandırılmış trafik</a>
+            <a href="{{ route('admin.page-history.suspicious') }}" class="text-xs font-medium text-[#D62113] hover:underline">Şüpheli / exploit</a>
+        </div>
+    </x-admin.card>
+
     <!-- Server Stats -->
     <x-admin.card class="p-6 mb-8 relative" id="server-stats-card" data-api-url="{{ route('admin.api.server-stats') }}">
         @php
@@ -101,9 +171,17 @@
         <x-admin.card class="p-6">
             <h3 class="text-sm font-semibold text-[#1b1b18] dark:text-[#EDEDEC] mb-4 uppercase tracking-wider">Hızlı Erişim</h3>
             <div class="space-y-3">
-                <a href="{{ route('admin.page-history') }}" class="block p-4 rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] hover:border-[#D62113]/50 dark:hover:border-[#D62113]/50 hover:bg-[#D62113]/5 dark:hover:bg-[#D62113]/10 transition-all duration-200 group">
-                    <span class="font-medium text-[#1b1b18] dark:text-[#EDEDEC] group-hover:text-[#D62113] transition-colors">Sayfa Ziyaretlerini Görüntüle</span>
-                    <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">Detaylı ziyaret loglarını inceleyin</p>
+                <a href="{{ route('admin.page-history.raw') }}" class="block p-4 rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] hover:border-[#D62113]/50 dark:hover:border-[#D62113]/50 hover:bg-[#D62113]/5 dark:hover:bg-[#D62113]/10 transition-all duration-200 group">
+                    <span class="font-medium text-[#1b1b18] dark:text-[#EDEDEC] group-hover:text-[#D62113] transition-colors">Sayfa Geçmişi — Ham İstekler</span>
+                    <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">raw_request_logs</p>
+                </a>
+                <a href="{{ route('admin.page-history.classified') }}" class="block p-4 rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] hover:border-[#D62113]/50 dark:hover:border-[#D62113]/50 hover:bg-[#D62113]/5 dark:hover:bg-[#D62113]/10 transition-all duration-200 group">
+                    <span class="font-medium text-[#1b1b18] dark:text-[#EDEDEC] group-hover:text-[#D62113] transition-colors">Sayfa Geçmişi — Sınıflandırılmış</span>
+                    <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">İnsan / bot ayrımı</p>
+                </a>
+                <a href="{{ route('admin.page-history.suspicious') }}" class="block p-4 rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] hover:border-[#D62113]/50 dark:hover:border-[#D62113]/50 hover:bg-[#D62113]/5 dark:hover:bg-[#D62113]/10 transition-all duration-200 group">
+                    <span class="font-medium text-[#1b1b18] dark:text-[#EDEDEC] group-hover:text-[#D62113] transition-colors">Sayfa Geçmişi — Şüpheli / Exploit</span>
+                    <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">Güvenlik olayları</p>
                 </a>
                 <a href="{{ route('admin.contact-messages') }}" class="block p-4 rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] hover:border-[#D62113]/50 dark:hover:border-[#D62113]/50 hover:bg-[#D62113]/5 dark:hover:bg-[#D62113]/10 transition-all duration-200 group">
                     <span class="font-medium text-[#1b1b18] dark:text-[#EDEDEC] group-hover:text-[#D62113] transition-colors">İletişim Mesajlarını Görüntüle</span>

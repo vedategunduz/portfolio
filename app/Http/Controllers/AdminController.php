@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PageHistory;
+use App\Models\ClassifiedVisitLog;
 use App\Models\ContactMessage;
+use App\Models\ExploitSuspiciousEvent;
+use App\Models\RawRequestLog;
 use App\Services\ServerStatsService;
 use Illuminate\Http\Request;
 
@@ -12,11 +14,45 @@ class AdminController extends Controller
     public function dashboard(ServerStatsService $serverStats)
     {
         $stats = [
-            'total_visits' => PageHistory::count(),
-            'unique_visitors' => PageHistory::distinct('ip_address')->count('ip_address'),
             'total_messages' => ContactMessage::count(),
             'unread_messages' => ContactMessage::where('status', 'unread')->count(),
         ];
+
+        // Yeni ziyaretçi log özeti (insan/bot ayrımı). Tablolar yoksa 0 döner.
+        try {
+            $stats['total_hits'] = ClassifiedVisitLog::count();
+            $stats['human_hits'] = ClassifiedVisitLog::where('traffic_type', 'human')->count();
+            $stats['known_bot_hits'] = ClassifiedVisitLog::where('traffic_type', 'known_bot')->count();
+            $stats['suspicious_hits'] = ClassifiedVisitLog::where('traffic_type', 'suspicious_bot')->count();
+            $stats['unique_human_visitors'] = ClassifiedVisitLog::where('traffic_type', 'human')
+                ->distinct('ip_address')->count('ip_address');
+            $stats['today_hits'] = ClassifiedVisitLog::whereDate('visited_at', today())->count();
+            $stats['suspicious_last_24h'] = ExploitSuspiciousEvent::where('created_at', '>=', now()->subDay())->count();
+            $stats['top_request_ip'] = RawRequestLog::select('ip_address')
+                ->selectRaw('count(*) as c')
+                ->groupBy('ip_address')
+                ->orderByDesc('c')
+                ->first();
+            $stats['top_target_url'] = RawRequestLog::select('path')
+                ->selectRaw('count(*) as c')
+                ->groupBy('path')
+                ->orderByDesc('c')
+                ->first();
+            $stats['top_suspicious_pattern'] = ExploitSuspiciousEvent::select('matched_rule')
+                ->selectRaw('count(*) as c')
+                ->whereNotNull('matched_rule')
+                ->groupBy('matched_rule')
+                ->orderByDesc('c')
+                ->first();
+        } catch (\Throwable $e) {
+            $stats['total_hits'] = $stats['human_hits'] = $stats['known_bot_hits'] = $stats['suspicious_hits'] = 0;
+            $stats['unique_human_visitors'] = $stats['today_hits'] = $stats['suspicious_last_24h'] = 0;
+            $stats['top_request_ip'] = $stats['top_target_url'] =             $stats['top_suspicious_pattern'] = null;
+        }
+
+        // Dashboard üst kartları: toplam/benzersiz artık yeni sistemden (geri uyumluluk için eski isimler)
+        $stats['total_visits'] = $stats['total_hits'] ?? 0;
+        $stats['unique_visitors'] = $stats['unique_human_visitors'] ?? 0;
 
         $serverStatsData = $serverStats->getStats();
 
@@ -30,19 +66,6 @@ class AdminController extends Controller
             ? \Carbon\Carbon::parse($data['last_deploy'])->format('d.m.Y H:i')
             : null;
         return response()->json($data);
-    }
-
-    public function pageHistory(Request $request)
-    {
-        $query = PageHistory::query()->orderBy('created_at', 'desc');
-
-        if ($request->has('ip')) {
-            $query->where('ip_address', $request->ip);
-        }
-
-        $history = $query->paginate(50);
-
-        return view('admin.page-history.index', compact('history'));
     }
 
     public function contactMessages(Request $request)
