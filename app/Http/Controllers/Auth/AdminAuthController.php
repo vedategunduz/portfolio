@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\LoginHistory;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use App\Models\User;
 
 class AdminAuthController extends Controller
 {
@@ -25,10 +25,20 @@ class AdminAuthController extends Controller
             'password' => 'required',
         ]);
 
+        $ip = $request->ip();
+        $userAgent = $request->userAgent();
+
         if (Auth::attempt($credentials, $request->filled('remember'))) {
             $request->session()->regenerate();
+            LoginHistory::logSuccess(Auth::user(), $ip, $userAgent);
             return redirect()->intended(route('admin.dashboard'));
         }
+
+        $failureReason = User::where('email', $credentials['email'])->exists()
+            ? LoginHistory::FAILURE_REASON_WRONG_PASSWORD
+            : LoginHistory::FAILURE_REASON_USER_NOT_FOUND;
+
+        LoginHistory::logFailed($credentials['email'], $failureReason, $ip, $userAgent);
 
         return back()->withErrors([
             'email' => 'Girdiğiniz bilgiler kayıtlarımızla eşleşmiyor.',

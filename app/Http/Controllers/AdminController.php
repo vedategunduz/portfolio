@@ -6,6 +6,7 @@ use App\Http\Requests\UpdateAdminProfileRequest;
 use App\Models\ClassifiedVisitLog;
 use App\Models\ContactMessage;
 use App\Models\ExploitSuspiciousEvent;
+use App\Models\LoginHistory;
 use App\Models\RawRequestLog;
 use App\Services\ServerStatsService;
 use Illuminate\Http\Request;
@@ -116,5 +117,30 @@ class AdminController extends Controller
         $message->update(['status' => 'read']);
 
         return back()->with('success', 'Mesaj okundu olarak işaretlendi.');
+    }
+
+    public function loginHistory(Request $request)
+    {
+        $query = LoginHistory::query()->with('user')->orderByDesc('attempted_at');
+
+        if ($request->filled('type')) {
+            $query->where('type', $request->type);
+        }
+        if ($request->filled('email')) {
+            $query->where('email', 'like', '%' . $request->email . '%');
+        }
+        if ($request->filled('ip')) {
+            $query->where('ip_address', 'like', '%' . $request->ip . '%');
+        }
+        if ($request->filled('date_from')) {
+            $query->whereDate('attempted_at', '>=', $request->date_from);
+        }
+        if ($request->filled('date_to')) {
+            $query->whereDate('attempted_at', '<=', $request->date_to);
+        }
+
+        $logs = $query->paginate(25)->withQueryString();
+
+        return view('admin.login-history.index', compact('logs'));
     }
 }
