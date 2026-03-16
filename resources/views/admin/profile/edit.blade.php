@@ -73,9 +73,9 @@
                 </div>
             </div>
 
-            <div class="flex items-center justify-between gap-4 pt-2">
+            <div class="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-4 pt-2">
                 <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">Bu değişiklikler bir sonraki oturumdan itibaren de geçerli olur.</p>
-                <button type="submit" class="inline-flex items-center justify-center px-4 py-2 rounded-sm bg-[#D62113] text-white text-sm font-medium hover:bg-[#b81a0f] transition-colors">
+                <button type="submit" class="inline-flex items-center justify-center px-4 py-2 rounded-sm bg-[#D62113] text-white text-sm font-medium hover:bg-[#b81a0f] transition-colors w-full sm:w-auto">
                     Kaydet
                 </button>
             </div>

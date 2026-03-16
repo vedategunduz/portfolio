@@ -23,38 +23,38 @@
     <!-- Ziyaretçi / Trafik Özeti (sınıflandırılmış) -->
     <x-admin.card class="p-6 mb-8">
         <h3 class="text-sm font-semibold text-[#1b1b18] dark:text-[#EDEDEC] mb-4 uppercase tracking-wider">Trafik Özeti (İnsan / Bot Ayrımı)</h3>
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            <div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
+            <div class="min-w-0">
                 <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">Toplam hit</p>
-                <p class="text-xl font-semibold text-[#1b1b18] dark:text-[#EDEDEC]">{{ number_format($stats['total_hits'] ?? 0) }}</p>
+                <p class="text-lg sm:text-xl font-semibold text-[#1b1b18] dark:text-[#EDEDEC]">{{ number_format($stats['total_hits'] ?? 0) }}</p>
             </div>
-            <div>
+            <div class="min-w-0">
                 <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">İnsan hit</p>
-                <p class="text-xl font-semibold text-emerald-600 dark:text-emerald-400">{{ number_format($stats['human_hits'] ?? 0) }}</p>
+                <p class="text-lg sm:text-xl font-semibold text-emerald-600 dark:text-emerald-400">{{ number_format($stats['human_hits'] ?? 0) }}</p>
             </div>
-            <div>
+            <div class="min-w-0">
                 <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">Bilinen bot</p>
-                <p class="text-xl font-semibold text-[#1b1b18] dark:text-[#EDEDEC]">{{ number_format($stats['known_bot_hits'] ?? 0) }}</p>
+                <p class="text-lg sm:text-xl font-semibold text-[#1b1b18] dark:text-[#EDEDEC]">{{ number_format($stats['known_bot_hits'] ?? 0) }}</p>
             </div>
-            <div>
+            <div class="min-w-0">
                 <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">Şüpheli hit</p>
-                <p class="text-xl font-semibold text-amber-600 dark:text-amber-400">{{ number_format($stats['suspicious_hits'] ?? 0) }}</p>
+                <p class="text-lg sm:text-xl font-semibold text-amber-600 dark:text-amber-400">{{ number_format($stats['suspicious_hits'] ?? 0) }}</p>
             </div>
-            <div>
+            <div class="min-w-0">
                 <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">Benzersiz insan</p>
-                <p class="text-xl font-semibold text-[#1b1b18] dark:text-[#EDEDEC]">{{ number_format($stats['unique_human_visitors'] ?? 0) }}</p>
+                <p class="text-lg sm:text-xl font-semibold text-[#1b1b18] dark:text-[#EDEDEC]">{{ number_format($stats['unique_human_visitors'] ?? 0) }}</p>
             </div>
-            <div>
+            <div class="min-w-0">
                 <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">Bugünkü hit</p>
-                <p class="text-xl font-semibold text-[#1b1b18] dark:text-[#EDEDEC]">{{ number_format($stats['today_hits'] ?? 0) }}</p>
+                <p class="text-lg sm:text-xl font-semibold text-[#1b1b18] dark:text-[#EDEDEC]">{{ number_format($stats['today_hits'] ?? 0) }}</p>
             </div>
-            <div>
+            <div class="min-w-0">
                 <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">Son 24h şüpheli</p>
-                <p class="text-xl font-semibold text-red-600 dark:text-red-400">{{ number_format($stats['suspicious_last_24h'] ?? 0) }}</p>
+                <p class="text-lg sm:text-xl font-semibold text-red-600 dark:text-red-400">{{ number_format($stats['suspicious_last_24h'] ?? 0) }}</p>
             </div>
-            <div>
+            <div class="min-w-0 col-span-2 sm:col-span-1">
                 <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">En çok istek atan IP</p>
-                <p class="text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC] truncate" title="{{ $stats['top_request_ip']?->ip_address ?? '—' }}">
+                <p class="text-xs sm:text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC] break-all" title="{{ $stats['top_request_ip']?->ip_address ?? '—' }}">
                     @if(!empty($stats['top_request_ip']))
                         {{ $stats['top_request_ip']->ip_address }} ({{ number_format($stats['top_request_ip']->c) }})
                     @else
@@ -62,21 +62,21 @@
                     @endif
                 </p>
             </div>
-            <div>
+            <div class="min-w-0 col-span-2 sm:col-span-1">
                 <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">En hedeflenen URL</p>
-                <p class="text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC] truncate" title="{{ $stats['top_target_url']?->path ?? '—' }}">
+                <p class="text-xs sm:text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC] break-all" title="{{ $stats['top_target_url']?->path ?? '—' }}">
                     @if(!empty($stats['top_target_url']))
-                        {{ Str::limit($stats['top_target_url']->path, 40) }} ({{ number_format($stats['top_target_url']->c) }})
+                        {{ Str::limit($stats['top_target_url']->path, 35) }} ({{ number_format($stats['top_target_url']->c) }})
                     @else
                         —
                     @endif
                 </p>
             </div>
-            <div>
+            <div class="min-w-0 col-span-2 sm:col-span-1">
                 <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">En sık şüpheli pattern</p>
-                <p class="text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC] truncate" title="{{ $stats['top_suspicious_pattern']?->matched_rule ?? '—' }}">
+                <p class="text-xs sm:text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC] break-all" title="{{ $stats['top_suspicious_pattern']?->matched_rule ?? '—' }}">
                     @if(!empty($stats['top_suspicious_pattern']))
-                        {{ Str::limit($stats['top_suspicious_pattern']->matched_rule, 30) }} ({{ number_format($stats['top_suspicious_pattern']->c) }})
+                        {{ Str::limit($stats['top_suspicious_pattern']->matched_rule, 28) }} ({{ number_format($stats['top_suspicious_pattern']->c) }})
                     @else
                         —
                     @endif
@@ -106,59 +106,59 @@
         <h3 class="text-sm font-semibold text-[#1b1b18] dark:text-[#EDEDEC] mb-4 uppercase tracking-wider">Sunucu Durumu</h3>
         <p id="server-stats-error" class="hidden text-xs text-amber-600 dark:text-amber-400 mb-2">Veri alınamadı</p>
         <div id="server-stats-content">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-            <div class="flex justify-between items-center py-2 border-b border-[#e3e3e0] dark:border-[#3E3E3A] sm:border-b-0 sm:border-r pr-4">
-                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">CPU</span>
-                <span id="server-stats-cpu" class="text-sm font-medium {{ $statColor($cpuP) }}">{{ $cpuP !== null ? number_format($cpuP, 1, '.', '') . '%' : '—' }}</span>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-4 gap-y-2 sm:gap-4">
+            <div class="flex justify-between items-center py-2 border-b border-[#e3e3e0] dark:border-[#3E3E3A] sm:border-b-0 lg:border-r lg:pr-4 min-w-0">
+                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0">CPU</span>
+                <span id="server-stats-cpu" class="text-xs sm:text-sm font-medium {{ $statColor($cpuP) }}">{{ $cpuP !== null ? number_format($cpuP, 1, '.', '') . '%' : '—' }}</span>
             </div>
-            <div class="flex justify-between items-center py-2 border-b border-[#e3e3e0] dark:border-[#3E3E3A] sm:border-b-0 sm:border-r pr-4">
-                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">RAM</span>
-                <span id="server-stats-ram" class="text-sm font-medium {{ $statColor($ramP) }}">
+            <div class="flex justify-between items-center py-2 border-b border-[#e3e3e0] dark:border-[#3E3E3A] sm:border-b-0 lg:border-r lg:pr-4 min-w-0">
+                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0">RAM</span>
+                <span id="server-stats-ram" class="text-xs sm:text-sm font-medium {{ $statColor($ramP) }} min-w-0 text-right">
                     @if(is_array($serverStatsData['ram_percent'] ?? null))
-                        {{ number_format((float) $serverStatsData['ram_percent']['percent'], 1, '.', '') }}% <span class="text-[#706f6c] dark:text-[#8F8F8B]">({{ $serverStatsData['ram_percent']['used_mb'] }}/{{ $serverStatsData['ram_percent']['total_mb'] }} MB)</span>
+                        {{ number_format((float) $serverStatsData['ram_percent']['percent'], 1, '.', '') }}% <span class="text-[#706f6c] dark:text-[#8F8F8B] hidden sm:inline">({{ $serverStatsData['ram_percent']['used_mb'] }}/{{ $serverStatsData['ram_percent']['total_mb'] }} MB)</span>
                     @else
                         —
                     @endif
                 </span>
             </div>
-            <div class="flex justify-between items-center py-2 border-b border-[#e3e3e0] dark:border-[#3E3E3A] sm:border-b-0 sm:border-r pr-4">
-                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">Disk</span>
-                <span id="server-stats-disk" class="text-sm font-medium {{ $statColor($diskP) }}">
+            <div class="flex justify-between items-center py-2 border-b border-[#e3e3e0] dark:border-[#3E3E3A] sm:border-b-0 lg:border-r lg:pr-4 min-w-0 col-span-2 sm:col-span-1">
+                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0">Disk</span>
+                <span id="server-stats-disk" class="text-xs sm:text-sm font-medium {{ $statColor($diskP) }} min-w-0 text-right">
                     @if(is_array($serverStatsData['disk_percent'] ?? null))
-                        {{ number_format((float) $serverStatsData['disk_percent']['percent'], 1, '.', '') }}% <span class="text-[#706f6c] dark:text-[#8F8F8B]">({{ $serverStatsData['disk_percent']['used_gb'] }}/{{ $serverStatsData['disk_percent']['total_gb'] }} GB)</span>
+                        {{ number_format((float) $serverStatsData['disk_percent']['percent'], 1, '.', '') }}% <span class="text-[#706f6c] dark:text-[#8F8F8B] hidden sm:inline">({{ $serverStatsData['disk_percent']['used_gb'] }}/{{ $serverStatsData['disk_percent']['total_gb'] }} GB)</span>
                     @else
                         —
                     @endif
                 </span>
             </div>
-            <div class="flex justify-between items-center py-2 border-b border-[#e3e3e0] dark:border-[#3E3E3A] sm:border-b-0 sm:border-r pr-4">
-                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">Uptime</span>
-                <span id="server-stats-uptime" class="text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC] font-mono">{{ $serverStatsData['uptime'] ?? '—' }}</span>
+            <div class="flex justify-between items-center gap-2 py-2 border-b border-[#e3e3e0] dark:border-[#3E3E3A] sm:border-b-0 lg:border-r lg:pr-4 min-w-0 col-span-2 sm:col-span-1">
+                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0">Uptime</span>
+                <span id="server-stats-uptime" class="text-xs sm:text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC] font-mono truncate" title="{{ $serverStatsData['uptime'] ?? '—' }}">{{ $serverStatsData['uptime'] ?? '—' }}</span>
             </div>
-            <div class="flex justify-between items-center gap-3 py-2">
+            <div class="flex justify-between items-center gap-2 py-2 min-w-0 col-span-2 lg:col-span-1">
                 <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0" title="1, 5 ve 15 dakika yük ortalaması">Load avg</span>
-                <span id="server-stats-load" class="text-xs font-medium text-[#1b1b18] dark:text-[#EDEDEC] font-mono whitespace-nowrap text-right" title="1 dk / 5 dk / 15 dk">{{ $serverStatsData['load_average'] ?? '—' }}</span>
+                <span id="server-stats-load" class="text-xs font-medium text-[#1b1b18] dark:text-[#EDEDEC] font-mono text-right truncate" title="1 dk / 5 dk / 15 dk">{{ $serverStatsData['load_average'] ?? '—' }}</span>
             </div>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mt-4 pt-4 border-t border-[#e3e3e0] dark:border-[#3E3E3A]">
-            <div class="flex justify-between items-center">
-                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">Nginx</span>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-4 gap-y-3 mt-4 pt-4 border-t border-[#e3e3e0] dark:border-[#3E3E3A]">
+            <div class="flex justify-between items-center gap-2 min-w-0">
+                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0">Nginx</span>
                 <span id="server-stats-nginx">@if($serverStatsData['nginx_status'] === 'active')<span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/20 text-emerald-700 dark:bg-emerald-500/25 dark:text-emerald-400">Aktif</span>@else<span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-500/20 text-red-700 dark:bg-red-500/25 dark:text-red-400">Kapalı</span>@endif</span>
             </div>
-            <div class="flex justify-between items-center">
-                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">MySQL</span>
+            <div class="flex justify-between items-center gap-2 min-w-0">
+                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0">MySQL</span>
                 <span id="server-stats-mysql">@if($serverStatsData['mysql_status'] === 'active')<span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/20 text-emerald-700 dark:bg-emerald-500/25 dark:text-emerald-400">Aktif</span>@else<span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-500/20 text-red-700 dark:bg-red-500/25 dark:text-red-400">Kapalı</span>@endif</span>
             </div>
-            <div class="flex justify-between items-center">
-                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">PHP-FPM</span>
+            <div class="flex justify-between items-center gap-2 min-w-0">
+                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0">PHP-FPM</span>
                 <span id="server-stats-phpfpm">@if($serverStatsData['php_fpm_status'] === 'active')<span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/20 text-emerald-700 dark:bg-emerald-500/25 dark:text-emerald-400">Aktif</span>@else<span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-500/20 text-red-700 dark:bg-red-500/25 dark:text-red-400">Kapalı</span>@endif</span>
             </div>
-            <div class="flex justify-between items-center">
-                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">Son deploy</span>
-                <span id="server-stats-deploy" class="text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC]">{{ $serverStatsData['last_deploy'] ? \Carbon\Carbon::parse($serverStatsData['last_deploy'])->format('d.m.Y H:i') : '—' }}</span>
+            <div class="flex justify-between items-center gap-2 min-w-0 col-span-2 sm:col-span-1">
+                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0">Son deploy</span>
+                <span id="server-stats-deploy" class="text-xs sm:text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC] truncate">{{ $serverStatsData['last_deploy'] ? \Carbon\Carbon::parse($serverStatsData['last_deploy'])->format('d.m.Y H:i') : '—' }}</span>
             </div>
-            <div class="flex justify-between items-center">
-                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">Failed jobs</span>
+            <div class="flex justify-between items-center gap-2 min-w-0">
+                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0">Failed jobs</span>
                 <span id="server-stats-failedjobs">@if($serverStatsData['failed_jobs_count'] === 0)<span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/20 text-emerald-700 dark:bg-emerald-500/25 dark:text-emerald-400">{{ number_format($serverStatsData['failed_jobs_count']) }}</span>@else<span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-500/20 text-red-700 dark:bg-red-500/25 dark:text-red-400">{{ number_format($serverStatsData['failed_jobs_count']) }}</span>@endif</span>
             </div>
         </div>
