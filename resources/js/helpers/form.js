@@ -1,6 +1,8 @@
 import { Dialog } from '../ui/dialog.js';
 import { getHttp } from '../core/http.js';
 
+const t = (key, fallback) => window.translations?.[key] || fallback;
+
 const clearFormMessages = (form) => {
     const errorBox = form.parentElement?.querySelector('[data-form-error]') || form.querySelector('[data-form-error]');
     const successBox = form.parentElement?.querySelector('[data-form-success]') || form.querySelector('[data-form-success]');
@@ -51,12 +53,12 @@ const renderValidationErrors = (form, errors) => {
 };
 
 const parseErrorMessage = (error) => {
-    let message = 'Beklenmedik bir hata oluştu.';
+    let message = t('form.unexpected_error', 'Beklenmedik bir hata oluştu.');
     if (error.response) {
         const data = error.response.data;
         if (error.response.status === 422 && data?.errors) {
             const firstKey = Object.keys(data.errors)[0];
-            message = firstKey && data.errors[firstKey]?.[0] ? data.errors[firstKey][0] : (data.message || 'Lütfen bilgileri kontrol edin.');
+            message = firstKey && data.errors[firstKey]?.[0] ? data.errors[firstKey][0] : (data.message || t('form.check_fields', 'Lütfen bilgileri kontrol edin.'));
         } else if (data?.message) {
             message = data.message;
         }
@@ -66,7 +68,7 @@ const parseErrorMessage = (error) => {
     return message;
 };
 
-const loadingHtml = '<span class="inline-flex items-center gap-2"><svg class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> İşleniyor...</span>';
+const loadingHtml = `<span class="inline-flex items-center gap-2"><svg class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> ${t('form.processing', 'İşleniyor...')}</span>`;
 
 export function initForm(selector, options = {}) {
     const form = document.querySelector(selector);
@@ -113,7 +115,7 @@ export function initForm(selector, options = {}) {
             if (status === 422 && data?.errors) renderValidationErrors(form, data.errors);
             if (options.onError) options.onError(error);
             else {
-                if (!showFormMessage(form, 'error', errorMsg)) Dialog.error(errorMsg, 'İşlem Başarısız');
+                if (!showFormMessage(form, 'error', errorMsg)) Dialog.error(errorMsg, t('form.action_failed', 'İşlem Başarısız'));
             }
         } finally {
             if (submitBtn) {
@@ -133,8 +135,8 @@ export function initAction(selectorOrElement, options = {}) {
         if (options.confirm) {
             const isConfirmed = await Dialog.confirm(
                 options.confirm,
-                options.confirmTitle || 'Onay Gerekiyor',
-                options.confirmButtonText || 'Evet, Devam Et',
+                options.confirmTitle || t('form.confirm_required', 'Onay Gerekiyor'),
+                options.confirmButtonText || t('form.confirm_continue', 'Evet, Devam Et'),
                 options.confirmType || 'danger'
             );
             if (!isConfirmed) return;
@@ -155,7 +157,7 @@ export function initAction(selectorOrElement, options = {}) {
             console.error('Action Hatası:', error);
             const errorMsg = parseErrorMessage(error);
             if (options.onError) options.onError(error);
-            else Dialog.error(errorMsg, 'Hata');
+            else Dialog.error(errorMsg, t('form.error', 'Hata'));
         } finally {
             btn.disabled = false;
             btn.innerHTML = originalContent;

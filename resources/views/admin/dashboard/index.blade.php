@@ -6,54 +6,54 @@
 @section('content')
     <!-- Stats Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <x-admin.stat-card label="Toplam Ziyaret" :value="number_format($stats['total_visits'])" iconColor="red">
+        <x-admin.stat-card label="{{ __('messages.dashboard.total_visits') }}" :value="number_format($stats['total_visits'])" iconColor="red">
             <x-slot:icon><i data-lucide="eye" class="w-6 h-6"></i></x-slot:icon>
         </x-admin.stat-card>
-        <x-admin.stat-card label="Benzersiz Ziyaretçi" :value="number_format($stats['unique_visitors'])" iconColor="emerald">
+        <x-admin.stat-card label="{{ __('messages.dashboard.unique_visitors') }}" :value="number_format($stats['unique_visitors'])" iconColor="emerald">
             <x-slot:icon><i data-lucide="users" class="w-6 h-6"></i></x-slot:icon>
         </x-admin.stat-card>
-        <x-admin.stat-card label="Toplam Mesaj" :value="number_format($stats['total_messages'])" iconColor="violet">
+        <x-admin.stat-card label="{{ __('messages.dashboard.total_messages') }}" :value="number_format($stats['total_messages'])" iconColor="violet">
             <x-slot:icon><i data-lucide="mail" class="w-6 h-6"></i></x-slot:icon>
         </x-admin.stat-card>
-        <x-admin.stat-card label="Okunmamış Mesaj" :value="number_format($stats['unread_messages'])" iconColor="amber">
+        <x-admin.stat-card label="{{ __('messages.dashboard.unread_messages') }}" :value="number_format($stats['unread_messages'])" iconColor="amber">
             <x-slot:icon><i data-lucide="inbox" class="w-6 h-6"></i></x-slot:icon>
         </x-admin.stat-card>
     </div>
 
     <!-- Ziyaretçi / Trafik Özeti (sınıflandırılmış) -->
     <x-admin.card class="p-6 mb-8">
-        <h3 class="text-sm font-semibold text-[#1b1b18] dark:text-[#EDEDEC] mb-4 uppercase tracking-wider">Trafik Özeti (İnsan / Bot Ayrımı)</h3>
+        <h3 class="text-sm font-semibold text-[#1b1b18] dark:text-[#EDEDEC] mb-4 uppercase tracking-wider">{{ __('messages.dashboard.traffic_summary') }}</h3>
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
             <div class="min-w-0">
-                <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">Toplam hit</p>
+                <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">{{ __('messages.dashboard.total_hits') }}</p>
                 <p class="text-lg sm:text-xl font-semibold text-[#1b1b18] dark:text-[#EDEDEC]">{{ number_format($stats['total_hits'] ?? 0) }}</p>
             </div>
             <div class="min-w-0">
-                <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">İnsan hit</p>
+                <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">{{ __('messages.dashboard.human_hits') }}</p>
                 <p class="text-lg sm:text-xl font-semibold text-emerald-600 dark:text-emerald-400">{{ number_format($stats['human_hits'] ?? 0) }}</p>
             </div>
             <div class="min-w-0">
-                <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">Bilinen bot</p>
+                <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">{{ __('messages.dashboard.known_bots') }}</p>
                 <p class="text-lg sm:text-xl font-semibold text-[#1b1b18] dark:text-[#EDEDEC]">{{ number_format($stats['known_bot_hits'] ?? 0) }}</p>
             </div>
             <div class="min-w-0">
-                <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">Şüpheli hit</p>
+                <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">{{ __('messages.dashboard.suspicious_hits') }}</p>
                 <p class="text-lg sm:text-xl font-semibold text-amber-600 dark:text-amber-400">{{ number_format($stats['suspicious_hits'] ?? 0) }}</p>
             </div>
             <div class="min-w-0">
-                <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">Benzersiz insan</p>
+                <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">{{ __('messages.dashboard.unique_humans') }}</p>
                 <p class="text-lg sm:text-xl font-semibold text-[#1b1b18] dark:text-[#EDEDEC]">{{ number_format($stats['unique_human_visitors'] ?? 0) }}</p>
             </div>
             <div class="min-w-0">
-                <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">Bugünkü hit</p>
+                <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">{{ __('messages.dashboard.today_hits') }}</p>
                 <p class="text-lg sm:text-xl font-semibold text-[#1b1b18] dark:text-[#EDEDEC]">{{ number_format($stats['today_hits'] ?? 0) }}</p>
             </div>
             <div class="min-w-0">
-                <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">Son 24h şüpheli</p>
+                <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">{{ __('messages.dashboard.last_24h_suspicious') }}</p>
                 <p class="text-lg sm:text-xl font-semibold text-red-600 dark:text-red-400">{{ number_format($stats['suspicious_last_24h'] ?? 0) }}</p>
             </div>
             <div class="min-w-0 col-span-2 sm:col-span-1">
-                <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">En çok istek atan IP</p>
+                <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">{{ __('messages.dashboard.top_request_ip') }}</p>
                 <p class="text-xs sm:text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC] break-all" title="{{ $stats['top_request_ip']?->ip_address ?? '—' }}">
                     @if(!empty($stats['top_request_ip']))
                         {{ $stats['top_request_ip']->ip_address }} ({{ number_format($stats['top_request_ip']->c) }})
@@ -63,7 +63,7 @@
                 </p>
             </div>
             <div class="min-w-0 col-span-2 sm:col-span-1">
-                <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">En hedeflenen URL</p>
+                <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">{{ __('messages.dashboard.top_target_url') }}</p>
                 <p class="text-xs sm:text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC] break-all" title="{{ $stats['top_target_url']?->path ?? '—' }}">
                     @if(!empty($stats['top_target_url']))
                         {{ Str::limit($stats['top_target_url']->path, 35) }} ({{ number_format($stats['top_target_url']->c) }})
@@ -73,7 +73,7 @@
                 </p>
             </div>
             <div class="min-w-0 col-span-2 sm:col-span-1">
-                <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">En sık şüpheli pattern</p>
+                <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">{{ __('messages.dashboard.top_suspicious_pattern') }}</p>
                 <p class="text-xs sm:text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC] break-all" title="{{ $stats['top_suspicious_pattern']?->matched_rule ?? '—' }}">
                     @if(!empty($stats['top_suspicious_pattern']))
                         {{ Str::limit($stats['top_suspicious_pattern']->matched_rule, 28) }} ({{ number_format($stats['top_suspicious_pattern']->c) }})
@@ -84,9 +84,9 @@
             </div>
         </div>
         <div class="mt-4 pt-4 border-t border-[#e3e3e0] dark:border-[#3E3E3A] flex flex-wrap gap-3">
-            <a href="{{ route('admin.page-history.raw') }}" class="text-xs font-medium text-[#D62113] hover:underline">Ham istekler</a>
-            <a href="{{ route('admin.page-history.classified') }}" class="text-xs font-medium text-[#D62113] hover:underline">Sınıflandırılmış trafik</a>
-            <a href="{{ route('admin.page-history.suspicious') }}" class="text-xs font-medium text-[#D62113] hover:underline">Şüpheli / exploit</a>
+            <a href="{{ route('admin.page-history.raw') }}" class="text-xs font-medium text-[#D62113] hover:underline">{{ __('messages.dashboard.link_raw_requests') }}</a>
+            <a href="{{ route('admin.page-history.classified') }}" class="text-xs font-medium text-[#D62113] hover:underline">{{ __('messages.dashboard.link_classified') }}</a>
+            <a href="{{ route('admin.page-history.suspicious') }}" class="text-xs font-medium text-[#D62113] hover:underline">{{ __('messages.dashboard.link_suspicious') }}</a>
         </div>
     </x-admin.card>
 
@@ -103,8 +103,8 @@
                 return 'text-[#1b1b18] dark:text-[#EDEDEC]';
             };
         @endphp
-        <h3 class="text-sm font-semibold text-[#1b1b18] dark:text-[#EDEDEC] mb-4 uppercase tracking-wider">Sunucu Durumu</h3>
-        <p id="server-stats-error" class="hidden text-xs text-amber-600 dark:text-amber-400 mb-2">Veri alınamadı</p>
+        <h3 class="text-sm font-semibold text-[#1b1b18] dark:text-[#EDEDEC] mb-4 uppercase tracking-wider">{{ __('messages.dashboard.server_status') }}</h3>
+        <p id="server-stats-error" class="hidden text-xs text-amber-600 dark:text-amber-400 mb-2">{{ __('messages.dashboard.server_stats_error') }}</p>
         <div id="server-stats-content">
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-4 gap-y-2 sm:gap-4">
             <div class="flex justify-between items-center py-2 border-b border-[#e3e3e0] dark:border-[#3E3E3A] sm:border-b-0 lg:border-r lg:pr-4 min-w-0">
@@ -143,15 +143,15 @@
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-4 gap-y-3 mt-4 pt-4 border-t border-[#e3e3e0] dark:border-[#3E3E3A]">
             <div class="flex justify-between items-center gap-2 min-w-0">
                 <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0">Nginx</span>
-                <span id="server-stats-nginx">@if($serverStatsData['nginx_status'] === 'active')<span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/20 text-emerald-700 dark:bg-emerald-500/25 dark:text-emerald-400">Aktif</span>@else<span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-500/20 text-red-700 dark:bg-red-500/25 dark:text-red-400">Kapalı</span>@endif</span>
+                <span id="server-stats-nginx">@if($serverStatsData['nginx_status'] === 'active')<span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/20 text-emerald-700 dark:bg-emerald-500/25 dark:text-emerald-400">{{ __('messages.dashboard.active') }}</span>@else<span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-500/20 text-red-700 dark:bg-red-500/25 dark:text-red-400">{{ __('messages.dashboard.inactive') }}</span>@endif</span>
             </div>
             <div class="flex justify-between items-center gap-2 min-w-0">
                 <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0">MySQL</span>
-                <span id="server-stats-mysql">@if($serverStatsData['mysql_status'] === 'active')<span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/20 text-emerald-700 dark:bg-emerald-500/25 dark:text-emerald-400">Aktif</span>@else<span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-500/20 text-red-700 dark:bg-red-500/25 dark:text-red-400">Kapalı</span>@endif</span>
+                <span id="server-stats-mysql">@if($serverStatsData['mysql_status'] === 'active')<span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/20 text-emerald-700 dark:bg-emerald-500/25 dark:text-emerald-400">{{ __('messages.dashboard.active') }}</span>@else<span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-500/20 text-red-700 dark:bg-red-500/25 dark:text-red-400">{{ __('messages.dashboard.inactive') }}</span>@endif</span>
             </div>
             <div class="flex justify-between items-center gap-2 min-w-0">
                 <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0">PHP-FPM</span>
-                <span id="server-stats-phpfpm">@if($serverStatsData['php_fpm_status'] === 'active')<span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/20 text-emerald-700 dark:bg-emerald-500/25 dark:text-emerald-400">Aktif</span>@else<span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-500/20 text-red-700 dark:bg-red-500/25 dark:text-red-400">Kapalı</span>@endif</span>
+                <span id="server-stats-phpfpm">@if($serverStatsData['php_fpm_status'] === 'active')<span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/20 text-emerald-700 dark:bg-emerald-500/25 dark:text-emerald-400">{{ __('messages.dashboard.active') }}</span>@else<span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-500/20 text-red-700 dark:bg-red-500/25 dark:text-red-400">{{ __('messages.dashboard.inactive') }}</span>@endif</span>
             </div>
             <div class="flex justify-between items-center gap-2 min-w-0 col-span-2 sm:col-span-1">
                 <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0">Son deploy</span>
@@ -169,48 +169,48 @@
     <!-- Quick Links & System Info -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <x-admin.card class="p-6">
-            <h3 class="text-sm font-semibold text-[#1b1b18] dark:text-[#EDEDEC] mb-4 uppercase tracking-wider">Hızlı Erişim</h3>
+            <h3 class="text-sm font-semibold text-[#1b1b18] dark:text-[#EDEDEC] mb-4 uppercase tracking-wider">{{ __('messages.dashboard.quick_access') }}</h3>
             <div class="space-y-3">
                 <a href="{{ route('admin.page-history.raw') }}" class="block p-4 rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] hover:border-[#D62113]/50 dark:hover:border-[#D62113]/50 hover:bg-[#D62113]/5 dark:hover:bg-[#D62113]/10 transition-all duration-200 group">
-                    <span class="font-medium text-[#1b1b18] dark:text-[#EDEDEC] group-hover:text-[#D62113] transition-colors">Sayfa Geçmişi — Ham İstekler</span>
-                    <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">raw_request_logs</p>
+                    <span class="font-medium text-[#1b1b18] dark:text-[#EDEDEC] group-hover:text-[#D62113] transition-colors">{{ __('messages.dashboard.page_history_raw') }}</span>
+                    <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">{{ __('messages.dashboard.page_history_raw_desc') }}</p>
                 </a>
                 <a href="{{ route('admin.page-history.classified') }}" class="block p-4 rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] hover:border-[#D62113]/50 dark:hover:border-[#D62113]/50 hover:bg-[#D62113]/5 dark:hover:bg-[#D62113]/10 transition-all duration-200 group">
-                    <span class="font-medium text-[#1b1b18] dark:text-[#EDEDEC] group-hover:text-[#D62113] transition-colors">Sayfa Geçmişi — Sınıflandırılmış</span>
-                    <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">İnsan / bot ayrımı</p>
+                    <span class="font-medium text-[#1b1b18] dark:text-[#EDEDEC] group-hover:text-[#D62113] transition-colors">{{ __('messages.dashboard.page_history_classified') }}</span>
+                    <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">{{ __('messages.dashboard.page_history_classified_desc') }}</p>
                 </a>
                 <a href="{{ route('admin.page-history.suspicious') }}" class="block p-4 rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] hover:border-[#D62113]/50 dark:hover:border-[#D62113]/50 hover:bg-[#D62113]/5 dark:hover:bg-[#D62113]/10 transition-all duration-200 group">
-                    <span class="font-medium text-[#1b1b18] dark:text-[#EDEDEC] group-hover:text-[#D62113] transition-colors">Sayfa Geçmişi — Şüpheli / Exploit</span>
-                    <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">Güvenlik olayları</p>
+                    <span class="font-medium text-[#1b1b18] dark:text-[#EDEDEC] group-hover:text-[#D62113] transition-colors">{{ __('messages.dashboard.page_history_suspicious') }}</span>
+                    <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">{{ __('messages.dashboard.page_history_suspicious_desc') }}</p>
                 </a>
                 <a href="{{ route('admin.contact-messages') }}" class="block p-4 rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] hover:border-[#D62113]/50 dark:hover:border-[#D62113]/50 hover:bg-[#D62113]/5 dark:hover:bg-[#D62113]/10 transition-all duration-200 group">
-                    <span class="font-medium text-[#1b1b18] dark:text-[#EDEDEC] group-hover:text-[#D62113] transition-colors">İletişim Mesajlarını Görüntüle</span>
-                    <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">Gelen mesajları okuyun</p>
+                    <span class="font-medium text-[#1b1b18] dark:text-[#EDEDEC] group-hover:text-[#D62113] transition-colors">{{ __('messages.dashboard.contact_messages_view') }}</span>
+                    <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">{{ __('messages.dashboard.contact_messages_desc') }}</p>
                 </a>
                 <a href="{{ route('admin.login-history.index') }}" class="block p-4 rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] hover:border-[#D62113]/50 dark:hover:border-[#D62113]/50 hover:bg-[#D62113]/5 dark:hover:bg-[#D62113]/10 transition-all duration-200 group">
-                    <span class="font-medium text-[#1b1b18] dark:text-[#EDEDEC] group-hover:text-[#D62113] transition-colors">Giriş Geçmişi</span>
-                    <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">Başarılı ve başarısız admin girişleri</p>
+                    <span class="font-medium text-[#1b1b18] dark:text-[#EDEDEC] group-hover:text-[#D62113] transition-colors">{{ __('messages.dashboard.login_history') }}</span>
+                    <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">{{ __('messages.dashboard.login_history_desc') }}</p>
                 </a>
                 <a href="{{ route('admin.profile.edit') }}" class="block p-4 rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] hover:border-[#D62113]/50 dark:hover:border-[#D62113]/50 hover:bg-[#D62113]/5 dark:hover:bg-[#D62113]/10 transition-all duration-200 group">
-                    <span class="font-medium text-[#1b1b18] dark:text-[#EDEDEC] group-hover:text-[#D62113] transition-colors">Hesap Bilgilerini Güncelle</span>
-                    <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">Ad, e-posta ve şifreyi düzenleyin</p>
+                    <span class="font-medium text-[#1b1b18] dark:text-[#EDEDEC] group-hover:text-[#D62113] transition-colors">{{ __('messages.dashboard.account_update') }}</span>
+                    <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">{{ __('messages.dashboard.account_update_desc') }}</p>
                 </a>
             </div>
         </x-admin.card>
 
         <x-admin.card class="p-6">
-            <h3 class="text-sm font-semibold text-[#1b1b18] dark:text-[#EDEDEC] mb-4 uppercase tracking-wider">Sistem Bilgisi</h3>
+            <h3 class="text-sm font-semibold text-[#1b1b18] dark:text-[#EDEDEC] mb-4 uppercase tracking-wider">{{ __('messages.dashboard.system_info') }}</h3>
             <dl class="space-y-3">
                 <div class="flex justify-between items-center py-2 border-b border-[#e3e3e0] dark:border-[#3E3E3A]">
-                    <dt class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">Laravel</dt>
+                    <dt class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">{{ __('messages.dashboard.system_laravel') }}</dt>
                     <dd class="text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC]">{{ app()->version() }}</dd>
                 </div>
                 <div class="flex justify-between items-center py-2 border-b border-[#e3e3e0] dark:border-[#3E3E3A]">
-                    <dt class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">PHP</dt>
+                    <dt class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">{{ __('messages.dashboard.system_php') }}</dt>
                     <dd class="text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC]">{{ PHP_VERSION }}</dd>
                 </div>
                 <div class="flex justify-between items-center py-2">
-                    <dt class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">Ortam</dt>
+                    <dt class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">{{ __('messages.dashboard.system_env') }}</dt>
                     <dd class="text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC]">{{ config('app.env') }}</dd>
                 </div>
             </dl>

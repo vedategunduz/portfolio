@@ -36,6 +36,25 @@
 
     @stack('styles')
 
+    <script>
+        window.translations = {
+            'form.processing': "{{ __('messages.form.processing') }}",
+            'form.unexpected_error': "{{ __('messages.form.unexpected_error') }}",
+            'form.check_fields': "{{ __('messages.form.check_fields') }}",
+            'form.action_failed': "{{ __('messages.form.action_failed') }}",
+            'form.error': "{{ __('messages.form.error') }}",
+            'form.confirm_required': "{{ __('messages.form.confirm_required') }}",
+            'form.confirm_continue': "{{ __('messages.form.confirm_continue') }}",
+            'dialog.success': "{{ __('messages.dialog.success') }}",
+            'dialog.error': "{{ __('messages.dialog.error') }}",
+            'dialog.info': "{{ __('messages.dialog.info') }}",
+            'dialog.warning': "{{ __('messages.dialog.warning') }}",
+            'dialog.confirm_title': "{{ __('messages.dialog.confirm_title') }}",
+            'dialog.confirm_button': "{{ __('messages.dialog.confirm_button') }}",
+            'dialog.cancel_button': "{{ __('messages.dialog.cancel_button') }}"
+        };
+    </script>
+
     <style>
         /* Scroll margin for navbar */
         section[id] {

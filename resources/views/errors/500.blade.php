@@ -1,5 +1,5 @@
 @extends('errors.layout')
 
 @section('title', '500 - ' . config('app.name'))
-@section('heading', 'Sunucu hatası')
-@section('message', 'Bir şeyler yanlış gitti. Lütfen daha sonra tekrar deneyin.')
+@section('heading', __('messages.errors.500.heading'))
+@section('message', __('messages.errors.500.message'))

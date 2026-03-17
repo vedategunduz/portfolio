@@ -13,13 +13,13 @@
     <!-- Filter Tabs -->
     <div class="mb-6 flex flex-wrap gap-2">
         <a href="{{ route('admin.contact-messages') }}" class="px-4 py-2 rounded-sm text-xs font-medium transition-colors {{ !request('status') ? 'bg-[#D62113] text-white' : 'border border-[#e3e3e0] dark:border-[#3E3E3A] text-[#706f6c] dark:text-[#8F8F8B] hover:border-[#D62113]/50 hover:text-[#D62113]' }}">
-            Tümü ({{ \App\Models\ContactMessage::count() }})
+            {{ __('messages.message.all') }} ({{ \App\Models\ContactMessage::count() }})
         </a>
         <a href="{{ route('admin.contact-messages', ['status' => 'unread']) }}" class="px-4 py-2 rounded-sm text-xs font-medium transition-colors {{ request('status') == 'unread' ? 'bg-[#D62113] text-white' : 'border border-[#e3e3e0] dark:border-[#3E3E3A] text-[#706f6c] dark:text-[#8F8F8B] hover:border-[#D62113]/50 hover:text-[#D62113]' }}">
-            Okunmamış ({{ \App\Models\ContactMessage::where('status', 'unread')->count() }})
+            {{ __('messages.message.unread') }} ({{ \App\Models\ContactMessage::where('status', 'unread')->count() }})
         </a>
         <a href="{{ route('admin.contact-messages', ['status' => 'read']) }}" class="px-4 py-2 rounded-sm text-xs font-medium transition-colors {{ request('status') == 'read' ? 'bg-[#D62113] text-white' : 'border border-[#e3e3e0] dark:border-[#3E3E3A] text-[#706f6c] dark:text-[#8F8F8B] hover:border-[#D62113]/50 hover:text-[#D62113]' }}">
-            Okundu ({{ \App\Models\ContactMessage::where('status', 'read')->count() }})
+            {{ __('messages.message.read') }} ({{ \App\Models\ContactMessage::where('status', 'read')->count() }})
         </a>
     </div>
 
@@ -32,7 +32,7 @@
                         <div class="flex flex-wrap items-center gap-2">
                             <h3 class="text-base font-semibold text-[#1b1b18] dark:text-[#EDEDEC]">{{ $message->name }}</h3>
                             @if($message->status == 'unread')
-                                <span class="px-2 py-0.5 text-xs font-medium rounded-sm bg-[#D62113]/15 text-[#D62113] dark:bg-[#D62113]/25">Yeni</span>
+                                <span class="px-2 py-0.5 text-xs font-medium rounded-sm bg-[#D62113]/15 text-[#D62113] dark:bg-[#D62113]/25">{{ __('messages.message.new') }}</span>
                             @endif
                         </div>
                         <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">
@@ -44,7 +44,7 @@
                         <form action="{{ route('admin.message.mark-read', $message->id) }}" method="POST" class="shrink-0">
                             @csrf
                             <button type="submit" class="px-4 py-2 rounded-sm text-xs font-medium bg-[#D62113] text-white hover:bg-[#b81a0f] transition-colors">
-                                Okundu İşaretle
+                                {{ __('messages.message.mark_as_read') }}
                             </button>
                         </form>
                     @endif
@@ -54,7 +54,7 @@
                 </div>
             </div>
         @empty
-            <x-admin.empty-state title="Mesaj bulunamadı" description="Henüz hiç mesaj gelmemiş.">
+            <x-admin.empty-state title="{{ __('messages.message.no_messages') }}" description="{{ __('messages.message.no_messages_desc') }}">
                 <x-slot:icon><i data-lucide="inbox" class="mx-auto w-12 h-12"></i></x-slot:icon>
             </x-admin.empty-state>
         @endforelse

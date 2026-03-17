@@ -21,26 +21,26 @@ class ContactController extends Controller
             if ($request->expectsJson()) {
                 return response()->json([
                     'success' => true,
-                    'message' => 'Mesajınız başarıyla gönderildi!',
+                    'message' => __('messages.contact.success'),
                 ], 200);
             }
 
             return back()
-                ->with('contact_success', 'Mesajınız başarıyla gönderildi!')
+                ->with('contact_success', __('messages.contact.success'))
                 ->withFragment('contact');
 
         } catch (\Exception $e) {
             if ($request->expectsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Bir hata oluştu. Lütfen daha sonra tekrar deneyin.',
+                    'message' => __('messages.contact.error'),
                     'error' => $e->getMessage(),
                 ], 500);
             }
 
             return back()
                 ->withInput()
-                ->with('contact_error', 'Bir hata oluştu. Lütfen daha sonra tekrar deneyin.')
+                ->with('contact_error', __('messages.contact.error'))
                 ->withFragment('contact');
         }
     }

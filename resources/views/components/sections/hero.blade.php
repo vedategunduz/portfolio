@@ -2,18 +2,18 @@
     <div class="max-w-7xl mx-auto text-center">
         {{-- LCP Element: Hero başlığı - animasyonsuz, hemen görünür --}}
         <h1 class="text-5xl md:text-7xl font-bold text-[#1b1b18] dark:text-[#EDEDEC] mb-6" style="content-visibility: auto;">
-            Merhaba, ben
+            {{ __('messages.home.hero.greeting') }}
             <span class="text-[#D62113]">Vedat</span>
         </h1>
         <p class="scroll-item text-xl md:text-2xl text-[#706f6c] dark:text-[#D4D3D0] max-w-3xl mx-auto mb-8 transition-all duration-500">
-            Backend ağırlıklı çalışan bir full-stack geliştiriciyim. Ölçeklenebilir, temiz ve sürdürülebilir yazılım geliştirmeye odaklanıyorum.
+            {{ __('messages.home.hero.description') }}
         </p>
         <div class="scroll-item flex gap-4 justify-center flex-wrap transition-all duration-500">
             <x-button href="#projects" variant="primary">
-                Projelerimi Görüntüle
+                {{ __('messages.home.hero.cta_projects') }}
             </x-button>
             <x-button href="#contact" variant="secondary">
-                İletişime Geç
+                {{ __('messages.home.hero.cta_contact') }}
             </x-button>
         </div>
     </div>

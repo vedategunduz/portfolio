@@ -10,11 +10,13 @@ function statColor(p) {
 }
 
 function badgeActive() {
-    return '<span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/20 text-emerald-700 dark:bg-emerald-500/25 dark:text-emerald-400">Aktif</span>';
+    const text = window.translations?.['dashboard.active'] || 'Aktif';
+    return '<span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/20 text-emerald-700 dark:bg-emerald-500/25 dark:text-emerald-400">' + text + '</span>';
 }
 
 function badgeInactive() {
-    return '<span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-500/20 text-red-700 dark:bg-red-500/25 dark:text-red-400">Kapalı</span>';
+    const text = window.translations?.['dashboard.inactive'] || 'Kapalı';
+    return '<span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-500/20 text-red-700 dark:bg-red-500/25 dark:text-red-400">' + text + '</span>';
 }
 
 function badgeFailed(n) {

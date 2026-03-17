@@ -1,46 +1,46 @@
 <section id="about" data-scroll-section class="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-20">
     <div class="max-w-7xl mx-auto">
-        <x-section-title class="scroll-item" title="Hakkımda" />
+        <x-section-title class="scroll-item" :title="__('messages.home.about.title')" />
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div class="scroll-item">
                 <h3 class="text-2xl font-semibold text-[#1b1b18] dark:text-[#EDEDEC] mb-4">
-                    Ben Kimim?
+                    {{ __('messages.home.about.heading') }}
                 </h3>
                 <p class="text-lg text-[#706f6c] dark:text-[#D4D3D0] mb-4">
-                    PHP/Laravel ile backend geliştirme odaklı çalışıyorum. RESTful API, JWT kimlik doğrulama ve üçüncü parti entegrasyonlar (özellikle .NET servisleriyle) konusunda deneyimliyim. Ödeme akışları ve veritabanı tasarımı alanlarında özellikle titiz çalışırım.
+                    {{ __('messages.home.about.paragraph_1') }}
                 </p>
                 <p class="text-lg text-[#706f6c] dark:text-[#D4D3D0] mb-6">
-                    Sağlam backend mimarileri kurma, RESTful API geliştirme ve modern frontend entegrasyonu alanlarında uzmanlaşıyorum. Temiz ve okunabilir kod yazarım, en iyi uygulamalara sadık kalırım ve problemi geçici çözümlerle yamamak yerine doğru mimariyi kurarım.
+                    {{ __('messages.home.about.paragraph_2') }}
                 </p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <x-skill-card
                     data-scroll-card
-                    title="Backend (Ana Odak)"
-                    description="PHP / Laravel, RESTful API, JWT Auth, Payment Flows, .NET Integration"
+                    :title="__('messages.home.about.skills.backend.title')"
+                    :description="__('messages.home.about.skills.backend.description')"
                     icon="server"
                 />
 
                 <x-skill-card
                     data-scroll-card
-                    title="Frontend"
-                    description="JavaScript (ES6+), Next.js, HTML/CSS, Tailwind CSS, Bootstrap"
+                    :title="__('messages.home.about.skills.frontend.title')"
+                    :description="__('messages.home.about.skills.frontend.description')"
                     icon="code"
                 />
 
                 <x-skill-card
                     data-scroll-card
-                    title="Database"
-                    description="MySQL, SQL & Relational Design, Query Optimization"
+                    :title="__('messages.home.about.skills.database.title')"
+                    :description="__('messages.home.about.skills.database.description')"
                     icon="database"
                 />
 
                 <x-skill-card
                     data-scroll-card
-                    title="Tools & Workflow"
-                    description="Git / GitHub, Linux Deployment, Debugging & Logging"
+                    :title="__('messages.home.about.skills.tools.title')"
+                    :description="__('messages.home.about.skills.tools.description')"
                     icon="wrench"
                 />
             </div>

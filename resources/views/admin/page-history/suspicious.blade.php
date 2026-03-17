@@ -1,26 +1,26 @@
 @extends('layouts.admin')
 
-@section('title', 'Şüpheli / Exploit - Admin - ' . config('app.name'))
-@section('page-title', 'Sayfa Geçmişi — Şüpheli İstekler')
+@section('title', __('messages.page_history.suspicious') . ' - Admin - ' . config('app.name'))
+@section('page-title', __('messages.page_history.page_history_section') . ' — ' . __('messages.page_history.suspicious'))
 
 @php
-    $eventTypeOptions = ['' => 'Tümü', 'suspicious_pattern' => 'Şüpheli pattern', 'rate_abuse' => 'Rate abuse'];
-    $severityOptions = ['' => 'Tümü', 'low' => 'Düşük', 'medium' => 'Orta', 'high' => 'Yüksek', 'critical' => 'Kritik'];
+    $eventTypeOptions = ['' => __('messages.page_history.event_type_all'), 'suspicious_pattern' => __('messages.page_history.event_type_suspicious_pattern'), 'rate_abuse' => __('messages.page_history.event_type_rate_abuse')];
+    $severityOptions = ['' => __('messages.page_history.severity_all'), 'low' => __('messages.page_history.severity_low'), 'medium' => __('messages.page_history.severity_medium'), 'high' => __('messages.page_history.severity_high'), 'critical' => __('messages.page_history.severity_critical')];
 @endphp
 
 @section('content')
-    <x-admin.ui.filter-card title="Filtreler" :action="route('admin.page-history.suspicious')" method="get">
-        <x-admin.form.input label="Tarih (başlangıç)" type="date" name="date_from" value="{{ request('date_from') }}" />
-        <x-admin.form.input label="Tarih (bitiş)" type="date" name="date_to" value="{{ request('date_to') }}" />
-        <x-admin.form.input label="IP" name="ip" value="{{ request('ip') }}" />
-        <x-admin.form.select label="Olay tipi" name="event_type" :options="$eventTypeOptions" :selected="request('event_type')" />
-        <x-admin.form.select label="Önem" name="severity" :options="$severityOptions" :selected="request('severity')" />
+    <x-admin.ui.filter-card title="{{ __('messages.filters') }}" :action="route('admin.page-history.suspicious')" method="get">
+        <x-admin.form.input label="{{ __('messages.log.date_from') }}" type="date" name="date_from" value="{{ request('date_from') }}" />
+        <x-admin.form.input label="{{ __('messages.log.date_to') }}" type="date" name="date_to" value="{{ request('date_to') }}" />
+        <x-admin.form.input label="{{ __('messages.log.ip') }}" name="ip" value="{{ request('ip') }}" />
+        <x-admin.form.select label="{{ __('messages.page_history.event_type') }}" name="event_type" :options="$eventTypeOptions" :selected="request('event_type')" />
+        <x-admin.form.select label="{{ __('messages.page_history.severity') }}" name="severity" :options="$severityOptions" :selected="request('severity')" />
         <div class="sm:col-span-2 lg:col-span-1">
-            <x-admin.form.input label="URL (içeren)" name="url" value="{{ request('url') }}" />
+            <x-admin.form.input label="{{ __('messages.page_history.url_contains') }}" name="url" value="{{ request('url') }}" />
         </div>
         <div class="flex flex-wrap items-end gap-2 sm:col-span-2 lg:col-span-4">
-            <x-admin.ui.button variant="primary" type="submit">Filtrele</x-admin.ui.button>
-            <x-admin.ui.button variant="secondary" :href="route('admin.page-history.suspicious')">Temizle</x-admin.ui.button>
+            <x-admin.ui.button variant="primary" type="submit">{{ __('messages.filter') }}</x-admin.ui.button>
+            <x-admin.ui.button variant="secondary" :href="route('admin.page-history.suspicious')">{{ __('messages.clear') }}</x-admin.ui.button>
         </div>
     </x-admin.ui.filter-card>
 
@@ -29,14 +29,14 @@
             <x-admin.ui.table-wrapper>
                 <x-slot:header>
                     <tr>
-                        <x-admin.ui.table-th>Tarih</x-admin.ui.table-th>
-                        <x-admin.ui.table-th>IP</x-admin.ui.table-th>
-                        <x-admin.ui.table-th>Olay tipi</x-admin.ui.table-th>
-                        <x-admin.ui.table-th>Başlık</x-admin.ui.table-th>
-                        <x-admin.ui.table-th>Eşleşen kural</x-admin.ui.table-th>
-                        <x-admin.ui.table-th>Önem</x-admin.ui.table-th>
-                        <x-admin.ui.table-th>URL</x-admin.ui.table-th>
-                        <x-admin.ui.table-th>User-Agent</x-admin.ui.table-th>
+                        <x-admin.ui.table-th>{{ __('messages.page_history.table_date') }}</x-admin.ui.table-th>
+                        <x-admin.ui.table-th>{{ __('messages.page_history.table_ip') }}</x-admin.ui.table-th>
+                        <x-admin.ui.table-th>{{ __('messages.page_history.table_event_type') }}</x-admin.ui.table-th>
+                        <x-admin.ui.table-th>{{ __('messages.page_history.table_title') }}</x-admin.ui.table-th>
+                        <x-admin.ui.table-th>{{ __('messages.page_history.table_matched_rule') }}</x-admin.ui.table-th>
+                        <x-admin.ui.table-th>{{ __('messages.page_history.table_severity') }}</x-admin.ui.table-th>
+                        <x-admin.ui.table-th>{{ __('messages.page_history.table_url') }}</x-admin.ui.table-th>
+                        <x-admin.ui.table-th>{{ __('messages.page_history.table_useragent') }}</x-admin.ui.table-th>
                     </tr>
                 </x-slot:header>
                 @forelse($logs as $log)
@@ -60,7 +60,7 @@
                     </x-admin.ui.table-row>
                 @empty
                     <tr>
-                        <td colspan="8" class="px-3 lg:px-4 py-12 text-center text-sm text-[#6b7280] dark:text-[#9ca3af]">Kayıt bulunamadı.</td>
+                        <td colspan="8" class="px-3 lg:px-4 py-12 text-center text-sm text-[#6b7280] dark:text-[#9ca3af]">{{ __('messages.no_records') }}</td>
                     </tr>
                 @endforelse
             </x-admin.ui.table-wrapper>
@@ -78,13 +78,13 @@
                     <p class="text-sm font-medium text-[#111827] dark:text-[#f3f4f6] wrap-break-word">{{ Str::limit($log->title, 60) }}</p>
                     <dl class="mt-2 space-y-1 text-xs text-[#6b7280] dark:text-[#9ca3af]">
                         <div><dt class="inline">IP:</dt> <dd class="inline"><a href="{{ route('admin.page-history.suspicious', ['ip' => $log->ip_address]) }}" class="text-[#D62113] dark:text-[#e85c4d] hover:underline">{{ $log->ip_address }}</a></dd></div>
-                        @if($log->matched_rule)<div><dt class="inline">Kural:</dt> <dd class="inline break-all">{{ Str::limit($log->matched_rule, 50) }}</dd></div>@endif
-                        @if($log->full_url)<div><dt class="inline">URL:</dt> <dd class="inline break-all">{{ Str::limit($log->full_url, 50) }}</dd></div>@endif
-                        @if($log->user_agent)<div><dt class="inline">UA:</dt> <dd class="inline break-all">{{ Str::limit($log->user_agent, 45) }}</dd></div>@endif
+                        @if($log->matched_rule)<div><dt class="inline">{{ __('messages.page_history.table_rule') }}:</dt> <dd class="inline break-all">{{ Str::limit($log->matched_rule, 50) }}</dd></div>@endif
+                        @if($log->full_url)<div><dt class="inline">{{ __('messages.page_history.table_url') }}:</dt> <dd class="inline break-all">{{ Str::limit($log->full_url, 50) }}</dd></div>@endif
+                        @if($log->user_agent)<div><dt class="inline">{{ __('messages.page_history.table_useragent') }}:</dt> <dd class="inline break-all">{{ Str::limit($log->user_agent, 45) }}</dd></div>@endif
                     </dl>
                 </div>
             @empty
-                <div class="px-4 py-12 text-center text-sm text-[#6b7280] dark:text-[#9ca3af]">Kayıt bulunamadı.</div>
+                <div class="px-4 py-12 text-center text-sm text-[#6b7280] dark:text-[#9ca3af]">{{ __('messages.no_records') }}</div>
             @endforelse
         </div>
 

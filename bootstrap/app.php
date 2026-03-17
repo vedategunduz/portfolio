@@ -14,6 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->redirectGuestsTo('/admin/login');
         $middleware->web(append: [
+            \App\Http\Middleware\SetLocaleFromSession::class,
             \App\Http\Middleware\LogPageHistory::class,
         ]);
     })

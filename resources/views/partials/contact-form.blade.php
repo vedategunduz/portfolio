@@ -50,7 +50,7 @@
 
         <div>
             <label for="name" class="block text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC] mb-2">
-                Ad Soyadınız <span class="text-[#D62113]">*</span>
+                {{ __('messages.home.contact.form.name_label') }} <span class="text-[#D62113]">*</span>
             </label>
             <input
                 type="text"
@@ -58,7 +58,7 @@
                 name="name"
                 data-field-input="name"
                 value="{{ old('name') }}"
-                placeholder="Adınız ve Soyadınız"
+                placeholder="{{ __('messages.home.contact.form.name_placeholder') }}"
                 class="w-full px-4 py-3 border rounded-sm bg-white dark:bg-[#161615] text-[#1b1b18] dark:text-[#EDEDEC] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#D62113] border-[#e3e3e0] dark:border-[#3E3E3A] {{ $errors->has('name') ? 'border-red-500' : '' }}"
             >
             <p class="mt-1 text-sm text-red-500 {{ $errors->has('name') ? '' : 'hidden' }}" data-field-error="name">{{ $errors->first('name') }}</p>
@@ -66,7 +66,7 @@
 
         <div>
             <label for="email" class="block text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC] mb-2">
-                E-posta <span class="text-[#D62113]">*</span>
+                {{ __('messages.home.contact.form.email_label') }} <span class="text-[#D62113]">*</span>
             </label>
             <input
                 type="email"
@@ -74,7 +74,7 @@
                 name="email"
                 data-field-input="email"
                 value="{{ old('email') }}"
-                placeholder="ornek@eposta.com"
+                placeholder="{{ __('messages.home.contact.form.email_placeholder') }}"
                 class="w-full px-4 py-3 border rounded-sm bg-white dark:bg-[#161615] text-[#1b1b18] dark:text-[#EDEDEC] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#D62113] border-[#e3e3e0] dark:border-[#3E3E3A] {{ $errors->has('email') ? 'border-red-500' : '' }}"
             >
             <p class="mt-1 text-sm text-red-500 {{ $errors->has('email') ? '' : 'hidden' }}" data-field-error="email">{{ $errors->first('email') }}</p>
@@ -82,14 +82,14 @@
 
         <div>
             <label for="message" class="block text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC] mb-2">
-                Mesaj <span class="text-[#D62113]">*</span>
+                {{ __('messages.home.contact.form.message_label') }} <span class="text-[#D62113]">*</span>
             </label>
             <textarea
                 id="message"
                 name="message"
                 data-field-input="message"
                 rows="6"
-                placeholder="Mesajınızı buraya yazın..."
+                placeholder="{{ __('messages.home.contact.form.message_placeholder') }}"
                 class="w-full px-4 py-3 border rounded-sm bg-white dark:bg-[#161615] text-[#1b1b18] dark:text-[#EDEDEC] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#D62113] resize-none border-[#e3e3e0] dark:border-[#3E3E3A] {{ $errors->has('message') ? 'border-red-500' : '' }}"
             >{{ old('message') }}</textarea>
             <p class="mt-1 text-sm text-red-500 {{ $errors->has('message') ? '' : 'hidden' }}" data-field-error="message">{{ $errors->first('message') }}</p>
@@ -101,7 +101,7 @@
         >
             <span class="flex items-center gap-2">
                 <i data-lucide="send" class="w-4 h-4"></i>
-                Mesaj Gönder
+                {{ __('messages.home.contact.form.submit') }}
             </span>
         </button>
     </form>

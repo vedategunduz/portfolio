@@ -1,5 +1,5 @@
 @extends('errors.layout')
 
 @section('title', '403 - ' . config('app.name'))
-@section('heading', 'Erişim engellendi')
-@section('message', 'Bu sayfaya erişim yetkiniz bulunmuyor.')
+@section('heading', __('messages.errors.403.heading'))
+@section('message', __('messages.errors.403.message'))

@@ -34,11 +34,11 @@ class ContactFormRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'Ad Soyad gereklidir',
-            'email.required' => 'E-posta gereklidir',
-            'email.email' => 'Geçerli bir e-posta adresi girin',
-            'message.required' => 'Mesaj gereklidir',
-            'message.min' => 'Mesaj en az 10 karakter olmalıdır',
+            'name.required' => __('messages.contact.validation.name_required'),
+            'email.required' => __('messages.contact.validation.email_required'),
+            'email.email' => __('messages.contact.validation.email_invalid'),
+            'message.required' => __('messages.contact.validation.message_required'),
+            'message.min' => __('messages.contact.validation.message_min'),
         ];
     }
 }

@@ -2,64 +2,64 @@
     <div class="max-w-7xl mx-auto w-full">
         <x-section-title
             class="scroll-item"
-            title="Projelerim"
-            subtitle="Son zamanlarda üzerinde çalıştığım projelerden bazıları"
+            :title="__('messages.home.projects.title')"
+            :subtitle="__('messages.home.projects.subtitle')"
         />
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <x-project-card
                 data-scroll-card
-                title="Laravel + Next.js E-Ticaret Altyapısı"
-                description="Modern e-ticaret platformu. Laravel backend API ve Next.js frontend ile ölçeklenebilir mimari. Ödeme entegrasyonu, sepet yönetimi ve admin paneli."
+                :title="__('messages.home.projects.project1.title')"
+                :description="__('messages.home.projects.project1.description')"
                 color="#D62113"
                 initial="E"
                 :tags="['Laravel', 'Next.js', 'RESTful API', 'MySQL']"
             >
                 <div class="text-sm text-[#706f6c] dark:text-[#D4D3D0]">
-                    <p class="mb-2"><strong>Özellikler:</strong></p>
+                    <p class="mb-2"><strong>{{ __('messages.home.projects.features') }}</strong></p>
                     <ul class="list-disc list-inside space-y-1">
-                        <li>RESTful API mimarisi</li>
-                        <li>JWT Authentication</li>
-                        <li>Ödeme altyapısı entegrasyonu</li>
-                        <li>Gerçek zamanlı stok yönetimi</li>
+                        <li>{{ __('messages.home.projects.project1.feature1') }}</li>
+                        <li>{{ __('messages.home.projects.project1.feature2') }}</li>
+                        <li>{{ __('messages.home.projects.project1.feature3') }}</li>
+                        <li>{{ __('messages.home.projects.project1.feature4') }}</li>
                     </ul>
                 </div>
             </x-project-card>
 
             <x-project-card
                 data-scroll-card
-                title="3D Secure Ödeme Entegrasyonu"
-                description="Bankalar arası güvenli ödeme sistemi entegrasyonu. 3D Secure protokolü ile kredi kartı işlemleri ve transaction yönetimi."
+                :title="__('messages.home.projects.project2.title')"
+                :description="__('messages.home.projects.project2.description')"
                 color="#3B82F6"
                 initial="3D"
                 :tags="['PHP', 'Payment Gateway', 'API', 'Security']"
             >
                 <div class="text-sm text-[#706f6c] dark:text-[#D4D3D0]">
-                    <p class="mb-2"><strong>Özellikler:</strong></p>
+                    <p class="mb-2"><strong>{{ __('messages.home.projects.features') }}</strong></p>
                     <ul class="list-disc list-inside space-y-1">
-                        <li>3D Secure 2.0 protokolü</li>
-                        <li>İşlem (transaction) loglama</li>
-                        <li>Callback yönetimi</li>
-                        <li>Hata kurtarma mekanizması</li>
+                        <li>{{ __('messages.home.projects.project2.feature1') }}</li>
+                        <li>{{ __('messages.home.projects.project2.feature2') }}</li>
+                        <li>{{ __('messages.home.projects.project2.feature3') }}</li>
+                        <li>{{ __('messages.home.projects.project2.feature4') }}</li>
                     </ul>
                 </div>
             </x-project-card>
 
             <x-project-card
                 data-scroll-card
-                title="Emlak Platformu Backend Mimarisi"
-                description="Ölçeklenebilir emlak yönetim sistemi. İlan yönetimi, kullanıcı rolleri ve gelişmiş filtreleme özellikleri ile RESTful API."
+                :title="__('messages.home.projects.project3.title')"
+                :description="__('messages.home.projects.project3.description')"
                 color="#10B981"
                 initial="E"
                 :tags="['Laravel', 'MySQL', 'RESTful API', 'JWT']"
             >
                 <div class="text-sm text-[#706f6c] dark:text-[#D4D3D0]">
-                    <p class="mb-2"><strong>Özellikler:</strong></p>
+                    <p class="mb-2"><strong>{{ __('messages.home.projects.features') }}</strong></p>
                     <ul class="list-disc list-inside space-y-1">
-                        <li>Gelişmiş arama ve filtreleme</li>
-                        <li>Rol bazlı erişim kontrolü</li>
-                        <li>Görsel optimizasyonu</li>
-                        <li>Üçüncü parti harita entegrasyonu</li>
+                        <li>{{ __('messages.home.projects.project3.feature1') }}</li>
+                        <li>{{ __('messages.home.projects.project3.feature2') }}</li>
+                        <li>{{ __('messages.home.projects.project3.feature3') }}</li>
+                        <li>{{ __('messages.home.projects.project3.feature4') }}</li>
                     </ul>
                 </div>
             </x-project-card>

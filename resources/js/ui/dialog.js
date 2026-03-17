@@ -25,6 +25,8 @@ const THEMES = {
     }
 };
 
+const t = (key, fallback) => window.translations?.[key] || fallback;
+
 const triggerModal = (options) => {
     return new Promise((resolve) => {
         const type = options.type || 'info';
@@ -42,10 +44,10 @@ const triggerToast = (type, message, title) => {
 };
 
 export const Dialog = {
-    success: (message, title = 'Başarılı') => triggerToast('success', message, title),
-    error: (message, title = 'Hata') => triggerToast('error', message, title),
-    alert: (message, title = 'Bilgi') => triggerToast('info', message, title),
-    warning: (message, title = 'Dikkat') => triggerToast('warning', message, title),
-    confirm: (message, title = 'Emin misiniz?', confirmText = 'Evet, Onaylıyorum', type = 'danger') =>
-        triggerModal({ title, message, type, showCancel: true, cancelText: 'Vazgeç', confirmText }),
+    success: (message, title = t('dialog.success', 'Başarılı')) => triggerToast('success', message, title),
+    error: (message, title = t('dialog.error', 'Hata')) => triggerToast('error', message, title),
+    alert: (message, title = t('dialog.info', 'Bilgi')) => triggerToast('info', message, title),
+    warning: (message, title = t('dialog.warning', 'Dikkat')) => triggerToast('warning', message, title),
+    confirm: (message, title = t('dialog.confirm_title', 'Emin misiniz?'), confirmText = t('dialog.confirm_button', 'Evet, Onaylıyorum'), type = 'danger') =>
+        triggerModal({ title, message, type, showCancel: true, cancelText: t('dialog.cancel_button', 'Vazgeç'), confirmText }),
 };

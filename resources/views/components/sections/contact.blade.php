@@ -2,8 +2,8 @@
     <div class="max-w-3xl mx-auto w-full">
         <x-section-title
             class="scroll-item"
-            title="İletişim"
-            subtitle="Bir projeniz mi var ya da benimle çalışmak mı istiyorsunuz? Benimle iletişime geçin!"
+            :title="__('messages.home.contact.title')"
+            :subtitle="__('messages.home.contact.subtitle')"
         />
 
         <div class="scroll-item">
