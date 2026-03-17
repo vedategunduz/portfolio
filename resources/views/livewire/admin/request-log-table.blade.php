@@ -88,10 +88,10 @@
                             <x-admin.ui.table-td class="whitespace-nowrap tabular-nums">{{ $log->visited_at?->format('d/m/Y H:i:s') }}</x-admin.ui.table-td>
                             <x-admin.ui.table-td class="whitespace-nowrap">
                                 <span class="inline-flex items-center gap-1">
-                                    <a href="{{ route('admin.page-history.raw', ['ip' => $log->ip_address]) }}" class="text-[#6b7280] dark:text-[#9ca3af] hover:text-[#D62113] dark:hover:text-[#e85c4d] hover:underline text-sm transition-colors" wire:click.stop>{{ $log->ip_address }}</a>
                                     <button type="button" data-copy-ip="{{ $log->ip_address }}" class="p-1 rounded hover:bg-[#e5e5e5] dark:hover:bg-[#333333] text-[#6b7280] dark:text-[#9ca3af] hover:text-[#374151] dark:hover:text-[#f3f4f6] transition-colors" title="IP adresini kopyala" wire:click.stop>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
                                     </button>
+                                    <a href="{{ route('admin.page-history.raw', ['ip' => $log->ip_address]) }}" class="text-[#6b7280] dark:text-[#9ca3af] hover:text-[#D62113] dark:hover:text-[#e85c4d] hover:underline text-sm transition-colors" wire:click.stop>{{ $log->ip_address }}</a>
                                 </span>
                             </x-admin.ui.table-td>
                             <x-admin.ui.table-td class="whitespace-nowrap">
