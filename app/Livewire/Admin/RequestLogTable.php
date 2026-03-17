@@ -105,6 +105,7 @@ class RequestLogTable extends Component
         $topEndpoint = $topQuery->select('path')
             ->selectRaw('count(*) as c')
             ->groupBy('path')
+            ->reorder()
             ->orderByDesc('c')
             ->first();
 
