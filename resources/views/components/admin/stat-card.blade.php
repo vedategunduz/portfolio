@@ -16,10 +16,11 @@
     $padding = $compact ? 'p-4' : 'p-6';
     $iconBox = $compact ? 'w-9 h-9' : 'w-12 h-12';
     $valueSize = $compact ? 'text-lg' : 'text-2xl';
+    $contentAlign = $compact ? 'items-start' : 'items-center';
 @endphp
 
-<div {{ $attributes->merge(['class' => 'rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] bg-white dark:bg-[#1a1a18] ' . $padding]) }}>
-    <div class="flex items-center gap-3">
+<div {{ $attributes->merge(['class' => 'h-full rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] bg-white dark:bg-[#1a1a18] ' . $padding]) }}>
+    <div class="flex {{ $contentAlign }} gap-3">
         @if(isset($icon))
             <div class="shrink-0 {{ $iconBox }} rounded-sm flex items-center justify-center {{ $iconClasses }} {{ $compact ? '[&_svg]:w-4 [&_svg]:h-4' : '[&_svg]:w-5 [&_svg]:h-5' }} [&_svg]:shrink-0">
                 {{ $icon }}

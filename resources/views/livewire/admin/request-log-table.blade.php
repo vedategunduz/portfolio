@@ -15,7 +15,6 @@
             <x-slot:valueSlot>
                 @if($this->stats['top_endpoint'])
                     <span class="block truncate text-xs font-medium text-[#1b1b18] dark:text-[#EDEDEC]" title="{{ $this->stats['top_endpoint']->path }}">{{ $this->stats['top_endpoint']->path ?: '—' }}</span>
-                    <span class="text-xs font-semibold text-[#706f6c] dark:text-[#8F8F8B] mt-1 tabular-nums">{{ number_format($this->stats['top_endpoint']->c) }} istek</span>
                 @else
                     —
                 @endif

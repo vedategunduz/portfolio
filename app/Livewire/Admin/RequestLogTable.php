@@ -138,7 +138,7 @@ class RequestLogTable extends Component
         $query = RawRequestLog::query()->orderBy('visited_at', 'desc');
         $this->applyFilters($query);
 
-        return $query->paginate(10);
+        return $query->paginate(50);
     }
 
     public function getStatsProperty(): array

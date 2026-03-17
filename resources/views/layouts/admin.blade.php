@@ -27,7 +27,6 @@
     <!-- Styles / Scripts -->
     @vite(['resources/css/app.css', 'resources/js/admin.js'])
 
-    @livewireStyles
     @stack('styles')
 </head>
 <body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] dark:text-[#EDEDEC] antialiased min-h-screen">
@@ -90,7 +89,6 @@
 
     <x-toast />
 
-    @livewireScripts
     @stack('scripts')
 </body>
 </html>
