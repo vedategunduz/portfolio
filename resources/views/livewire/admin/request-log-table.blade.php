@@ -23,36 +23,93 @@
     </div>
 
     {{-- Filtreler --}}
-    <x-admin.card class="p-4 mb-6">
-        <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
-            <h3 class="text-sm font-semibold text-[#1b1b18] dark:text-[#EDEDEC] uppercase tracking-wider">Filtreler</h3>
-            <a href="{{ $this->exportUrl }}" class="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] bg-[#FAFAF9] dark:bg-[#111110] text-[#1b1b18] dark:text-[#EDEDEC] hover:bg-[#e3e3e0] dark:hover:bg-[#3E3E3A] transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                CSV İndir
-            </a>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-3">
-            <x-admin.form.input label="Tarih (başlangıç)" type="date" name="date_from" wire:model.live="date_from" />
-            <x-admin.form.input label="Tarih (bitiş)" type="date" name="date_to" wire:model.live="date_to" />
-            <x-admin.form.input label="IP" name="ip" placeholder="192.168.1.1" wire:model.live.debounce.500ms="ip" />
-            <x-admin.form.select label="Metod" name="method" :options="['' => 'Tümü', 'GET' => 'GET', 'POST' => 'POST', 'PUT' => 'PUT', 'PATCH' => 'PATCH', 'DELETE' => 'DELETE', 'HEAD' => 'HEAD', 'OPTIONS' => 'OPTIONS']" :selected="$method" wire:model.live="method" />
-            <x-admin.form.input label="Status code" type="number" name="status_code" placeholder="200" wire:model.live="status_code" min="100" max="599" />
-            <div class="lg:col-span-2">
-                <x-admin.form.input label="Path / URL (içeren)" name="path" placeholder="/about" wire:model.live.debounce.500ms="path" />
+    @php
+        $activeFilterCount = collect([
+            $date_from,
+            $date_to,
+            $ip,
+            $method,
+            $path,
+            $user_agent,
+            $status_code,
+        ])->filter(fn ($value) => (string) $value !== '')->count();
+    @endphp
+    <x-admin.card class="mb-6">
+        <details class="group" {{ $activeFilterCount > 0 ? 'open' : '' }}>
+            <summary class="list-none cursor-pointer px-4 py-3 [&::-webkit-details-marker]:hidden">
+                <div class="flex items-center justify-between gap-3">
+                    <div class="flex items-center gap-2">
+                        <h3 class="text-sm font-semibold text-[#1b1b18] dark:text-[#EDEDEC] uppercase tracking-wider">Filtreler</h3>
+                        @if($activeFilterCount > 0)
+                            <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">{{ $activeFilterCount }} aktif</span>
+                        @endif
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-[#706f6c] dark:text-[#8F8F8B] transition-transform duration-200 group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+            </summary>
+
+            <div class="border-t border-[#e3e3e0] dark:border-[#3E3E3A] p-4">
+                <div class="flex flex-wrap items-center justify-end gap-3 mb-3">
+                    <a href="{{ $this->exportUrl }}" class="group inline-flex items-center gap-2 rounded-sm border border-[#d9d9d6] dark:border-[#3E3E3A] bg-linear-to-b from-white to-[#f7f7f5] dark:from-[#171716] dark:to-[#111110] px-3.5 py-2 text-sm font-semibold text-[#2b2b28] dark:text-[#f5f5f4] shadow-sm ring-1 ring-black/5 dark:ring-white/5 transition-colors duration-200 hover:border-[#D62113]/40 hover:text-[#D62113] dark:hover:text-[#ff7569] hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D62113]/35">
+                        <span class="inline-flex h-5 w-5 items-center justify-center rounded-sm bg-[#D62113]/10 text-[#D62113] dark:bg-[#D62113]/20 dark:text-[#ff7569]">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        </span>
+                        CSV İndir
+                    </a>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+                    <x-admin.form.input label="Tarih (başlangıç)" type="date" name="date_from" wire:model.live="date_from" />
+                    <x-admin.form.input label="Tarih (bitiş)" type="date" name="date_to" wire:model.live="date_to" />
+                    <x-admin.form.input label="IP" name="ip" placeholder="192.168.1.1" wire:model.live.debounce.500ms="ip" />
+                    <x-admin.form.select label="Metod" name="method" :options="['' => 'Tümü', 'GET' => 'GET', 'POST' => 'POST', 'PUT' => 'PUT', 'PATCH' => 'PATCH', 'DELETE' => 'DELETE', 'HEAD' => 'HEAD', 'OPTIONS' => 'OPTIONS']" :selected="$method" wire:model.live="method" />
+                    <x-admin.form.select
+                        label="Status code"
+                        name="status_code"
+                        :options="[
+                            '' => 'Tümü',
+                            '200' => '200 OK',
+                            '201' => '201 Created',
+                            '204' => '204 No Content',
+                            '301' => '301 Moved Permanently',
+                            '302' => '302 Found',
+                            '304' => '304 Not Modified',
+                            '400' => '400 Bad Request',
+                            '401' => '401 Unauthorized',
+                            '403' => '403 Forbidden',
+                            '404' => '404 Not Found',
+                            '405' => '405 Method Not Allowed',
+                            '419' => '419 CSRF Token Mismatch',
+                            '422' => '422 Unprocessable Content',
+                            '429' => '429 Too Many Requests',
+                            '500' => '500 Internal Server Error',
+                            '502' => '502 Bad Gateway',
+                            '503' => '503 Service Unavailable',
+                            '504' => '504 Gateway Timeout',
+                        ]"
+                        :selected="$status_code"
+                        wire:model.live="status_code"
+                    />
+                    <div class="lg:col-span-2">
+                        <x-admin.form.input label="Path / URL (içeren)" name="path" placeholder="/about" wire:model.live.debounce.500ms="path" />
+                    </div>
+                    <div class="lg:col-span-2">
+                        <x-admin.form.input label="User-Agent (içeren)" name="user_agent" placeholder="Chrome" wire:model.live.debounce.500ms="user_agent" />
+                    </div>
+                    <div class="flex flex-wrap items-end gap-2 sm:col-span-2 lg:col-span-4 xl:col-span-5">
+                        <button type="button" wire:click="resetPage" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-sm bg-[#D62113] text-white hover:bg-[#b81a0f] transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            Filtrele
+                        </button>
+                        <button type="button" wire:click="clearFilters" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] text-[#706f6c] dark:text-[#8F8F8B] hover:bg-[#e3e3e0]/80 dark:hover:bg-[#3E3E3A] transition-colors">
+                            Temizle
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div class="lg:col-span-2">
-                <x-admin.form.input label="User-Agent (içeren)" name="user_agent" placeholder="Chrome" wire:model.live.debounce.500ms="user_agent" />
-            </div>
-            <div class="flex flex-wrap items-end gap-2 sm:col-span-2 lg:col-span-4 xl:col-span-5">
-                <button type="button" wire:click="resetPage" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-sm bg-[#D62113] text-white hover:bg-[#b81a0f] transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                    Filtrele
-                </button>
-                <button type="button" wire:click="clearFilters" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] text-[#706f6c] dark:text-[#8F8F8B] hover:bg-[#e3e3e0]/80 dark:hover:bg-[#3E3E3A] transition-colors">
-                    Temizle
-                </button>
-            </div>
-        </div>
+        </details>
     </x-admin.card>
 
     {{-- Tablo --}}
