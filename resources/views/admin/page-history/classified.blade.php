@@ -82,7 +82,7 @@
         </div>
 
         @if($logs->hasPages())
-            <x-admin.ui.pagination-wrap>{{ $logs->links() }}</x-admin.ui.pagination-wrap>
+            <x-admin.ui.pagination :paginator="$logs" />
         @endif
     </x-admin.card>
 @endsection

@@ -1,10 +1,10 @@
 import { createIcons } from 'lucide';
-import { Sun, Moon, Eye, Users, Mail, Inbox, Check, Ban, AlertTriangle, AlertCircle, Info, X, Activity, Clock, TrendingUp, Download, RefreshCw, Search, Copy } from 'lucide';
+import { Sun, Moon, Eye, Users, Mail, Inbox, Check, Ban, AlertTriangle, AlertCircle, Info, X, Activity, Clock, TrendingUp, Download, RefreshCw, Search, Copy, ChevronLeft, ChevronRight } from 'lucide';
 import { initThemeToggle } from './core/theme-toggle.js';
 import { Dialog } from './ui/dialog.js';
 import { getHttp } from './core/http.js';
 
-const adminIcons = { Sun, Moon, Eye, Users, Mail, Inbox, Check, Ban, AlertTriangle, AlertCircle, Info, X, Activity, Clock, TrendingUp, Download, RefreshCw, Search, Copy };
+const adminIcons = { Sun, Moon, Eye, Users, Mail, Inbox, Check, Ban, AlertTriangle, AlertCircle, Info, X, Activity, Clock, TrendingUp, Download, RefreshCw, Search, Copy, ChevronLeft, ChevronRight };
 
 window.getHttp = getHttp;
 window.Dialog = Dialog;
@@ -13,9 +13,29 @@ window.lucideIcons = adminIcons;
 
 initThemeToggle(createIcons, adminIcons);
 
-createIcons({
-    attrs: { width: 16, height: 16 },
-    icons: adminIcons,
+function runCreateIcons() {
+    createIcons({ attrs: { width: 16, height: 16 }, icons: adminIcons, nameAttr: 'data-lucide' });
+}
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runCreateIcons, { once: true });
+} else {
+    runCreateIcons();
+}
+
+// Livewire DOM güncellemesi bittikten sonra ikonları çiz (morph tamamlanana kadar bekle)
+function runCreateIconsDeferred() {
+    requestAnimationFrame(() => {
+        requestAnimationFrame(runCreateIcons);
+    });
+}
+
+document.addEventListener('livewire:navigated', runCreateIconsDeferred);
+document.addEventListener('livewire:initialized', () => {
+    if (window.Livewire && typeof window.Livewire.hook === 'function') {
+        window.Livewire.hook('request', ({ succeed }) => {
+            succeed(() => runCreateIconsDeferred());
+        });
+    }
 });
 
 // Alpine: toast vb. bileşenler için (admin layout'ta <x-toast /> kullanılıyor)

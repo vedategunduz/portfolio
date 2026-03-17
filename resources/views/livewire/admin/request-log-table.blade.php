@@ -120,11 +120,7 @@
                 </x-admin.ui.table-wrapper>
             </div>
 
-            @if($this->logs->hasPages())
-                <x-admin.ui.pagination-wrap>
-                    {{ $this->logs->links() }}
-                </x-admin.ui.pagination-wrap>
-            @endif
+            <x-admin.ui.pagination :paginator="$this->logs" :wire="true" />
         @endif
     </x-admin.card>
 

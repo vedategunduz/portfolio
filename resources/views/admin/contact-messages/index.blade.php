@@ -60,11 +60,7 @@
         @endforelse
     </div>
 
-    @if($messages->hasPages())
-        <div class="mt-6">
-            {{ $messages->links() }}
-        </div>
-    @endif
+    <x-admin.ui.pagination :paginator="$messages" class="mt-6" />
 @endsection
 
 @push('scripts')
