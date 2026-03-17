@@ -330,5 +330,12 @@ return [
     'dashboard.system_laravel' => 'Laravel',
     'dashboard.system_php' => 'PHP',
     'dashboard.system_env' => 'Ortam',
+
+    // Pagination
+    'pagination.aria_label' => 'Sayfalama',
+    'pagination.previous' => 'Önceki',
+    'pagination.next' => 'Sonraki',
+    'pagination.page_of' => 'Sayfa {current} / {last}',
+    'pagination.total_records' => '{from} – {to} arası toplam {total} kayıt',
 ];
 

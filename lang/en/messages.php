@@ -330,5 +330,12 @@ return [
     'dashboard.system_laravel' => 'Laravel',
     'dashboard.system_php' => 'PHP',
     'dashboard.system_env' => 'Environment',
+
+    // Pagination
+    'pagination.aria_label' => 'Pagination',
+    'pagination.previous' => 'Previous',
+    'pagination.next' => 'Next',
+    'pagination.page_of' => 'Page {current} / {last}',
+    'pagination.total_records' => '{from} – {to} of {total} records',
 ];
 
