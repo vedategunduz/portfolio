@@ -1,15 +1,19 @@
 @props([
-    'method', // GET, POST, etc.
+    'method', // GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS
 ])
 
 @php
-    $classes = match(strtoupper($method)) {
-        'GET' => 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400',
-        'POST' => 'bg-[#D62113]/15 text-[#D62113]',
-        default => 'bg-[#706f6c]/15 text-[#706f6c] dark:text-[#8F8F8B]',
+    $m = strtoupper((string) $method);
+    $classes = match($m) {
+        'GET' => 'bg-emerald-500/20 text-emerald-800 dark:text-emerald-300',
+        'POST' => 'bg-[#D62113]/20 text-[#D62113]',
+        'PUT', 'PATCH' => 'bg-blue-500/20 text-blue-800 dark:text-blue-300',
+        'DELETE' => 'bg-red-500/20 text-red-800 dark:text-red-300',
+        'HEAD', 'OPTIONS' => 'bg-[#706f6c]/20 text-[#4a4946] dark:text-[#b0afac]',
+        default => 'bg-[#706f6c]/20 text-[#4a4946] dark:text-[#b0afac]',
     };
 @endphp
 
-<span {{ $attributes->merge(['class' => 'px-2 py-0.5 text-xs font-medium rounded-sm ' . $classes]) }}>
-    {{ $method }}
+<span {{ $attributes->merge(['class' => 'inline-flex px-2 py-0.5 text-xs font-medium rounded-sm ' . $classes]) }}>
+    {{ $m ?: '—' }}
 </span>

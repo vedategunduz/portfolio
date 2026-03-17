@@ -8,13 +8,14 @@ return [
     'enabled' => env('PAGE_HISTORY_ENABLED', true),
 
     /*
-    | Middleware'in atlayacağı path'ler (regex veya prefix).
-    | admin/* zaten middleware içinde atlanıyor.
+    | Middleware'in atlayacağı path'ler (prefix). admin/* zaten middleware içinde atlanıyor.
+    | livewire: Livewire AJAX istekleri (filtreleme, pagination, modal vb.) loglanmaz.
     */
     'skip_paths' => [
         '/up',
         '/horizon',
         '/telescope',
+        'livewire',
     ],
 
     /*

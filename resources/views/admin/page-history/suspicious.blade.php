@@ -3,128 +3,93 @@
 @section('title', 'Şüpheli / Exploit - Admin - ' . config('app.name'))
 @section('page-title', 'Sayfa Geçmişi — Şüpheli İstekler')
 
+@php
+    $eventTypeOptions = ['' => 'Tümü', 'suspicious_pattern' => 'Şüpheli pattern', 'rate_abuse' => 'Rate abuse'];
+    $severityOptions = ['' => 'Tümü', 'low' => 'Düşük', 'medium' => 'Orta', 'high' => 'Yüksek', 'critical' => 'Kritik'];
+@endphp
+
 @section('content')
-    <x-admin.card class="p-6 mb-6">
-        <h3 class="text-sm font-semibold text-[#1b1b18] dark:text-[#EDEDEC] mb-4 uppercase tracking-wider">Filtreler</h3>
-        <form method="get" action="{{ route('admin.page-history.suspicious') }}" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div>
-                <label class="block text-xs text-[#706f6c] dark:text-[#8F8F8B] mb-1">Tarih (başlangıç)</label>
-                <input type="date" name="date_from" value="{{ request('date_from') }}" class="w-full rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] bg-white dark:bg-[#1a1a18] px-3 py-2 text-sm">
-            </div>
-            <div>
-                <label class="block text-xs text-[#706f6c] dark:text-[#8F8F8B] mb-1">Tarih (bitiş)</label>
-                <input type="date" name="date_to" value="{{ request('date_to') }}" class="w-full rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] bg-white dark:bg-[#1a1a18] px-3 py-2 text-sm">
-            </div>
-            <div>
-                <label class="block text-xs text-[#706f6c] dark:text-[#8F8F8B] mb-1">IP</label>
-                <input type="text" name="ip" value="{{ request('ip') }}" class="w-full rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] bg-white dark:bg-[#1a1a18] px-3 py-2 text-sm">
-            </div>
-            <div>
-                <label class="block text-xs text-[#706f6c] dark:text-[#8F8F8B] mb-1">Olay tipi</label>
-                <select name="event_type" class="w-full rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] bg-white dark:bg-[#1a1a18] px-3 py-2 text-sm">
-                    <option value="">Tümü</option>
-                    <option value="suspicious_pattern" {{ request('event_type') === 'suspicious_pattern' ? 'selected' : '' }}>Şüpheli pattern</option>
-                    <option value="rate_abuse" {{ request('event_type') === 'rate_abuse' ? 'selected' : '' }}>Rate abuse</option>
-                </select>
-            </div>
-            <div>
-                <label class="block text-xs text-[#706f6c] dark:text-[#8F8F8B] mb-1">Önem</label>
-                <select name="severity" class="w-full rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] bg-white dark:bg-[#1a1a18] px-3 py-2 text-sm">
-                    <option value="">Tümü</option>
-                    <option value="low" {{ request('severity') === 'low' ? 'selected' : '' }}>Düşük</option>
-                    <option value="medium" {{ request('severity') === 'medium' ? 'selected' : '' }}>Orta</option>
-                    <option value="high" {{ request('severity') === 'high' ? 'selected' : '' }}>Yüksek</option>
-                    <option value="critical" {{ request('severity') === 'critical' ? 'selected' : '' }}>Kritik</option>
-                </select>
-            </div>
-            <div class="sm:col-span-2 lg:col-span-1">
-                <label class="block text-xs text-[#706f6c] dark:text-[#8F8F8B] mb-1">URL (içeren)</label>
-                <input type="text" name="url" value="{{ request('url') }}" class="w-full rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] bg-white dark:bg-[#1a1a18] px-3 py-2 text-sm">
-            </div>
-            <div class="flex flex-wrap items-end gap-2 sm:col-span-2 lg:col-span-4">
-                <button type="submit" class="px-4 py-2 bg-[#D62113] text-white text-sm font-medium rounded-sm hover:bg-[#b81a0f]">Filtrele</button>
-                <a href="{{ route('admin.page-history.suspicious') }}" class="px-4 py-2 border border-[#e3e3e0] dark:border-[#3E3E3A] text-sm rounded-sm">Temizle</a>
-            </div>
-        </form>
-    </x-admin.card>
+    <x-admin.ui.filter-card title="Filtreler" :action="route('admin.page-history.suspicious')" method="get">
+        <x-admin.form.input label="Tarih (başlangıç)" type="date" name="date_from" value="{{ request('date_from') }}" />
+        <x-admin.form.input label="Tarih (bitiş)" type="date" name="date_to" value="{{ request('date_to') }}" />
+        <x-admin.form.input label="IP" name="ip" value="{{ request('ip') }}" />
+        <x-admin.form.select label="Olay tipi" name="event_type" :options="$eventTypeOptions" :selected="request('event_type')" />
+        <x-admin.form.select label="Önem" name="severity" :options="$severityOptions" :selected="request('severity')" />
+        <div class="sm:col-span-2 lg:col-span-1">
+            <x-admin.form.input label="URL (içeren)" name="url" value="{{ request('url') }}" />
+        </div>
+        <div class="flex flex-wrap items-end gap-2 sm:col-span-2 lg:col-span-4">
+            <x-admin.ui.button variant="primary" type="submit">Filtrele</x-admin.ui.button>
+            <x-admin.ui.button variant="secondary" :href="route('admin.page-history.suspicious')">Temizle</x-admin.ui.button>
+        </div>
+    </x-admin.ui.filter-card>
 
     <x-admin.card>
-        <!-- Desktop: table -->
         <div class="hidden md:block overflow-x-auto">
-            <table class="min-w-full">
-                <thead>
-                    <tr class="border-b border-[#e3e3e0] dark:border-[#3E3E3A] bg-[#FDFDFC] dark:bg-[#0a0a0a]/50">
-                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-[#706f6c] dark:text-[#8F8F8B] uppercase tracking-wider">Tarih</th>
-                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-[#706f6c] dark:text-[#8F8F8B] uppercase tracking-wider">IP</th>
-                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-[#706f6c] dark:text-[#8F8F8B] uppercase tracking-wider">Olay tipi</th>
-                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-[#706f6c] dark:text-[#8F8F8B] uppercase tracking-wider">Başlık</th>
-                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-[#706f6c] dark:text-[#8F8F8B] uppercase tracking-wider">Eşleşen kural</th>
-                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-[#706f6c] dark:text-[#8F8F8B] uppercase tracking-wider">Önem</th>
-                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-[#706f6c] dark:text-[#8F8F8B] uppercase tracking-wider">URL</th>
-                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-[#706f6c] dark:text-[#8F8F8B] uppercase tracking-wider">User-Agent</th>
+            <x-admin.ui.table-wrapper>
+                <x-slot:header>
+                    <tr>
+                        <x-admin.ui.table-th>Tarih</x-admin.ui.table-th>
+                        <x-admin.ui.table-th>IP</x-admin.ui.table-th>
+                        <x-admin.ui.table-th>Olay tipi</x-admin.ui.table-th>
+                        <x-admin.ui.table-th>Başlık</x-admin.ui.table-th>
+                        <x-admin.ui.table-th>Eşleşen kural</x-admin.ui.table-th>
+                        <x-admin.ui.table-th>Önem</x-admin.ui.table-th>
+                        <x-admin.ui.table-th>URL</x-admin.ui.table-th>
+                        <x-admin.ui.table-th>User-Agent</x-admin.ui.table-th>
                     </tr>
-                </thead>
-                <tbody class="divide-y divide-[#e3e3e0] dark:divide-[#3E3E3A]">
-                    @forelse($logs as $log)
-                        <tr class="hover:bg-[#FDFDFC] dark:hover:bg-[#0a0a0a]/30 transition-colors">
-                            <td class="px-4 lg:px-6 py-3 whitespace-nowrap text-sm text-[#1b1b18] dark:text-[#EDEDEC]">{{ $log->created_at?->format('d/m/Y H:i:s') }}</td>
-                            <td class="px-4 lg:px-6 py-3 whitespace-nowrap text-sm">
-                                <a href="{{ route('admin.page-history.suspicious', ['ip' => $log->ip_address]) }}" class="text-[#D62113] hover:underline">{{ $log->ip_address }}</a>
-                            </td>
-                            <td class="px-4 lg:px-6 py-3 whitespace-nowrap text-sm">{{ $log->event_type }}</td>
-                            <td class="px-4 lg:px-6 py-3 text-sm max-w-xs" title="{{ $log->title }}">{{ Str::limit($log->title, 40) }}</td>
-                            <td class="px-4 lg:px-6 py-3 text-sm text-[#706f6c] dark:text-[#8F8F8B] max-w-xs truncate" title="{{ $log->matched_rule }}">{{ Str::limit($log->matched_rule, 25) }}</td>
-                            <td class="px-4 lg:px-6 py-3 whitespace-nowrap">
-                                <span @class([
-                                    'px-2 py-0.5 text-xs font-medium rounded-sm',
-                                    'bg-red-500/20 text-red-700 dark:text-red-400' => $log->severity === 'critical',
-                                    'bg-amber-500/20 text-amber-700 dark:text-amber-400' => $log->severity === 'high',
-                                    'bg-[#706f6c]/15 text-[#706f6c] dark:text-[#8F8F8B]' => $log->severity === 'medium',
-                                    'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400' => in_array($log->severity, ['low', null]),
-                                ])>{{ $log->severity }}</span>
-                            </td>
-                            <td class="px-4 lg:px-6 py-3 text-sm max-w-xs truncate" title="{{ $log->full_url }}">{{ Str::limit($log->full_url, 40) }}</td>
-                            <td class="px-4 lg:px-6 py-3 text-sm text-[#706f6c] dark:text-[#8F8F8B] max-w-xs truncate" title="{{ $log->user_agent }}">{{ Str::limit($log->user_agent, 35) }}</td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="8" class="px-6 py-12 text-center text-sm text-[#706f6c] dark:text-[#8F8F8B]">Kayıt bulunamadı.</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
+                </x-slot:header>
+                @forelse($logs as $log)
+                    <x-admin.ui.table-row :zebra="$loop->iteration % 2 === 0">
+                        <x-admin.ui.table-td class="whitespace-nowrap">{{ $log->created_at?->format('d/m/Y H:i:s') }}</x-admin.ui.table-td>
+                        <x-admin.ui.table-td class="whitespace-nowrap">
+                            <a href="{{ route('admin.page-history.suspicious', ['ip' => $log->ip_address]) }}" class="text-[#6b7280] dark:text-[#9ca3af] hover:text-[#D62113] dark:hover:text-[#e85c4d] hover:underline transition-colors">{{ $log->ip_address }}</a>
+                        </x-admin.ui.table-td>
+                        <x-admin.ui.table-td class="whitespace-nowrap">{{ $log->event_type }}</x-admin.ui.table-td>
+                        <x-admin.ui.table-td class="max-w-xs truncate" title="{{ $log->title }}">{{ Str::limit($log->title, 40) }}</x-admin.ui.table-td>
+                        <x-admin.ui.table-td variant="secondary" class="max-w-xs truncate" title="{{ $log->matched_rule }}">{{ Str::limit($log->matched_rule, 25) }}</x-admin.ui.table-td>
+                        <x-admin.ui.table-td class="whitespace-nowrap">
+                            @php
+                                $sev = $log->severity;
+                                $badgeVariant = match($sev) { 'critical' => 'danger', 'high' => 'warning', 'medium' => 'default', default => 'success' };
+                            @endphp
+                            <x-admin.ui.badge :variant="$badgeVariant">{{ $sev ?? 'low' }}</x-admin.ui.badge>
+                        </x-admin.ui.table-td>
+                        <x-admin.ui.table-td class="max-w-xs truncate" title="{{ $log->full_url }}">{{ Str::limit($log->full_url, 40) }}</x-admin.ui.table-td>
+                        <x-admin.ui.table-td variant="secondary" class="max-w-xs truncate" title="{{ $log->user_agent }}">{{ Str::limit($log->user_agent, 35) }}</x-admin.ui.table-td>
+                    </x-admin.ui.table-row>
+                @empty
+                    <tr>
+                        <td colspan="8" class="px-3 lg:px-4 py-12 text-center text-sm text-[#6b7280] dark:text-[#9ca3af]">Kayıt bulunamadı.</td>
+                    </tr>
+                @endforelse
+            </x-admin.ui.table-wrapper>
         </div>
 
-        <!-- Mobile: cards -->
-        <div class="md:hidden divide-y divide-[#e3e3e0] dark:divide-[#3E3E3A]">
+        <div class="md:hidden divide-y divide-[#e5e5e5] dark:divide-[#333333]">
             @forelse($logs as $log)
-                <div class="p-4 hover:bg-[#FDFDFC] dark:hover:bg-[#0a0a0a]/30 transition-colors">
+                <div class="p-4 hover:bg-[#f5f5f5] dark:hover:bg-[#252525] transition-colors duration-150">
                     <div class="flex flex-wrap items-center gap-2 mb-2">
-                        <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">{{ $log->created_at?->format('d/m/Y H:i') }}</span>
-                        <span @class([
-                            'px-2 py-0.5 text-xs font-medium rounded-sm',
-                            'bg-red-500/20 text-red-700 dark:text-red-400' => $log->severity === 'critical',
-                            'bg-amber-500/20 text-amber-700 dark:text-amber-400' => $log->severity === 'high',
-                            'bg-[#706f6c]/15 text-[#706f6c] dark:text-[#8F8F8B]' => $log->severity === 'medium',
-                            'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400' => in_array($log->severity, ['low', null]),
-                        ])>{{ $log->severity }}</span>
-                        <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">{{ $log->event_type }}</span>
+                        <span class="text-xs text-[#6b7280] dark:text-[#9ca3af]">{{ $log->created_at?->format('d/m/Y H:i') }}</span>
+                        @php $badgeVariant = match($log->severity) { 'critical' => 'danger', 'high' => 'warning', 'medium' => 'default', default => 'success' }; @endphp
+                        <x-admin.ui.badge :variant="$badgeVariant">{{ $log->severity ?? 'low' }}</x-admin.ui.badge>
+                        <span class="text-xs text-[#6b7280] dark:text-[#9ca3af]">{{ $log->event_type }}</span>
                     </div>
-                    <p class="text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC] break-words">{{ Str::limit($log->title, 60) }}</p>
-                    <dl class="mt-2 space-y-1 text-xs">
-                        <div><dt class="inline text-[#706f6c] dark:text-[#8F8F8B]">IP:</dt> <dd class="inline"><a href="{{ route('admin.page-history.suspicious', ['ip' => $log->ip_address]) }}" class="text-[#D62113] hover:underline">{{ $log->ip_address }}</a></dd></div>
-                        @if($log->matched_rule)<div><dt class="inline text-[#706f6c] dark:text-[#8F8F8B]">Kural:</dt> <dd class="inline break-all">{{ Str::limit($log->matched_rule, 50) }}</dd></div>@endif
-                        @if($log->full_url)<div><dt class="inline text-[#706f6c] dark:text-[#8F8F8B]">URL:</dt> <dd class="inline break-all">{{ Str::limit($log->full_url, 50) }}</dd></div>@endif
-                        @if($log->user_agent)<div><dt class="inline text-[#706f6c] dark:text-[#8F8F8B]">UA:</dt> <dd class="inline break-all">{{ Str::limit($log->user_agent, 45) }}</dd></div>@endif
+                    <p class="text-sm font-medium text-[#111827] dark:text-[#f3f4f6] wrap-break-word">{{ Str::limit($log->title, 60) }}</p>
+                    <dl class="mt-2 space-y-1 text-xs text-[#6b7280] dark:text-[#9ca3af]">
+                        <div><dt class="inline">IP:</dt> <dd class="inline"><a href="{{ route('admin.page-history.suspicious', ['ip' => $log->ip_address]) }}" class="text-[#D62113] dark:text-[#e85c4d] hover:underline">{{ $log->ip_address }}</a></dd></div>
+                        @if($log->matched_rule)<div><dt class="inline">Kural:</dt> <dd class="inline break-all">{{ Str::limit($log->matched_rule, 50) }}</dd></div>@endif
+                        @if($log->full_url)<div><dt class="inline">URL:</dt> <dd class="inline break-all">{{ Str::limit($log->full_url, 50) }}</dd></div>@endif
+                        @if($log->user_agent)<div><dt class="inline">UA:</dt> <dd class="inline break-all">{{ Str::limit($log->user_agent, 45) }}</dd></div>@endif
                     </dl>
                 </div>
             @empty
-                <div class="px-4 py-12 text-center text-sm text-[#706f6c] dark:text-[#8F8F8B]">Kayıt bulunamadı.</div>
+                <div class="px-4 py-12 text-center text-sm text-[#6b7280] dark:text-[#9ca3af]">Kayıt bulunamadı.</div>
             @endforelse
         </div>
 
         @if($logs->hasPages())
-            <div class="px-4 sm:px-6 py-4 border-t border-[#e3e3e0] dark:border-[#3E3E3A]">{{ $logs->links() }}</div>
+            <x-admin.ui.pagination-wrap>{{ $logs->links() }}</x-admin.ui.pagination-wrap>
         @endif
     </x-admin.card>
 @endsection

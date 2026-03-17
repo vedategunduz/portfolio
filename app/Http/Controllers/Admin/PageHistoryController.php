@@ -14,15 +14,44 @@ use Illuminate\Http\Request;
 class PageHistoryController extends Controller
 {
     /**
-     * Tüm ham istekler (raw_request_logs).
+     * Tüm ham istekler (raw_request_logs) — Request Log Livewire component ile.
      */
-    public function raw(Request $request)
+    public function raw()
+    {
+        return view('admin.page-history.raw');
+    }
+
+    /**
+     * CSV export (mevcut filtrelerle).
+     */
+    public function rawExport(Request $request)
     {
         $query = RawRequestLog::query()->orderBy('visited_at', 'desc');
         $this->applyRawFilters($query, $request);
-        $logs = $query->paginate(50)->withQueryString();
+        $logs = $query->limit(10000)->get();
 
-        return view('admin.page-history.raw', compact('logs'));
+        $filename = 'request-log-' . now()->format('Y-m-d-His') . '.csv';
+
+        return response()->streamDownload(function () use ($logs) {
+            $out = fopen('php://output', 'w');
+            fputcsv($out, ['Tarih', 'IP', 'Metod', 'Path', 'Status', 'Süre (ms)', 'Asset', 'User-Agent']);
+            foreach ($logs as $log) {
+                fputcsv($out, [
+                    $log->visited_at?->format('Y-m-d H:i:s'),
+                    $log->ip_address,
+                    $log->method,
+                    $log->path,
+                    $log->status_code,
+                    $log->response_time_ms,
+                    $log->is_asset_request ? 'Evet' : 'Hayır',
+                    $log->user_agent,
+                ]);
+            }
+            fclose($out);
+        }, $filename, [
+            'Content-Type' => 'text/csv; charset=UTF-8',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ]);
     }
 
     /**
