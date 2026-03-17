@@ -39,7 +39,7 @@
                         @yield('page-title', 'Admin Panel')
                     </h1>
                     <div class="flex items-center gap-2 sm:gap-4 shrink-0">
-                        <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] hidden md:inline truncate max-w-[120px] lg:max-w-[180px]">{{ Auth::user()->email }}</span>
+                        <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] hidden md:inline truncate max-w-30 lg:max-w-45">{{ Auth::user()->email }}</span>
                         <a href="/" class="text-xs font-medium text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#D62113] transition-colors duration-200 whitespace-nowrap">
                             Ana Sayfa
                         </a>

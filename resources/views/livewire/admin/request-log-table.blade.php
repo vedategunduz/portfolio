@@ -73,14 +73,14 @@
                 <x-admin.ui.table-wrapper>
                     <x-slot:header>
                         <tr>
-                            <x-admin.ui.table-th class="w-[130px]">Tarih</x-admin.ui.table-th>
-                            <x-admin.ui.table-th class="w-[120px]">IP</x-admin.ui.table-th>
-                            <x-admin.ui.table-th class="w-[72px]">Metod</x-admin.ui.table-th>
-                            <x-admin.ui.table-th class="min-w-[160px] max-w-[240px]">URL / Path</x-admin.ui.table-th>
-                            <x-admin.ui.table-th class="w-[64px]">Status</x-admin.ui.table-th>
-                            <x-admin.ui.table-th class="w-[72px]">Süre</x-admin.ui.table-th>
-                            <x-admin.ui.table-th class="w-[64px]">Asset</x-admin.ui.table-th>
-                            <x-admin.ui.table-th class="min-w-[120px]">Tarayıcı / Cihaz</x-admin.ui.table-th>
+                            <x-admin.ui.table-th class="w-32.5">Tarih</x-admin.ui.table-th>
+                            <x-admin.ui.table-th class="w-30">IP</x-admin.ui.table-th>
+                            <x-admin.ui.table-th class="w-18">Metod</x-admin.ui.table-th>
+                            <x-admin.ui.table-th class="min-w-40 max-w-60">URL / Path</x-admin.ui.table-th>
+                            <x-admin.ui.table-th class="w-16">Status</x-admin.ui.table-th>
+                            <x-admin.ui.table-th class="w-18">Süre</x-admin.ui.table-th>
+                            <x-admin.ui.table-th class="w-16">Asset</x-admin.ui.table-th>
+                            <x-admin.ui.table-th class="min-w-30">Tarayıcı / Cihaz</x-admin.ui.table-th>
                         </tr>
                     </x-slot:header>
                     @foreach($this->logs as $index => $log)
@@ -97,7 +97,7 @@
                             <x-admin.ui.table-td class="whitespace-nowrap">
                                 <x-admin.method-badge :method="$log->method" />
                             </x-admin.ui.table-td>
-                            <x-admin.ui.table-td class="max-w-[240px]">
+                            <x-admin.ui.table-td class="max-w-60">
                                 <span class="block truncate" title="{{ $log->full_url }}">{{ $log->path ?: '—' }}</span>
                             </x-admin.ui.table-td>
                             <x-admin.ui.table-td class="whitespace-nowrap">
