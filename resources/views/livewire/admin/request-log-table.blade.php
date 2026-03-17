@@ -70,7 +70,7 @@
             </x-admin.empty-state>
         @else
             <div class="overflow-x-auto max-h-[calc(100vh-28rem)] overflow-y-auto">
-                <x-admin.ui.table-wrapper>
+                <x-admin.ui.table-wrapper tableClass="min-w-full table-fixed text-sm">
                     <x-slot:header>
                         <tr>
                             <x-admin.ui.table-th class="w-32.5">Tarih</x-admin.ui.table-th>
@@ -80,7 +80,7 @@
                             <x-admin.ui.table-th class="w-16">Status</x-admin.ui.table-th>
                             <x-admin.ui.table-th class="w-18">Süre</x-admin.ui.table-th>
                             <x-admin.ui.table-th class="w-16">Asset</x-admin.ui.table-th>
-                            <x-admin.ui.table-th class="min-w-30">Tarayıcı / Cihaz</x-admin.ui.table-th>
+                            <x-admin.ui.table-th class="w-44 max-w-44">Tarayıcı / Cihaz</x-admin.ui.table-th>
                         </tr>
                     </x-slot:header>
                     @foreach($this->logs as $index => $log)
@@ -111,7 +111,7 @@
                                     <span class="text-[#6b7280] dark:text-[#9ca3af]">—</span>
                                 @endif
                             </x-admin.ui.table-td>
-                            <x-admin.ui.table-td class="min-w-0">
+                            <x-admin.ui.table-td class="w-44 max-w-44 min-w-0">
                                 <span class="block truncate" title="{{ $log->user_agent }}">{{ \App\Helpers\UserAgentParser::format($log->user_agent) }}</span>
                             </x-admin.ui.table-td>
                         </x-admin.ui.table-row>
