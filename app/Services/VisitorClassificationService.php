@@ -24,10 +24,11 @@ class VisitorClassificationService
     }
 
     /**
-     * İsteği sınıflandır; classified log ve gerekirse exploit event yaz.
+     * İsteği yanıt üretmeden sınıflandır; exploit event gerekirse burada yazılır.
+     * Middleware şüpheli istekleri erken yakalayıp 403 dönebilmek için bunu kullanır.
      * Dönen array: traffic_type, risk_level, suspicion_reason?, bot_name?, matched_rule?, is_suspicious_event (bool).
      */
-    public function classify(Request $request, RawRequestLog $rawLog): array
+    public function getClassification(Request $request): array
     {
         $path = $request->path();
         $pathWithQuery = $request->getRequestUri();
@@ -123,6 +124,43 @@ class VisitorClassificationService
             'matched_rule' => null,
             'is_suspicious_event' => false,
         ];
+    }
+
+    /**
+     * classify() için getClassification() kullanır (RawLog sadece classified kaydı için gerekli).
+     */
+    public function classify(Request $request, RawRequestLog $rawLog): array
+    {
+        return $this->getClassification($request);
+    }
+
+    /**
+     * Zaten sınıflandırılmış istek için raw + classified log yazar (şüpheli istek 403 dönüldükten sonra).
+     */
+    public function recordRequestWithClassification(Request $request, array $rawPayload, array $classification): void
+    {
+        if (! ($this->config['enabled'] ?? true)) {
+            return;
+        }
+
+        $this->incrementRateCounter($rawPayload['ip_address']);
+
+        try {
+            $rawLog = RawRequestLog::create($rawPayload);
+
+            ClassifiedVisitLog::create([
+                'raw_log_id' => $rawLog->id,
+                'ip_address' => $rawPayload['ip_address'],
+                'traffic_type' => $classification['traffic_type']->value,
+                'suspicion_reason' => $classification['suspicion_reason'],
+                'bot_name' => $classification['bot_name'],
+                'risk_level' => $classification['risk_level']->value,
+                'matched_rule' => $classification['matched_rule'],
+                'visited_at' => $rawPayload['visited_at'],
+            ]);
+        } catch (\Throwable $e) {
+            Log::channel('single')->warning('Visitor logging failed: ' . $e->getMessage(), ['exception' => $e]);
+        }
     }
 
     /**

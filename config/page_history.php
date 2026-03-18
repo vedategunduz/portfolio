@@ -142,4 +142,10 @@ return [
 
     'queue_logging' => env('PAGE_HISTORY_QUEUE_LOGGING', false),
     'queue_connection' => env('PAGE_HISTORY_QUEUE_CONNECTION', null),
+
+    /*
+    | Şüpheli istek (exploit/scan/rate abuse) tespit edildiğinde dönülecek HTTP kodu.
+    | 403 Forbidden önerilir; 429 Too Many Requests rate limit için de uygundur.
+    */
+    'suspicious_response_code' => (int) env('PAGE_HISTORY_SUSPICIOUS_RESPONSE_CODE', 403),
 ];
