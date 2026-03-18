@@ -272,6 +272,14 @@ return [
     'profile.confirm_password' => 'Confirm New Password',
     'profile.note_next_session' => 'These changes will also take effect from your next session.',
     'profile.form_error' => 'Please check the fields in the form.',
+    'profile.validation.name_required' => 'The name field is required.',
+    'profile.validation.email_required' => 'The email field is required.',
+    'profile.validation.email_email' => 'Please enter a valid email address.',
+    'profile.validation.email_unique' => 'This email address is already in use by another user.',
+    'profile.validation.current_password_required_with' => 'Enter your current password to change the password.',
+    'profile.validation.current_password_current_password' => 'Current password could not be verified.',
+    'profile.validation.password_confirmed' => 'New password confirmation does not match.',
+    'profile.validation.password_min' => 'New password must be at least 8 characters.',
 
     // Page History
     'page_history.raw' => 'Raw Requests',

@@ -31,14 +31,14 @@ class UpdateAdminProfileRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'Ad alanı gereklidir.',
-            'email.required' => 'E-posta alanı gereklidir.',
-            'email.email' => 'Geçerli bir e-posta adresi girin.',
-            'email.unique' => 'Bu e-posta adresi başka bir kullanıcı tarafından kullanılıyor.',
-            'current_password.required_with' => 'Şifreyi değiştirmek için mevcut şifrenizi girin.',
-            'current_password.current_password' => 'Mevcut şifre doğrulanamadı.',
-            'password.confirmed' => 'Yeni şifre tekrarı eşleşmiyor.',
-            'password.min' => 'Yeni şifre en az 8 karakter olmalıdır.',
+            'name.required' => __('messages.profile.validation.name_required'),
+            'email.required' => __('messages.profile.validation.email_required'),
+            'email.email' => __('messages.profile.validation.email_email'),
+            'email.unique' => __('messages.profile.validation.email_unique'),
+            'current_password.required_with' => __('messages.profile.validation.current_password_required_with'),
+            'current_password.current_password' => __('messages.profile.validation.current_password_current_password'),
+            'password.confirmed' => __('messages.profile.validation.password_confirmed'),
+            'password.min' => __('messages.profile.validation.password_min'),
         ];
     }
 }

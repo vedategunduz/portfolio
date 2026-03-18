@@ -26,16 +26,6 @@
     @endif
 
     <div
-        data-form-error
-        class="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-sm hidden"
-    >
-        <p class="text-red-800 dark:text-red-200 text-sm flex items-center gap-2">
-            <i data-lucide="x-circle" class="w-5 h-5 shrink-0"></i>
-            <span data-form-error-message></span>
-        </p>
-    </div>
-
-    <div
         data-form-success
         class="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-sm hidden"
     >

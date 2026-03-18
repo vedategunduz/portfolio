@@ -41,7 +41,7 @@ class AdminAuthController extends Controller
         LoginHistory::logFailed($credentials['email'], $failureReason, $ip, $userAgent);
 
         return back()->withErrors([
-            'email' => 'Girdiğiniz bilgiler kayıtlarımızla eşleşmiyor.',
+            'email' => __('messages.auth.login_failed'),
         ])->onlyInput('email');
     }
 

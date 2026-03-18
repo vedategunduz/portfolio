@@ -26,10 +26,6 @@
             <p data-form-success-message class="text-sm font-medium text-emerald-800 dark:text-emerald-200"></p>
         </div>
 
-        <div data-form-error class="hidden mb-6 rounded-sm border border-red-200 dark:border-red-900 bg-red-50/80 dark:bg-red-900/20 p-4">
-            <p data-form-error-message class="text-sm font-medium text-red-700 dark:text-red-300"></p>
-        </div>
-
         <form id="admin-profile-form" method="POST" action="{{ route('admin.profile.update') }}" class="space-y-6">
             @csrf
             @method('PATCH')

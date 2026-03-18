@@ -272,6 +272,14 @@ return [
     'profile.confirm_password' => 'Yeni Şifre Tekrar',
     'profile.note_next_session' => 'Bu değişiklikler bir sonraki oturumdan itibaren de geçerli olur.',
     'profile.form_error' => 'Lütfen formdaki alanları kontrol edin.',
+    'profile.validation.name_required' => 'Ad alanı zorunludur.',
+    'profile.validation.email_required' => 'E-posta alanı zorunludur.',
+    'profile.validation.email_email' => 'Geçerli bir e-posta adresi girin.',
+    'profile.validation.email_unique' => 'Bu e-posta adresi başka bir kullanıcı tarafından kullanılıyor.',
+    'profile.validation.current_password_required_with' => 'Şifreyi değiştirmek için mevcut şifrenizi girin.',
+    'profile.validation.current_password_current_password' => 'Mevcut şifre doğrulanamadı.',
+    'profile.validation.password_confirmed' => 'Yeni şifre tekrarı eşleşmiyor.',
+    'profile.validation.password_min' => 'Yeni şifre en az 8 karakter olmalıdır.',
 
     // Page History
     'page_history.raw' => 'Ham İstekler',

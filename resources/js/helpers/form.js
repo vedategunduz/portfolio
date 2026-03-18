@@ -112,10 +112,12 @@ export function initForm(selector, options = {}) {
             const errorMsg = parseErrorMessage(error);
             const status = error?.response?.status;
             const data = error?.response?.data;
-            if (status === 422 && data?.errors) renderValidationErrors(form, data.errors);
-            if (options.onError) options.onError(error);
-            else {
-                if (!showFormMessage(form, 'error', errorMsg)) Dialog.error(errorMsg, t('form.action_failed', 'İşlem Başarısız'));
+            if (status === 422 && data?.errors) {
+                renderValidationErrors(form, data.errors);
+                // Validation hataları inputların altında gösterildi, üstte kutu gösterme
+            } else {
+                if (options.onError) options.onError(error);
+                else Dialog.error(errorMsg, t('form.action_failed', 'İşlem Başarısız'));
             }
         } finally {
             if (submitBtn) {

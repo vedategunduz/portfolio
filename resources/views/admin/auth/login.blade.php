@@ -27,14 +27,6 @@
                     <form method="POST" action="{{ route('admin.login') }}" class="space-y-6">
                         @csrf
 
-                        @if ($errors->any())
-                            <div class="bg-red-50/90 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-sm p-4">
-                                <p class="text-sm font-medium text-red-800 dark:text-red-300">
-                                    {{ __('messages.auth.login_failed') }}
-                                </p>
-                            </div>
-                        @endif
-
                         <div>
                             <label for="email" class="block text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC] mb-2">
                                 {{ __('messages.auth.email_label') }}
