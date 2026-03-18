@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
-@section('title', 'Admin Dashboard - ' . config('app.name'))
-@section('page-title', 'Admin Panel')
+@section('title', __('messages.admin.page_title') . ' - ' . config('app.name'))
+@section('page-title', __('messages.admin.page_title'))
 
 @section('content')
     <!-- Stats Grid -->
@@ -108,11 +108,11 @@
         <div id="server-stats-content">
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-4 gap-y-2 sm:gap-4">
             <div class="flex justify-between items-center py-2 border-b border-[#e3e3e0] dark:border-[#3E3E3A] sm:border-b-0 lg:border-r lg:pr-4 min-w-0">
-                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0">CPU</span>
+                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0">{{ __('messages.dashboard.cpu') }}</span>
                 <span id="server-stats-cpu" class="text-xs sm:text-sm font-medium {{ $statColor($cpuP) }}">{{ $cpuP !== null ? number_format($cpuP, 1, '.', '') . '%' : '—' }}</span>
             </div>
             <div class="flex justify-between items-center py-2 border-b border-[#e3e3e0] dark:border-[#3E3E3A] sm:border-b-0 lg:border-r lg:pr-4 min-w-0">
-                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0">RAM</span>
+                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0">{{ __('messages.dashboard.ram') }}</span>
                 <span id="server-stats-ram" class="text-xs sm:text-sm font-medium {{ $statColor($ramP) }} min-w-0 text-right">
                     @if(is_array($serverStatsData['ram_percent'] ?? null))
                         {{ number_format((float) $serverStatsData['ram_percent']['percent'], 1, '.', '') }}% <span class="text-[#706f6c] dark:text-[#8F8F8B] hidden sm:inline">({{ $serverStatsData['ram_percent']['used_mb'] }}/{{ $serverStatsData['ram_percent']['total_mb'] }} MB)</span>
@@ -122,7 +122,7 @@
                 </span>
             </div>
             <div class="flex justify-between items-center py-2 border-b border-[#e3e3e0] dark:border-[#3E3E3A] sm:border-b-0 lg:border-r lg:pr-4 min-w-0 col-span-2 sm:col-span-1">
-                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0">Disk</span>
+                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0">{{ __('messages.dashboard.disk') }}</span>
                 <span id="server-stats-disk" class="text-xs sm:text-sm font-medium {{ $statColor($diskP) }} min-w-0 text-right">
                     @if(is_array($serverStatsData['disk_percent'] ?? null))
                         {{ number_format((float) $serverStatsData['disk_percent']['percent'], 1, '.', '') }}% <span class="text-[#706f6c] dark:text-[#8F8F8B] hidden sm:inline">({{ $serverStatsData['disk_percent']['used_gb'] }}/{{ $serverStatsData['disk_percent']['total_gb'] }} GB)</span>
@@ -132,37 +132,37 @@
                 </span>
             </div>
             <div class="flex justify-between items-center gap-2 py-2 border-b border-[#e3e3e0] dark:border-[#3E3E3A] sm:border-b-0 lg:border-r lg:pr-4 min-w-0 col-span-2 sm:col-span-1">
-                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0">Uptime</span>
+                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0">{{ __('messages.dashboard.uptime') }}</span>
                 <span id="server-stats-uptime" class="text-xs sm:text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC] font-mono truncate" title="{{ $serverStatsData['uptime'] ?? '—' }}">{{ $serverStatsData['uptime'] ?? '—' }}</span>
             </div>
             <div class="flex justify-between items-center gap-2 py-2 min-w-0 col-span-2 lg:col-span-1">
-                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0" title="1, 5 ve 15 dakika yük ortalaması">Load avg</span>
+                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0" title="{{ __('messages.dashboard.load_avg_title') }}">{{ __('messages.dashboard.load_avg') }}</span>
                 <span id="server-stats-load" class="text-xs font-medium text-[#1b1b18] dark:text-[#EDEDEC] font-mono text-right truncate" title="1 dk / 5 dk / 15 dk">{{ $serverStatsData['load_average'] ?? '—' }}</span>
             </div>
         </div>
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-4 gap-y-3 mt-4 pt-4 border-t border-[#e3e3e0] dark:border-[#3E3E3A]">
             <div class="flex justify-between items-center gap-2 min-w-0">
-                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0">Nginx</span>
+                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0">{{ __('messages.dashboard.nginx') }}</span>
                 <span id="server-stats-nginx">@if($serverStatsData['nginx_status'] === 'active')<span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/20 text-emerald-700 dark:bg-emerald-500/25 dark:text-emerald-400">{{ __('messages.dashboard.active') }}</span>@else<span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-500/20 text-red-700 dark:bg-red-500/25 dark:text-red-400">{{ __('messages.dashboard.inactive') }}</span>@endif</span>
             </div>
             <div class="flex justify-between items-center gap-2 min-w-0">
-                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0">MySQL</span>
+                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0">{{ __('messages.dashboard.mysql') }}</span>
                 <span id="server-stats-mysql">@if($serverStatsData['mysql_status'] === 'active')<span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/20 text-emerald-700 dark:bg-emerald-500/25 dark:text-emerald-400">{{ __('messages.dashboard.active') }}</span>@else<span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-500/20 text-red-700 dark:bg-red-500/25 dark:text-red-400">{{ __('messages.dashboard.inactive') }}</span>@endif</span>
             </div>
             <div class="flex justify-between items-center gap-2 min-w-0">
-                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0">PHP-FPM</span>
+                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0">{{ __('messages.dashboard.phpfpm') }}</span>
                 <span id="server-stats-phpfpm">@if($serverStatsData['php_fpm_status'] === 'active')<span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/20 text-emerald-700 dark:bg-emerald-500/25 dark:text-emerald-400">{{ __('messages.dashboard.active') }}</span>@else<span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-500/20 text-red-700 dark:bg-red-500/25 dark:text-red-400">{{ __('messages.dashboard.inactive') }}</span>@endif</span>
             </div>
             <div class="flex justify-between items-center gap-2 min-w-0 col-span-2 sm:col-span-1">
-                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0">Son deploy</span>
+                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0">{{ __('messages.dashboard.last_deploy') }}</span>
                 <span id="server-stats-deploy" class="text-xs sm:text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC] truncate">{{ $serverStatsData['last_deploy'] ? \Carbon\Carbon::parse($serverStatsData['last_deploy'])->format('d.m.Y H:i') : '—' }}</span>
             </div>
             <div class="flex justify-between items-center gap-2 min-w-0">
-                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0">Failed jobs</span>
+                <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0">{{ __('messages.dashboard.failed_jobs') }}</span>
                 <span id="server-stats-failedjobs">@if($serverStatsData['failed_jobs_count'] === 0)<span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/20 text-emerald-700 dark:bg-emerald-500/25 dark:text-emerald-400">{{ number_format($serverStatsData['failed_jobs_count']) }}</span>@else<span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-500/20 text-red-700 dark:bg-red-500/25 dark:text-red-400">{{ number_format($serverStatsData['failed_jobs_count']) }}</span>@endif</span>
             </div>
         </div>
-        <p class="mt-4 pt-3 border-t border-[#e3e3e0] dark:border-[#3E3E3A] text-right text-xs text-[#706f6c] dark:text-[#8F8F8B]">Son güncelleme: <span id="server-stats-updated">{{ $serverStatsData['updated_at'] }}</span></p>
+        <p class="mt-4 pt-3 border-t border-[#e3e3e0] dark:border-[#3E3E3A] text-right text-xs text-[#706f6c] dark:text-[#8F8F8B]">{{ __('messages.dashboard.last_updated') }}: <span id="server-stats-updated">{{ $serverStatsData['updated_at'] }}</span></p>
         </div>
     </x-admin.card>
 

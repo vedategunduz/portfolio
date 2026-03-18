@@ -24,6 +24,8 @@ return [
     'admin.home' => 'Home',
     'admin.logout' => 'Logout',
     'admin.page_title' => 'Admin Panel',
+    'admin.language_select' => 'Select language',
+    'admin.title_suffix' => ' - Admin - ',
 
     // Admin navigation
     'admin.nav.dashboard' => 'Dashboard',
@@ -63,6 +65,14 @@ return [
     'log.browser_column' => 'Browser / Device',
     'log.loading' => 'Loading...',
     'log.yes' => 'Yes',
+    'log.no' => 'No',
+    'log.detail_title' => 'Request Detail',
+    'log.modal_close_aria' => 'Close detail',
+    'log.path_label' => 'Path',
+    'log.full_url' => 'Full URL',
+    'log.query' => 'Query',
+    'log.referer' => 'Referer',
+    'log.user_agent_label' => 'User-Agent',
     'log.all_methods' => 'All Methods',
     'log.all_status' => 'All Status',
 
@@ -166,6 +176,7 @@ return [
     'dialog.confirm_title' => 'Are you sure?',
     'dialog.confirm_button' => 'Yes, Confirm',
     'dialog.cancel_button' => 'Cancel',
+    'toast.close_aria' => 'Close notification',
     'save' => 'Save',
     'filter' => 'Filter',
     'clear' => 'Clear',
@@ -216,6 +227,10 @@ return [
     'dashboard.uptime' => 'Uptime',
     'dashboard.load_avg' => 'Load avg',
     'dashboard.load_avg_title' => '1min / 5min / 15min load average',
+    'dashboard.last_deploy' => 'Last deploy',
+    'dashboard.failed_jobs' => 'Failed jobs',
+    'dashboard.last_updated' => 'Last updated',
+    'dashboard.phpfpm' => 'PHP-FPM',
 
     // Contact Messages
     'message.all' => 'All',

@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Giriş Geçmişi - Admin - ' . config('app.name'))
+@section('title', __('messages.admin.nav.login_history') . __('messages.admin.title_suffix') . config('app.name'))
 @section('page-title', 'Giriş Geçmişi')
 
 @section('content')

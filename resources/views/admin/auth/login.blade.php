@@ -1,6 +1,6 @@
 @extends('layouts.empty')
 
-@section('title', 'Admin Giriş - ' . config('app.name'))
+@section('title', __('messages.auth.login_title') . ' - ' . config('app.name'))
 
 @section('content')
     <x-sections.background>

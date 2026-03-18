@@ -24,6 +24,8 @@ return [
     'admin.home' => 'Ana Sayfa',
     'admin.logout' => 'Çıkış',
     'admin.page_title' => 'Admin Panel',
+    'admin.language_select' => 'Dil seç',
+    'admin.title_suffix' => ' - Yönetim - ',
 
     // Admin navigation
     'admin.nav.dashboard' => 'Dashboard',
@@ -63,6 +65,14 @@ return [
     'log.browser_column' => 'Tarayıcı / Cihaz',
     'log.loading' => 'Yükleniyor...',
     'log.yes' => 'Evet',
+    'log.no' => 'Hayır',
+    'log.detail_title' => 'İstek Detayı',
+    'log.modal_close_aria' => 'Detayı kapat',
+    'log.path_label' => 'Path',
+    'log.full_url' => 'Tam URL',
+    'log.query' => 'Query',
+    'log.referer' => 'Referer',
+    'log.user_agent_label' => 'User-Agent',
     'log.all_methods' => 'Tümü',
     'log.all_status' => 'Tümü',
 
@@ -166,6 +176,7 @@ return [
     'dialog.confirm_title' => 'Emin misiniz?',
     'dialog.confirm_button' => 'Evet, Onaylıyorum',
     'dialog.cancel_button' => 'Vazgeç',
+    'toast.close_aria' => 'Bildirimi kapat',
     'save' => 'Kaydet',
     'filter' => 'Filtrele',
     'clear' => 'Temizle',
@@ -216,6 +227,10 @@ return [
     'dashboard.uptime' => 'Uptime',
     'dashboard.load_avg' => 'Load avg',
     'dashboard.load_avg_title' => '1, 5 ve 15 dakika yük ortalaması',
+    'dashboard.last_deploy' => 'Son deploy',
+    'dashboard.failed_jobs' => 'Başarısız işler',
+    'dashboard.last_updated' => 'Son güncelleme',
+    'dashboard.phpfpm' => 'PHP-FPM',
 
     // Contact Messages
     'message.all' => 'Tümü',

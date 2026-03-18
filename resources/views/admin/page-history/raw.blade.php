@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', __('messages.page_history.raw') . ' - Admin - ' . config('app.name'))
+@section('title', __('messages.page_history.raw') . __('messages.admin.title_suffix') . config('app.name'))
 @section('page-title', __('messages.page_history.page_history_section') . ' — ' . __('messages.page_history.raw'))
 
 @section('content')

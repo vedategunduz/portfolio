@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Portfolio - ' . config('app.name'))
+@section('title', __('messages.home.title') . ' - ' . config('app.name'))
 
 @section('seo')
     <x-seo

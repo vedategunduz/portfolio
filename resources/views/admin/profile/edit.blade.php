@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Hesap Ayarları - Admin - ' . config('app.name'))
+@section('title', __('messages.profile.page_title') . __('messages.admin.title_suffix') . config('app.name'))
 @section('page-title', 'Hesap Ayarları')
 
 @section('content')

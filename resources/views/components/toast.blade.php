@@ -54,7 +54,7 @@
                 {{-- Kapat --}}
                 <button @click="remove(toast.id)"
                     class="text-zinc-400 hover:text-zinc-600 transition-colors p-1 rounded-md hover:bg-zinc-100"
-                    aria-label="Bildirimi kapat">
+                    aria-label="{{ __('messages.toast.close_aria') }}">
                     <i data-lucide="x" class="h-4 w-4"></i>
                 </button>
             </div>

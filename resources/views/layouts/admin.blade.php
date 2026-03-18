@@ -59,11 +59,11 @@
             <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center h-14 sm:h-16 gap-2 min-w-0">
                     <h1 class="text-base sm:text-xl font-semibold text-[#1b1b18] dark:text-[#EDEDEC] tracking-tight truncate">
-                        @yield('page-title', 'Admin Panel')
+                        @yield('page-title', __('messages.admin.page_title'))
                     </h1>
                     <div class="flex items-center gap-2 sm:gap-4 shrink-0">
                         <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] hidden md:inline truncate max-w-30 lg:max-w-45">{{ Auth::user()->email }}</span>
-                        <label for="locale-switch-admin" class="sr-only">Dil seç</label>
+                        <label for="locale-switch-admin" class="sr-only">{{ __('messages.admin.language_select') }}</label>
                         <select
                             id="locale-switch-admin"
                             class="text-[11px] rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] bg-white/80 dark:bg-[#161615]/80 text-[#706f6c] dark:text-[#D4D3D0] px-2 py-1 focus:outline-none focus:ring-2 focus:ring-[#D62113]/30"

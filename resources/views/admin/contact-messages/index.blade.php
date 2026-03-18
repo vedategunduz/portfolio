@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'İletişim Mesajları - Admin - ' . config('app.name'))
+@section('title', __('messages.admin.nav.contact_messages') . __('messages.admin.title_suffix') . config('app.name'))
 @section('page-title', 'İletişim Mesajları')
 
 @section('content')
