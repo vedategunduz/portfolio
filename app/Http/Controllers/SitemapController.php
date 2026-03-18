@@ -21,45 +21,17 @@ class SitemapController extends Controller
 
     /**
      * Generate sitemap XML content.
+     * Only canonical, crawlable URLs; no hash/anchor links (#about, #contact, etc.).
      *
      * @return string
      */
     private function generateSitemap(): string
     {
-        $baseUrl = config('app.url');
+        $baseUrl = rtrim(config('app.url'), '/') . '/';
         $currentDate = now()->toAtomString();
 
         $urls = [
-            [
-                'loc' => $baseUrl,
-                'lastmod' => $currentDate,
-                'changefreq' => 'weekly',
-                'priority' => '1.0',
-            ],
-            [
-                'loc' => $baseUrl . '#about',
-                'lastmod' => $currentDate,
-                'changefreq' => 'monthly',
-                'priority' => '0.8',
-            ],
-            [
-                'loc' => $baseUrl . '#projects',
-                'lastmod' => $currentDate,
-                'changefreq' => 'weekly',
-                'priority' => '0.9',
-            ],
-            [
-                'loc' => $baseUrl . '#experience',
-                'lastmod' => $currentDate,
-                'changefreq' => 'monthly',
-                'priority' => '0.7',
-            ],
-            [
-                'loc' => $baseUrl . '#contact',
-                'lastmod' => $currentDate,
-                'changefreq' => 'monthly',
-                'priority' => '0.6',
-            ],
+            ['loc' => $baseUrl, 'lastmod' => $currentDate],
         ];
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;
@@ -69,8 +41,6 @@ class SitemapController extends Controller
             $xml .= '    <url>' . PHP_EOL;
             $xml .= '        <loc>' . htmlspecialchars($url['loc']) . '</loc>' . PHP_EOL;
             $xml .= '        <lastmod>' . $url['lastmod'] . '</lastmod>' . PHP_EOL;
-            $xml .= '        <changefreq>' . $url['changefreq'] . '</changefreq>' . PHP_EOL;
-            $xml .= '        <priority>' . $url['priority'] . '</priority>' . PHP_EOL;
             $xml .= '    </url>' . PHP_EOL;
         }
 
