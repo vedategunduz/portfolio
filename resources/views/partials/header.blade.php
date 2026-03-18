@@ -3,7 +3,7 @@
         <div class="border border-[#e3e3e0] dark:border-[#3E3E3A] rounded-lg bg-white/80 dark:bg-[#161615]/80 backdrop-blur-md">
             <div class="flex justify-between items-center h-14 px-6">
                 <div class="shrink-0">
-                    <a href="#home" class="text-sm font-semibold text-[#1b1b18] dark:text-[#EDEDEC] hover:text-[#D62113] transition-colors duration-300">
+                    <a href="{{ route('home', ['locale' => app()->getLocale()]) }}#home" class="text-sm font-semibold text-[#1b1b18] dark:text-[#EDEDEC] hover:text-[#D62113] transition-colors duration-300">
                         {{ config('app.name', 'Portfolio') }}
                     </a>
                 </div>

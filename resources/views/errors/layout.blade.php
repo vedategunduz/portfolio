@@ -65,7 +65,7 @@
                     </div>
 
                     <div class="relative mt-10 flex flex-col sm:flex-row items-center sm:items-start sm:justify-start gap-3 sm:gap-4">
-                        <a href="{{ url('/') }}" class="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-6 py-3 rounded-sm font-medium bg-[#D62113] text-white hover:bg-[#b81a0f] transition-all hover:scale-105 active:scale-95">
+                        <a href="{{ route('home', ['locale' => app()->getLocale()]) }}" class="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-6 py-3 rounded-sm font-medium bg-[#D62113] text-white hover:bg-[#b81a0f] transition-all hover:scale-105 active:scale-95">
                             <i data-lucide="home" class="w-4 h-4"></i>
                             Ana Sayfaya Dön
                         </a>

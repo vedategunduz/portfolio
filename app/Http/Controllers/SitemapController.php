@@ -29,10 +29,12 @@ class SitemapController extends Controller
     {
         $baseUrl = rtrim(config('app.url'), '/') . '/';
         $currentDate = now()->toAtomString();
+        $locales = config('app.supported_locales', ['tr', 'en']);
 
-        $urls = [
-            ['loc' => $baseUrl, 'lastmod' => $currentDate],
-        ];
+        $urls = [];
+        foreach ($locales as $locale) {
+            $urls[] = ['loc' => $baseUrl . $locale, 'lastmod' => $currentDate];
+        }
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;
         $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL;

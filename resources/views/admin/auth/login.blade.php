@@ -92,7 +92,7 @@
                         </div>
 
                         <a
-                            href="/"
+                            href="{{ route('home', ['locale' => app()->getLocale()]) }}"
                             class="w-full block text-center px-8 py-3 rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] text-[#1b1b18] dark:text-[#EDEDEC] font-medium transition-all duration-300 hover:border-[#D62113] hover:text-[#D62113]"
                         >
                             {{ __('messages.auth.back_to_portfolio') }}

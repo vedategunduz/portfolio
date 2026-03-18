@@ -3,15 +3,32 @@
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\SitemapController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', fn () => view('home'));
-
-Route::get('/locale/{locale}', [LocaleController::class, 'update'])->name('locale.update');
-
+// Locale-free routes (no language in URL)
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
-
 Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
+
+// Redirect root to locale: session preference, else browser Accept-Language, else config default
+Route::get('/', function (Request $request) {
+    $supported = config('app.supported_locales', ['tr', 'en']);
+    $locale = $request->session()->get('app_locale');
+
+    if (! in_array($locale, $supported, true)) {
+        $locale = $request->getPreferredLanguage($supported) ?? config('app.locale', 'tr');
+    }
+
+    return redirect('/' . $locale, 302);
+})->name('root');
+
+// Locale-prefixed public pages (SEO-friendly: /tr, /en)
+Route::get('/{locale}', fn ($locale) => view('home'))
+    ->where('locale', 'tr|en')
+    ->name('home');
+
+// Switch language: redirect to same page in new locale (e.g. /tr → /en)
+Route::get('/locale/{locale}', [LocaleController::class, 'update'])->name('locale.update');
 
 Route::prefix('errors')->name('errors.')->group(function () {
     Route::get('/401', fn () => response()->view('errors.401', ['code' => 401], 401))->name('401');
