@@ -52,7 +52,7 @@
 
             <div class="border-t border-[#e3e3e0] dark:border-[#3E3E3A] p-4">
                 <div class="flex flex-wrap items-center justify-end gap-3 mb-3">
-                    <a href="{{ $this->exportUrl }}" class="group inline-flex items-center gap-2 rounded-sm border border-[#d9d9d6] dark:border-[#3E3E3A] bg-linear-to-b from-white to-[#f7f7f5] dark:from-[#171716] dark:to-[#111110] px-3.5 py-2 text-sm font-semibold text-[#2b2b28] dark:text-[#f5f5f4] shadow-sm ring-1 ring-black/5 dark:ring-white/5 transition-colors duration-200 hover:border-[#D62113]/40 hover:text-[#D62113] dark:hover:text-[#ff7569] hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D62113]/35">
+                    <a href="{{ $this->exportUrl }}" class="group inline-flex items-center gap-2 rounded-sm border border-[#d9d9d6] dark:border-[#3E3E3A] bg-linear-to-b from-white to-[#f7f7f5] dark:from-[#171716] dark:to-[#111110] px-3.5 py-2 text-sm font-semibold text-[#2b2b28] dark:text-[#f5f5f4] transition-colors duration-200 hover:border-[#D62113]/40 hover:text-[#D62113] dark:hover:text-[#ff7569] hover:shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D62113]/35">
                         <span class="inline-flex h-5 w-5 items-center justify-center rounded-sm bg-[#D62113]/10 text-[#D62113] dark:bg-[#D62113]/20 dark:text-[#ff7569]">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                         </span>
