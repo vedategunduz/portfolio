@@ -14,10 +14,6 @@
 
     <title>@yield('title', config('app.name', 'Portfolio'))</title>
 
-    <!-- Preload critical fonts for LCP optimization -->
-    <link rel="preload" as="font" type="font/woff2" href="{{ asset('build/assets/instrument-sans-latin-400-normal-DRC__1Mx.woff2') }}" crossorigin>
-    <link rel="preload" as="font" type="font/woff2" href="{{ asset('build/assets/instrument-sans-latin-600-normal-B7fBEWYG.woff2') }}" crossorigin>
-
     <script>
         (() => {
             document.documentElement.classList.add('js');

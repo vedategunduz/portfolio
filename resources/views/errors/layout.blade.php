@@ -11,8 +11,6 @@
     <link rel="manifest" href="{{ asset('manifest.json') }}">
     @php $statusCode = $code ?? (isset($exception) ? $exception->getStatusCode() : 500); @endphp
     <title>@yield('title', $statusCode . ' - ' . config('app.name'))</title>
-    <link rel="preload" as="font" type="font/woff2" href="{{ asset('build/assets/instrument-sans-latin-400-normal-DRC__1Mx.woff2') }}" crossorigin>
-    <link rel="preload" as="font" type="font/woff2" href="{{ asset('build/assets/instrument-sans-latin-600-normal-B7fBEWYG.woff2') }}" crossorigin>
     <script>
         (() => {
             document.documentElement.classList.add('js');
