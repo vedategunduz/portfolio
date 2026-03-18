@@ -19,8 +19,14 @@
             <x-admin.form.input label="{{ __('messages.page_history.url_contains') }}" name="url" value="{{ request('url') }}" />
         </div>
         <div class="flex flex-wrap items-end gap-2 sm:col-span-2 lg:col-span-4">
-            <x-admin.ui.button variant="primary" type="submit">{{ __('messages.filter') }}</x-admin.ui.button>
-            <x-admin.ui.button variant="secondary" :href="route('admin.page-history.suspicious')">{{ __('messages.clear') }}</x-admin.ui.button>
+            <x-admin.ui.button variant="primary" type="submit">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                {{ __('messages.filter') }}
+            </x-admin.ui.button>
+            <x-admin.ui.button variant="secondary" :href="route('admin.page-history.suspicious')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                {{ __('messages.clear') }}
+            </x-admin.ui.button>
         </div>
     </x-admin.ui.filter-card>
 
