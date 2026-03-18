@@ -133,11 +133,11 @@
             </div>
             <div class="flex justify-between items-center gap-2 py-2 border-b border-[#e3e3e0] dark:border-[#3E3E3A] sm:border-b-0 lg:border-r lg:pr-4 min-w-0 col-span-2 sm:col-span-1">
                 <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0">{{ __('messages.dashboard.uptime') }}</span>
-                <span id="server-stats-uptime" class="text-xs sm:text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC] font-mono truncate" title="{{ $serverStatsData['uptime'] ?? '—' }}">{{ $serverStatsData['uptime'] ?? '—' }}</span>
+                <span id="server-stats-uptime" class="text-xs sm:text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC] truncate" title="{{ $serverStatsData['uptime'] ?? '—' }}">{{ $serverStatsData['uptime'] ?? '—' }}</span>
             </div>
             <div class="flex justify-between items-center gap-2 py-2 min-w-0 col-span-2 lg:col-span-1">
                 <span class="text-xs text-[#706f6c] dark:text-[#8F8F8B] shrink-0" title="{{ __('messages.dashboard.load_avg_title') }}">{{ __('messages.dashboard.load_avg') }}</span>
-                <span id="server-stats-load" class="text-xs font-medium text-[#1b1b18] dark:text-[#EDEDEC] font-mono text-right truncate" title="1 dk / 5 dk / 15 dk">{{ $serverStatsData['load_average'] ?? '—' }}</span>
+                <span id="server-stats-load" class="text-xs sm:text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC] text-right truncate" title="1 dk / 5 dk / 15 dk">{{ $serverStatsData['load_average'] ?? '—' }}</span>
             </div>
         </div>
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-4 gap-y-3 mt-4 pt-4 border-t border-[#e3e3e0] dark:border-[#3E3E3A]">

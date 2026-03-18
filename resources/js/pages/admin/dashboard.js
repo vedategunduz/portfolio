@@ -44,29 +44,30 @@ function updateDom(card, errorEl, d) {
         if (el) el.className = className;
     };
 
+    const valueBaseClass = 'text-xs sm:text-sm font-medium ';
     const cpuEl = document.getElementById('server-stats-cpu');
     if (cpuEl) {
         const cpuP = d.cpu_percent != null ? parseFloat(d.cpu_percent) : null;
         cpuEl.textContent = cpuP != null ? cpuP.toFixed(1) + '%' : '—';
-        cpuEl.className = 'text-sm font-medium ' + statColor(cpuP);
+        cpuEl.className = valueBaseClass + statColor(cpuP);
     }
 
     const ramEl = document.getElementById('server-stats-ram');
     if (ramEl && d.ram_percent && typeof d.ram_percent === 'object') {
         const ramP = d.ram_percent.percent != null ? parseFloat(d.ram_percent.percent) : null;
         ramEl.innerHTML = ramP != null
-            ? ramP.toFixed(1) + '% <span class="text-[#706f6c] dark:text-[#8F8F8B]">(' + d.ram_percent.used_mb + '/' + d.ram_percent.total_mb + ' MB)</span>'
+            ? ramP.toFixed(1) + '% <span class="text-[#706f6c] dark:text-[#8F8F8B] hidden sm:inline">(' + d.ram_percent.used_mb + '/' + d.ram_percent.total_mb + ' MB)</span>'
             : '—';
-        ramEl.className = 'text-sm font-medium ' + statColor(ramP);
+        ramEl.className = valueBaseClass + statColor(ramP) + ' min-w-0 text-right';
     }
 
     const diskEl = document.getElementById('server-stats-disk');
     if (diskEl && d.disk_percent && typeof d.disk_percent === 'object') {
         const diskP = d.disk_percent.percent != null ? parseFloat(d.disk_percent.percent) : null;
         diskEl.innerHTML = diskP != null
-            ? diskP.toFixed(1) + '% <span class="text-[#706f6c] dark:text-[#8F8F8B]">(' + d.disk_percent.used_gb + '/' + d.disk_percent.total_gb + ' GB)</span>'
+            ? diskP.toFixed(1) + '% <span class="text-[#706f6c] dark:text-[#8F8F8B] hidden sm:inline">(' + d.disk_percent.used_gb + '/' + d.disk_percent.total_gb + ' GB)</span>'
             : '—';
-        diskEl.className = 'text-sm font-medium ' + statColor(diskP);
+        diskEl.className = valueBaseClass + statColor(diskP) + ' min-w-0 text-right';
     }
 
     setText('server-stats-uptime', d.uptime || '—');
