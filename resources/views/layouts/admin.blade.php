@@ -112,6 +112,9 @@
                     <a href="{{ route('admin.contact-messages') }}" class="py-3 sm:py-4 px-3 sm:px-4 text-xs font-medium border-b-2 transition-colors duration-200 shrink-0 {{ request()->routeIs('admin.contact-messages') || request()->routeIs('admin.message.mark-read') ? 'border-[#D62113] text-[#D62113]' : 'border-transparent text-[#706f6c] dark:text-[#8F8F8B] hover:text-[#1b1b18] dark:hover:text-[#EDEDEC] hover:border-[#e3e3e0] dark:hover:border-[#3E3E3A]' }}">
                         {{ __('messages.admin.nav.contact_messages') }}
                     </a>
+                    <a href="{{ route('admin.posts.index') }}" class="py-3 sm:py-4 px-3 sm:px-4 text-xs font-medium border-b-2 transition-colors duration-200 shrink-0 {{ request()->routeIs('admin.posts.*') ? 'border-[#D62113] text-[#D62113]' : 'border-transparent text-[#706f6c] dark:text-[#8F8F8B] hover:text-[#1b1b18] dark:hover:text-[#EDEDEC] hover:border-[#e3e3e0] dark:hover:border-[#3E3E3A]' }}">
+                        {{ __('messages.admin.nav.blog_posts') }}
+                    </a>
                     <a href="{{ route('admin.profile.edit') }}" class="py-3 sm:py-4 px-3 sm:px-4 text-xs font-medium border-b-2 transition-colors duration-200 shrink-0 {{ request()->routeIs('admin.profile.*') ? 'border-[#D62113] text-[#D62113]' : 'border-transparent text-[#706f6c] dark:text-[#8F8F8B] hover:text-[#1b1b18] dark:hover:text-[#EDEDEC] hover:border-[#e3e3e0] dark:hover:border-[#3E3E3A]' }}">
                         {{ __('messages.admin.nav.account_settings') }}
                     </a>

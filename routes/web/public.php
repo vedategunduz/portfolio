@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\LocaleController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\SitemapController;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,12 +25,26 @@ Route::get('/', function (Request $request) {
 })->name('root');
 
 // Locale-prefixed public pages (SEO-friendly: /tr, /en)
-Route::get('/{locale}', fn ($locale) => view('home'))
+Route::get('/{locale}', function ($locale) {
+    $posts = Post::query()
+        ->published()
+        ->latestPublished()
+        ->with(['user', 'translations'])
+        ->take(3)
+        ->get();
+
+    return view('home', compact('posts'));
+})
     ->where('locale', 'tr|en')
     ->name('home');
 
 // Switch language: redirect to same page in new locale (e.g. /tr → /en)
 Route::get('/locale/{locale}', [LocaleController::class, 'update'])->name('locale.update');
+
+Route::prefix('blog')->name('blog.')->group(function () {
+    Route::get('/', [PostController::class, 'index'])->name('index');
+    Route::get('/{slug}', [PostController::class, 'show'])->name('show');
+});
 
 Route::prefix('errors')->name('errors.')->group(function () {
     Route::get('/401', fn () => response()->view('errors.401', ['code' => 401], 401))->name('401');

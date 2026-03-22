@@ -21,11 +21,14 @@ import {
     Code,
     Database,
     Wrench,
+    ArrowLeft,
+    ArrowRight,
 } from 'lucide';
 import { initForm, initAction } from './helpers/form.js';
 import { Dialog } from './ui/dialog.js';
 import { getHttp } from './core/http.js';
 import { initThemeToggle } from './core/theme-toggle.js';
+import { initEditor, initAllEditors } from './editor.js';
 
 const lucideIcons = {
     Github,
@@ -49,6 +52,8 @@ const lucideIcons = {
     Code,
     Database,
     Wrench,
+    ArrowLeft,
+    ArrowRight,
 };
 
 window.initForm = initForm;
@@ -57,6 +62,8 @@ window.getHttp = getHttp;
 window.Dialog = Dialog;
 window.createIcons = createIcons;
 window.lucideIcons = lucideIcons;
+window.initEditor = initEditor;
+window.initAllEditors = initAllEditors;
 
 initThemeToggle(createIcons, lucideIcons);
 

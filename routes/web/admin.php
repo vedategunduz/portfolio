@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\PageHistoryController;
+use App\Http\Controllers\Admin\PostController as AdminPostController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,5 +21,16 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
         Route::get('/raw/export', 'rawExport')->name('raw.export');
         Route::get('/classified', 'classified')->name('classified');
         Route::get('/suspicious', 'suspicious')->name('suspicious');
+    });
+
+    Route::controller(AdminPostController::class)->prefix('posts')->name('posts.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/', 'store')->name('store');
+        Route::post('/autosave', 'autosaveStore')->name('autosave.store');
+        Route::put('/{post}/autosave', 'autosaveUpdate')->name('autosave.update');
+        Route::get('/{post}/edit', 'edit')->name('edit');
+        Route::put('/{post}', 'update')->name('update');
+        Route::delete('/{post}', 'destroy')->name('destroy');
     });
 });

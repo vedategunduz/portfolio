@@ -1,4 +1,4 @@
-<div class="relative overflow-hidden">
+<div class="relative overflow-hidden min-h-screen">
     <div class="absolute inset-0 z-0 scroll-parallax-bg" aria-hidden="true">
         <div class="blob blob-1 absolute -top-32 -left-32 w-96 h-96 md:w-150 md:h-150 lg:w-175 lg:h-175 rounded-full bg-linear-to-br from-purple-500/35 to-cyan-400/25 blur-3xl pointer-events-none"></div>
 

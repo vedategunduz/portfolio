@@ -82,6 +82,8 @@
     <!-- Footer -->
     @include('partials.footer')
 
+    <x-floating-controls />
+
     <x-toast />
 
     @stack('scripts')

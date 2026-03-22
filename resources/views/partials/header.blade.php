@@ -28,23 +28,8 @@
                 </div>
 
                 <div class="flex items-center gap-3">
-                    <div class="hidden sm:block">
-                        <label for="locale-switch-public" class="sr-only">{{ __('messages.language') }}</label>
-                        <select
-                            id="locale-switch-public"
-                            class="text-[11px] rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] bg-white/80 dark:bg-[#161615]/80 text-[#706f6c] dark:text-[#D4D3D0] px-2 py-1 focus:outline-none focus:ring-2 focus:ring-[#D62113]/30"
-                            onchange="window.location.href='{{ route('locale.update', ['locale' => '__LOCALE__']) }}'.replace('__LOCALE__', this.value)"
-                        >
-                            @foreach(config('app.supported_locales', ['tr', 'en']) as $supportedLocale)
-                                <option value="{{ $supportedLocale }}" @selected(app()->getLocale() === $supportedLocale)>
-                                    {{ strtoupper($supportedLocale) }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-
                     <div class="hidden sm:flex items-center gap-2">
-                        <a href="https://github.com/vedategunduz" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#D62113] transition-colors" title="{{ __('messages.social.github') }}" aria-label="{{ __('messages.social.github') }}">
+                        <a href="https://github.com/vedategunduz" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#D62113] transition-colors" title="{{ __('messages.social.github') }}" aria-label="{{ __('messages.social.aria.github') }}">
                             <i data-lucide="github" class="w-4 h-4"></i>
                         </a>
                         <a href="https://www.linkedin.com/in/vedategunduz/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#D62113] transition-colors" title="{{ __('messages.social.linkedin') }}" aria-label="{{ __('messages.social.aria.linkedin') }}">
@@ -57,15 +42,6 @@
                             <i data-lucide="mail" class="w-4 h-4"></i>
                         </a>
                     </div>
-
-                    <button id="theme-toggle" class="inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#D62113] transition-colors" title="{{ __('messages.theme.toggle') }}" aria-label="{{ __('messages.theme.light_dark') }}">
-                        <span class="dark:hidden inline-flex">
-                            <i data-lucide="sun" class="w-4 h-4"></i>
-                        </span>
-                        <span class="hidden dark:inline-flex">
-                            <i data-lucide="moon" class="w-4 h-4"></i>
-                        </span>
-                    </button>
 
                     <button type="button" class="md:hidden inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#D62113] focus:outline-none" id="mobile-menu-button" aria-label="{{ __('messages.menu.open_close') }}" aria-expanded="false" aria-controls="mobile-menu">
                         <i data-lucide="menu" class="w-5 h-5"></i>
@@ -89,7 +65,7 @@
                     </a>
 
                     <div class="flex items-center gap-3 pt-2 border-t border-[#e3e3e0] dark:border-[#3E3E3A]">
-                        <a href="https://github.com/vedategunduz" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#D62113] transition-colors" title="{{ __('messages.social.github') }}" aria-label="{{ __('messages.social.github') }}">
+                        <a href="https://github.com/vedategunduz" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#D62113] transition-colors" title="{{ __('messages.social.github') }}" aria-label="{{ __('messages.social.aria.github') }}">
                             <i data-lucide="github" class="w-4 h-4"></i>
                         </a>
                         <a href="https://www.linkedin.com/in/vedategunduz/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#D62113] transition-colors" title="{{ __('messages.social.linkedin') }}" aria-label="{{ __('messages.social.aria.linkedin') }}">
@@ -102,6 +78,7 @@
                             <i data-lucide="mail" class="w-4 h-4"></i>
                         </a>
                     </div>
+
                 </div>
             </div>
         </div>
