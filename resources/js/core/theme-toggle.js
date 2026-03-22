@@ -1,5 +1,5 @@
 export function initThemeToggle(createIcons, icons) {
-    const themeToggle = document.getElementById('theme-toggle');
+    const selector = '[data-theme-toggle], #theme-toggle';
     const applyTheme = (theme) => {
         if (theme === 'dark') {
             document.documentElement.classList.add('dark');
@@ -8,12 +8,7 @@ export function initThemeToggle(createIcons, icons) {
         }
     };
 
-    const currentTheme = localStorage.getItem('theme') || 'dark';
-    applyTheme(currentTheme);
-
-    if (!themeToggle) return;
-
-    themeToggle.addEventListener('click', function () {
+    const toggleTheme = () => {
         const isDark = document.documentElement.classList.contains('dark');
         const nextTheme = isDark ? 'light' : 'dark';
         applyTheme(nextTheme);
@@ -21,5 +16,28 @@ export function initThemeToggle(createIcons, icons) {
         if (createIcons && icons) {
             createIcons({ attrs: { width: 16, height: 16 }, icons });
         }
-    });
+    };
+
+    const currentTheme = localStorage.getItem('theme') || 'dark';
+    applyTheme(currentTheme);
+
+    // Delegate click so toggle keeps working even if element is rendered later.
+    if (!document.body?.dataset.themeToggleBound) {
+        document.addEventListener('click', (event) => {
+            const target = event.target instanceof Element
+                ? event.target.closest(selector)
+                : null;
+
+            if (!target) {
+                return;
+            }
+
+            event.preventDefault();
+            toggleTheme();
+        });
+
+        if (document.body) {
+            document.body.dataset.themeToggleBound = '1';
+        }
+    }
 }

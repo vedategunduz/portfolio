@@ -14,7 +14,7 @@
         </select>
     </div>
 
-    <button id="theme-toggle" type="button" class="inline-flex items-center justify-center p-2 rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] bg-white/85 dark:bg-[#161615]/85 backdrop-blur-md text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#D62113] transition-colors shadow-lg" title="{{ __('messages.theme.toggle') }}" aria-label="{{ __('messages.theme.light_dark') }}">
+    <button id="theme-toggle" data-theme-toggle="1" type="button" class="inline-flex items-center justify-center p-2 rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] bg-white/85 dark:bg-[#161615]/85 backdrop-blur-md text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#D62113] transition-colors shadow-lg" title="{{ __('messages.theme.toggle') }}" aria-label="{{ __('messages.theme.light_dark') }}">
         <span class="dark:hidden inline-flex">
             <i data-lucide="sun" class="w-4 h-4"></i>
         </span>
