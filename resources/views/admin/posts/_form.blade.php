@@ -43,9 +43,11 @@
         activeLocale: '{{ $activeLocale }}',
         previewLocale: '{{ $activeLocale }}',
         coverPreview: null,
+        hasExistingCover: {{ $existingCoverUrl ? 'true' : 'false' }},
         removeCover: {{ old('remove_cover_image') ? 'true' : 'false' }},
         galleryPreviews: [],
         seoCounterVersion: 0,
+        previewVersion: 0,
         getInputLength(id) {
             return document.getElementById(id)?.value?.length || 0;
         },
@@ -69,6 +71,8 @@
         }
     }"
     x-on:seo-update.window="seoCounterVersion++"
+    x-on:input.window="previewVersion++"
+    x-on:change.window="previewVersion++"
     x-init="typeof window.createIcons !== 'undefined' && window.createIcons(); setTimeout(() => { typeof window.initAllEditors !== 'undefined' && window.initAllEditors(); }, 100)"
 >
 
@@ -375,7 +379,7 @@
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div class="lg:col-span-2 space-y-4">
                         <div class="overflow-hidden rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] bg-white dark:bg-[#161615] shadow-sm">
-                            <template x-if="coverPreview || '{{ $existingCover }}'">
+                            <template x-if="coverPreview || (hasExistingCover && !removeCover)">
                                 <div class="relative">
                                     <img x-show="coverPreview" :src="coverPreview" alt="cover" class="w-full h-64 object-cover">
                                     <img x-show="!coverPreview && !removeCover" src="{{ $existingCoverUrl }}" alt="cover" class="w-full h-64 object-cover">
@@ -386,17 +390,17 @@
                             <div class="p-6">
                                 <div>
                                     <h1 class="text-2xl md:text-3xl font-bold text-[#1b1b18] dark:text-[#EDEDEC] mb-3">
-                                        <span x-text="document.getElementById('title_' + locale)?.value || '...Başlık Girin'"></span>
+                                        <span x-text="(previewVersion, document.getElementById('title_' + locale)?.value || '...Başlık Girin')"></span>
                                     </h1>
                                     <p class="text-sm text-[#706f6c] dark:text-[#D4D3D0] mb-5">
-                                        <span x-text="document.querySelector('[name=\'published_at\']')?.value?.replace('T', ' ') || 'Yayın tarihi belirtilmedi'"></span>
+                                        <span x-text="(previewVersion, document.querySelector('[name=\'published_at\']')?.value?.replace('T', ' ') || 'Yayın tarihi belirtilmedi')"></span>
                                     </p>
                                     <div class="prose prose-neutral dark:prose-invert max-w-none mb-4 text-sm">
-                                        <p x-text="document.getElementById('excerpt_' + locale)?.value || '...Özet Girin'"></p>
+                                        <p x-text="(previewVersion, document.getElementById('excerpt_' + locale)?.value || '...Özet Girin')"></p>
                                     </div>
                                     <div class="p-4 rounded-sm bg-[#f8f8f7] dark:bg-[#111110] border border-[#e3e3e0] dark:border-[#3E3E3A] text-xs text-[#706f6c] dark:text-[#8F8F8B] space-y-1">
-                                        <div><strong>Meta Title:</strong> <span x-text="document.getElementById('meta_title_' + locale)?.value || '—'"></span></div>
-                                        <div><strong>Meta Description:</strong> <span x-text="document.getElementById('meta_description_' + locale)?.value || '—'"></span></div>
+                                        <div><strong>Meta Title:</strong> <span x-text="(previewVersion, document.getElementById('meta_title_' + locale)?.value || '—')"></span></div>
+                                        <div><strong>Meta Description:</strong> <span x-text="(previewVersion, document.getElementById('meta_description_' + locale)?.value || '—')"></span></div>
                                     </div>
                                 </div>
                             </div>
@@ -407,16 +411,16 @@
                         <div class="rounded-sm bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-900/50 p-3">
                             <p class="text-xs font-medium text-emerald-800 dark:text-emerald-300">Status</p>
                             <p class="text-xs text-emerald-700 dark:text-emerald-400 mt-1">
-                                <span x-show="document.querySelector('input[name=\"published\"]:checked')">Yayında</span>
-                                <span x-show="!document.querySelector('input[name=\"published\"]:checked')">Taslak</span>
+                                <span x-show="(previewVersion, !!document.querySelector('input[name=\"published\"]:checked'))">Yayında</span>
+                                <span x-show="(previewVersion, !document.querySelector('input[name=\"published\"]:checked'))">Taslak</span>
                             </p>
                         </div>
 
                         <div class="rounded-sm bg-[#f8f8f7] dark:bg-[#111110] border border-[#e3e3e0] dark:border-[#3E3E3A] p-3">
                             <p class="text-xs font-medium text-[#1b1b18] dark:text-[#EDEDEC]">Öne Çıkan</p>
                             <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">
-                                <span x-show="document.querySelector('input[name=\"is_featured\"]:checked')">Evet</span>
-                                <span x-show="!document.querySelector('input[name=\"is_featured\"]:checked')">Hayır</span>
+                                <span x-show="(previewVersion, !!document.querySelector('input[name=\"is_featured\"]:checked'))">Evet</span>
+                                <span x-show="(previewVersion, !document.querySelector('input[name=\"is_featured\"]:checked'))">Hayır</span>
                             </p>
                         </div>
 
@@ -428,9 +432,9 @@
                         <div class="rounded-sm bg-violet-50 dark:bg-violet-900/20 border border-violet-200 dark:border-violet-900/50 p-3 space-y-2">
                             <p class="text-xs font-medium text-violet-800 dark:text-violet-300">📊 İçerik İstatistikleri</p>
                             <div class="text-xs text-violet-700 dark:text-violet-400 space-y-1">
-                                <div><span class="font-medium">Kelime:</span> <span x-text="(() => { const textarea = document.getElementById('content_' + locale); const content = textarea?.value ? textarea.value.replace(/<[^>]*>/g, '') : ''; return content.trim().split(/\s+/).filter(w => w.length > 0).length; })()"></span></div>
-                                <div><span class="font-medium">Okuma Süresi:</span> <span x-text="(() => { const textarea = document.getElementById('content_' + locale); const content = textarea?.value ? textarea.value.replace(/<[^>]*>/g, '') : ''; const words = content.trim().split(/\s+/).filter(w => w.length > 0).length; const minutes = Math.ceil(words / 200); return minutes === 1 ? '1 dk' : minutes + '-' + (minutes + 1) + ' dk'; })()"></span></div>
-                                <div><span class="font-medium">Paragraf:</span> <span x-text="(() => { const textarea = document.getElementById('content_' + locale); const content = textarea?.value ? textarea.value.replace(/<[^>]*>/g, '') : ''; return content.split(/\s{2,}/).filter(p => p.trim().length > 0).length; })()"></span></div>
+                                <div><span class="font-medium">Kelime:</span> <span x-text="(previewVersion, (() => { const textarea = document.getElementById('content_' + locale); const content = textarea?.value ? textarea.value.replace(/<[^>]*>/g, '') : ''; return content.trim().split(/\s+/).filter(w => w.length > 0).length; })())"></span></div>
+                                <div><span class="font-medium">Okuma Süresi:</span> <span x-text="(previewVersion, (() => { const textarea = document.getElementById('content_' + locale); const content = textarea?.value ? textarea.value.replace(/<[^>]*>/g, '') : ''; const words = content.trim().split(/\s+/).filter(w => w.length > 0).length; const minutes = Math.ceil(words / 200); return minutes === 1 ? '1 dk' : minutes + '-' + (minutes + 1) + ' dk'; })())"></span></div>
+                                <div><span class="font-medium">Paragraf:</span> <span x-text="(previewVersion, (() => { const textarea = document.getElementById('content_' + locale); const content = textarea?.value ? textarea.value.replace(/<[^>]*>/g, '') : ''; return content.split(/\s{2,}/).filter(p => p.trim().length > 0).length; })())"></span></div>
                             </div>
                         </div>
                     </div>

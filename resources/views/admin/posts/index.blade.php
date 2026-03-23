@@ -87,7 +87,12 @@
                                     <a href="{{ route('admin.posts.edit', $post) }}" class="px-3 py-1.5 rounded-sm text-xs border border-[#e3e3e0] dark:border-[#3E3E3A] hover:border-[#D62113]/50 hover:text-[#D62113] transition-colors">
                                         {{ __('messages.blog_admin.edit') }}
                                     </a>
-                                    <form action="{{ route('admin.posts.destroy', $post) }}" method="POST" onsubmit="return confirm('{{ __('messages.blog_admin.confirm_delete') }}');">
+                                    <form
+                                        action="{{ route('admin.posts.destroy', $post) }}"
+                                        method="POST"
+                                        class="js-post-delete-form"
+                                        data-confirm-message="{{ __('messages.blog_admin.confirm_delete') }}"
+                                    >
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="px-3 py-1.5 rounded-sm text-xs border border-red-200 dark:border-red-900/50 text-red-700 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">
@@ -109,3 +114,74 @@
 
     <x-admin.ui.pagination :paginator="$posts" class="mt-6" />
 @endsection
+
+@push('scripts')
+    <script>
+        (() => {
+            const forms = document.querySelectorAll('.js-post-delete-form');
+            if (!forms.length) return;
+
+            const buildConfirmModal = () => {
+                const modal = document.createElement('div');
+                modal.className = 'fixed inset-0 z-[70] hidden items-center justify-center bg-black/50 p-4';
+                modal.innerHTML = `
+                    <div class="w-full max-w-md rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] bg-white dark:bg-[#161615] p-6 shadow-xl">
+                        <h3 class="text-base font-semibold text-[#1b1b18] dark:text-[#EDEDEC]">${window.translations?.['dialog.confirm_title'] || 'Emin misiniz?'}</h3>
+                        <p class="mt-2 text-sm text-[#706f6c] dark:text-[#8F8F8B]" data-confirm-message></p>
+                        <div class="mt-5 flex items-center justify-end gap-2">
+                            <button type="button" data-confirm-cancel class="inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] text-[#706f6c] dark:text-[#8F8F8B] hover:bg-[#e3e3e0]/80 dark:hover:bg-[#3E3E3A] hover:text-[#1b1b18] dark:hover:text-[#EDEDEC]">
+                                ${window.translations?.['dialog.cancel_button'] || 'Vazgeç'}
+                            </button>
+                            <button type="button" data-confirm-approve class="inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium rounded-sm bg-[#D62113] text-white hover:bg-[#b81a0f]">
+                                ${window.translations?.['dialog.confirm_button'] || 'Evet, Onaylıyorum'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+                return modal;
+            };
+
+            const modal = buildConfirmModal();
+            const messageEl = modal.querySelector('[data-confirm-message]');
+            const cancelBtn = modal.querySelector('[data-confirm-cancel]');
+            const approveBtn = modal.querySelector('[data-confirm-approve]');
+            let resolver = null;
+
+            const closeModal = (value) => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                if (resolver) resolver(value);
+                resolver = null;
+            };
+
+            cancelBtn?.addEventListener('click', () => closeModal(false));
+            approveBtn?.addEventListener('click', () => closeModal(true));
+            modal.addEventListener('click', (event) => {
+                if (event.target === modal) closeModal(false);
+            });
+
+            const confirmDelete = (message) => {
+                if (messageEl) messageEl.textContent = message;
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                return new Promise((resolve) => {
+                    resolver = resolve;
+                });
+            };
+
+            forms.forEach((form) => {
+                form.addEventListener('submit', async (event) => {
+                    event.preventDefault();
+
+                    const message = form.dataset.confirmMessage || 'Bu yazıyı silmek istediğinize emin misiniz?';
+                    const confirmed = await confirmDelete(message);
+
+                    if (confirmed) {
+                        form.submit();
+                    }
+                });
+            });
+        })();
+    </script>
+@endpush

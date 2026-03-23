@@ -41,7 +41,7 @@
                 </header>
 
                 <div class="prose prose-neutral dark:prose-invert prose-lg max-w-none leading-relaxed text-[#1b1b18] dark:text-[#EDEDEC]">
-                    {!! nl2br(e($post->translated_content)) !!}
+                    {!! $post->translated_content !!}
                 </div>
 
                 @if ($gallery->isNotEmpty())
