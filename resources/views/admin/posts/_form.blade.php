@@ -373,25 +373,21 @@
                             </template>
 
                             <div class="p-6">
-                                <template x-for="translation in {{ json_encode($post?->translations->mapWithKeys(fn($t) => [$t->locale => ['title' => $t->title, 'excerpt' => $t->excerpt, 'content' => $t->content, 'meta_title' => $t->meta_title, 'meta_description' => $t->meta_description]]) ?? []) }}" :key="translation.locale">
-                                    <template x-if="locale === 'tr'">
-                                        <div>
-                                            <h1 class="text-2xl md:text-3xl font-bold text-[#1b1b18] dark:text-[#EDEDEC] mb-3">
-                                                <span x-text="document.getElementById('title_' + locale)?.value || '...Başlık Girin'"></span>
-                                            </h1>
-                                            <p class="text-sm text-[#706f6c] dark:text-[#D4D3D0] mb-5">
-                                                <span x-text="document.querySelectorAll('[name*=\"[published_at]\"]')[0]?.value?.replace('T', ' ') || 'Yayın tarihi belirtilmedi'"></span>
-                                            </p>
-                                            <div class="prose prose-neutral dark:prose-invert max-w-none mb-4 text-sm">
-                                                <p x-text="document.getElementById('excerpt_' + locale)?.value || '...Özet Girin'"></p>
-                                            </div>
-                                            <div class="p-4 rounded-sm bg-[#f8f8f7] dark:bg-[#111110] border border-[#e3e3e0] dark:border-[#3E3E3A] text-xs text-[#706f6c] dark:text-[#8F8F8B] space-y-1">
-                                                <div><strong>Meta Title:</strong> <span x-text="document.getElementById('meta_title_' + locale)?.value || '—'"></span></div>
-                                                <div><strong>Meta Description:</strong> <span x-text="document.getElementById('meta_description_' + locale)?.value || '—'"></span></div>
-                                            </div>
-                                        </div>
-                                    </template>
-                                </template>
+                                <div>
+                                    <h1 class="text-2xl md:text-3xl font-bold text-[#1b1b18] dark:text-[#EDEDEC] mb-3">
+                                        <span x-text="document.getElementById('title_' + locale)?.value || '...Başlık Girin'"></span>
+                                    </h1>
+                                    <p class="text-sm text-[#706f6c] dark:text-[#D4D3D0] mb-5">
+                                        <span x-text="document.querySelector('[name=\'published_at\']')?.value?.replace('T', ' ') || 'Yayın tarihi belirtilmedi'"></span>
+                                    </p>
+                                    <div class="prose prose-neutral dark:prose-invert max-w-none mb-4 text-sm">
+                                        <p x-text="document.getElementById('excerpt_' + locale)?.value || '...Özet Girin'"></p>
+                                    </div>
+                                    <div class="p-4 rounded-sm bg-[#f8f8f7] dark:bg-[#111110] border border-[#e3e3e0] dark:border-[#3E3E3A] text-xs text-[#706f6c] dark:text-[#8F8F8B] space-y-1">
+                                        <div><strong>Meta Title:</strong> <span x-text="document.getElementById('meta_title_' + locale)?.value || '—'"></span></div>
+                                        <div><strong>Meta Description:</strong> <span x-text="document.getElementById('meta_description_' + locale)?.value || '—'"></span></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

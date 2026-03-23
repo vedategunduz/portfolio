@@ -3,6 +3,15 @@
 @section('title', __('messages.blog_admin.posts') . __('messages.admin.title_suffix') . config('app.name'))
 @section('page-title', __('messages.blog_admin.posts'))
 
+@php
+    $postStatusFilterOptions = [
+        '' => __('messages.blog_admin.filter_status_all'),
+        'published' => __('messages.blog_admin.status_published'),
+        'draft' => __('messages.blog_admin.status_draft'),
+        'featured' => __('messages.blog_admin.featured'),
+    ];
+@endphp
+
 @section('content')
     @if(session('success'))
         <div class="mb-6 rounded-sm border border-emerald-200 dark:border-emerald-800 bg-emerald-50/90 dark:bg-emerald-900/20 p-4">
@@ -17,31 +26,31 @@
         </a>
     </div>
 
-    <x-admin.card class="mb-6 p-4">
-        <form method="GET" action="{{ route('admin.posts.index') }}" class="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <div>
-                <label class="block text-xs font-medium mb-1 text-[#706f6c] dark:text-[#8F8F8B]">Arama</label>
-                <input type="text" name="search" placeholder="Başlık veya slug..." value="{{ $search }}" class="w-full rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] bg-white dark:bg-[#161615] px-3 py-2 text-sm">
-            </div>
-            <div>
-                <label class="block text-xs font-medium mb-1 text-[#706f6c] dark:text-[#8F8F8B]">Durum</label>
-                <select name="status" class="w-full rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] bg-white dark:bg-[#161615] px-3 py-2 text-sm">
-                    <option value="">Tümü</option>
-                    <option value="published" @selected($status === 'published')>Yayında</option>
-                    <option value="draft" @selected($status === 'draft')>Taslak</option>
-                    <option value="featured" @selected($status === 'featured')>Öne Çıkan</option>
-                </select>
-            </div>
-            <div class="flex items-end gap-2">
-                <button type="submit" class="flex-1 rounded-sm bg-[#D62113] text-white px-4 py-2 text-xs font-medium hover:bg-[#b81a0f] transition-colors">
-                    Ara
-                </button>
-                <a href="{{ route('admin.posts.index') }}" class="rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] text-[#706f6c] dark:text-[#8F8F8B] px-4 py-2 text-xs font-medium hover:border-[#D62113]/50 transition-colors">
-                    Temizle
-                </a>
-            </div>
-        </form>
-    </x-admin.card>
+    <x-admin.ui.filter-card title="{{ __('messages.filters') }}" :action="route('admin.posts.index')" method="get">
+        <x-admin.form.input
+            class="sm:col-span-2 lg:col-span-2"
+            label="{{ __('messages.blog_admin.filter_search') }}"
+            name="search"
+            value="{{ request('search') }}"
+            placeholder="{{ __('messages.blog_admin.filter_search_placeholder') }}"
+        />
+        <x-admin.form.select
+            label="{{ __('messages.blog_admin.status') }}"
+            name="status"
+            :options="$postStatusFilterOptions"
+            :selected="request('status')"
+        />
+        <div class="flex flex-wrap items-end gap-2 sm:col-span-2 lg:col-span-4">
+            <x-admin.ui.button variant="primary" type="submit">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                {{ __('messages.filter') }}
+            </x-admin.ui.button>
+            <x-admin.ui.button variant="secondary" :href="route('admin.posts.index')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                {{ __('messages.clear') }}
+            </x-admin.ui.button>
+        </div>
+    </x-admin.ui.filter-card>
 
     <x-admin.card class="overflow-hidden">
         <div class="overflow-x-auto">

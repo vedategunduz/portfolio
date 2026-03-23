@@ -26,13 +26,13 @@ class PostController extends Controller
     {
         $locale = app()->getLocale();
         $search = $request->query('search', '');
-        $status = $request->query('status', '');
+        $status = $request->string('status')->toString();
 
         $query = Post::query()
             ->with(['user', 'translations', 'galleryImages']);
 
         // Search by title or slug
-        if ($search) {
+        if ($search !== '') {
             $query->whereHas('translations', function ($q) use ($search) {
                 $q->where('title', 'like', "%{$search}%")
                     ->orWhere('slug', 'like', "%{$search}%");
@@ -54,7 +54,7 @@ class PostController extends Controller
             ->paginate(15)
             ->withQueryString();
 
-        return view('admin.posts.index', compact('posts', 'locale', 'search', 'status'));
+        return view('admin.posts.index', compact('posts', 'locale'));
     }
 
     public function create(): View

@@ -366,6 +366,9 @@ return [
 
     // Admin blog posts
     'blog_admin.posts' => 'Blog Yazıları',
+    'blog_admin.filter_search' => 'Arama',
+    'blog_admin.filter_search_placeholder' => 'Başlık veya slug…',
+    'blog_admin.filter_status_all' => 'Tümü',
     'blog_admin.total_posts' => 'Toplam :count yazı',
     'blog_admin.create_new' => 'Yeni Yazı Ekle',
     'blog_admin.create_post' => 'Yeni Blog Yazısı',

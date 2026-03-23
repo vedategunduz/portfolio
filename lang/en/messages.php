@@ -366,6 +366,9 @@ return [
 
     // Admin blog posts
     'blog_admin.posts' => 'Blog Posts',
+    'blog_admin.filter_search' => 'Search',
+    'blog_admin.filter_search_placeholder' => 'Title or slug…',
+    'blog_admin.filter_status_all' => 'All',
     'blog_admin.total_posts' => 'Total :count posts',
     'blog_admin.create_new' => 'Add New Post',
     'blog_admin.create_post' => 'Create Blog Post',
