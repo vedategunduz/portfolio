@@ -57,6 +57,29 @@
             if (length >= warningThreshold) return 'text-emerald-600';
             return 'text-amber-600';
         },
+        getContentStats(locale) {
+            const textarea = document.getElementById('content_' + locale);
+            const html = textarea?.value || '';
+            const plainText = html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+
+            const wordCount = plainText ? plainText.split(' ').filter(w => w.length > 0).length : 0;
+            const readingMinutes = Math.max(1, Math.ceil(wordCount / 200));
+
+            const container = document.createElement('div');
+            container.innerHTML = html;
+
+            const blockCount = container.querySelectorAll('p, li, blockquote, pre, h1, h2, h3, h4, h5, h6').length;
+            const lineBreakBasedCount = plainText
+                ? plainText.split(/\n{2,}/).map(p => p.trim()).filter(Boolean).length
+                : 0;
+            const paragraphCount = Math.max(blockCount, lineBreakBasedCount, plainText ? 1 : 0);
+
+            return {
+                wordCount,
+                readingMinutes,
+                paragraphCount,
+            };
+        },
         isStepComplete(step) {
             if (step === 1) return true;
             if (step === 2) return true;
@@ -238,12 +261,12 @@
                 <div class="flex items-center gap-4">
                     <label class="inline-flex items-center gap-2 text-sm">
                         <input type="hidden" name="published" value="0">
-                        <input type="checkbox" name="published" value="1" @checked(old('published', $post?->published))>
+                        <input id="published_toggle" type="checkbox" name="published" value="1" @checked(old('published', $post?->published))>
                         {{ __('messages.blog_admin.status_published') }}
                     </label>
                     <label class="inline-flex items-center gap-2 text-sm">
                         <input type="hidden" name="is_featured" value="0">
-                        <input type="checkbox" name="is_featured" value="1" @checked(old('is_featured', $post?->is_featured))>
+                        <input id="featured_toggle" type="checkbox" name="is_featured" value="1" @checked(old('is_featured', $post?->is_featured))>
                         {{ __('messages.blog_admin.featured') }}
                     </label>
                 </div>
@@ -431,16 +454,14 @@
                         <div class="rounded-sm bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-900/50 p-3">
                             <p class="text-xs font-medium text-emerald-800 dark:text-emerald-300">Status</p>
                             <p class="text-xs text-emerald-700 dark:text-emerald-400 mt-1">
-                                <span x-show="(previewVersion, !!document.querySelector('input[name=\"published\"]:checked'))">Yayında</span>
-                                <span x-show="(previewVersion, !document.querySelector('input[name=\"published\"]:checked'))">Taslak</span>
+                                <span x-text="(previewVersion, document.getElementById('published_toggle')?.checked ? 'Yayında' : 'Taslak')"></span>
                             </p>
                         </div>
 
                         <div class="rounded-sm bg-[#f8f8f7] dark:bg-[#111110] border border-[#e3e3e0] dark:border-[#3E3E3A] p-3">
                             <p class="text-xs font-medium text-[#1b1b18] dark:text-[#EDEDEC]">Öne Çıkan</p>
                             <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">
-                                <span x-show="(previewVersion, !!document.querySelector('input[name=\"is_featured\"]:checked'))">Evet</span>
-                                <span x-show="(previewVersion, !document.querySelector('input[name=\"is_featured\"]:checked'))">Hayır</span>
+                                <span x-text="(previewVersion, document.getElementById('featured_toggle')?.checked ? 'Evet' : 'Hayır')"></span>
                             </p>
                         </div>
 
@@ -452,9 +473,9 @@
                         <div class="rounded-sm bg-violet-50 dark:bg-violet-900/20 border border-violet-200 dark:border-violet-900/50 p-3 space-y-2">
                             <p class="text-xs font-medium text-violet-800 dark:text-violet-300">📊 İçerik İstatistikleri</p>
                             <div class="text-xs text-violet-700 dark:text-violet-400 space-y-1">
-                                <div><span class="font-medium">Kelime:</span> <span x-text="(previewVersion, (() => { const textarea = document.getElementById('content_' + locale); const content = textarea?.value ? textarea.value.replace(/<[^>]*>/g, '') : ''; return content.trim().split(/\s+/).filter(w => w.length > 0).length; })())"></span></div>
-                                <div><span class="font-medium">Okuma Süresi:</span> <span x-text="(previewVersion, (() => { const textarea = document.getElementById('content_' + locale); const content = textarea?.value ? textarea.value.replace(/<[^>]*>/g, '') : ''; const words = content.trim().split(/\s+/).filter(w => w.length > 0).length; const minutes = Math.ceil(words / 200); return minutes === 1 ? '1 dk' : minutes + '-' + (minutes + 1) + ' dk'; })())"></span></div>
-                                <div><span class="font-medium">Paragraf:</span> <span x-text="(previewVersion, (() => { const textarea = document.getElementById('content_' + locale); const content = textarea?.value ? textarea.value.replace(/<[^>]*>/g, '') : ''; return content.split(/\s{2,}/).filter(p => p.trim().length > 0).length; })())"></span></div>
+                                <div><span class="font-medium">Kelime:</span> <span x-text="(previewVersion, getContentStats(locale).wordCount)"></span></div>
+                                <div><span class="font-medium">Okuma Süresi:</span> <span x-text="(previewVersion, (() => { const minutes = getContentStats(locale).readingMinutes; return minutes === 1 ? '1 dk' : minutes + '-' + (minutes + 1) + ' dk'; })())"></span></div>
+                                <div><span class="font-medium">Paragraf:</span> <span x-text="(previewVersion, getContentStats(locale).paragraphCount)"></span></div>
                             </div>
                         </div>
                     </div>
