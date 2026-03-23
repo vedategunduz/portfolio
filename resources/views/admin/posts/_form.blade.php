@@ -24,6 +24,11 @@
         $existingGalleryImages = [$existingGalleryImages];
     }
     $existingGalleryImages = collect($existingGalleryImages)->filter()->values()->all();
+    $removedGalleryImages = old('remove_gallery_images', []);
+    if (is_string($removedGalleryImages)) {
+        $removedGalleryImages = [$removedGalleryImages];
+    }
+    $removedGalleryImages = collect($removedGalleryImages)->filter()->values()->all();
 
     $initialStep = 1;
     if ($errors->any()) {
@@ -45,9 +50,37 @@
         coverPreview: null,
         hasExistingCover: {{ $existingCoverUrl ? 'true' : 'false' }},
         removeCover: {{ old('remove_cover_image') ? 'true' : 'false' }},
+        removedGalleryImages: {{ json_encode($removedGalleryImages) }},
         galleryPreviews: [],
         seoCounterVersion: 0,
         previewVersion: 0,
+        toggleRemoveCover() {
+            this.removeCover = !this.removeCover;
+            if (!this.removeCover) {
+                window.dispatchEvent(new CustomEvent('autosave:trigger', { detail: { media: true } }));
+                return;
+            }
+
+            const input = document.getElementById('cover_image');
+            if (input) {
+                input.value = '';
+            }
+            this.coverPreview = null;
+            window.dispatchEvent(new CustomEvent('autosave:trigger', { detail: { media: true } }));
+        },
+        isGalleryRemoved(path) {
+            return this.removedGalleryImages.includes(path);
+        },
+        toggleGalleryRemove(path) {
+            if (this.isGalleryRemoved(path)) {
+                this.removedGalleryImages = this.removedGalleryImages.filter(item => item !== path);
+                window.dispatchEvent(new CustomEvent('autosave:trigger', { detail: { media: true } }));
+                return;
+            }
+
+            this.removedGalleryImages.push(path);
+            window.dispatchEvent(new CustomEvent('autosave:trigger', { detail: { media: true } }));
+        },
         getInputLength(id) {
             return document.getElementById(id)?.value?.length || 0;
         },
@@ -166,6 +199,7 @@
                         if (file) {
                             coverPreview = URL.createObjectURL(file);
                             removeCover = false;
+                            window.dispatchEvent(new CustomEvent('autosave:trigger', { detail: { media: true, files: true } }));
                         }
                     "
                 >
@@ -183,10 +217,19 @@
                 </template>
 
                 @if($existingCoverUrl)
-                    <label class="inline-flex items-center gap-2 text-xs text-[#706f6c] dark:text-[#8F8F8B]">
-                        <input type="checkbox" name="remove_cover_image" value="1" x-model="removeCover">
-                        {{ __('messages.blog_admin.remove_cover_image') }}
-                    </label>
+                    <template x-if="removeCover">
+                        <input type="hidden" name="remove_cover_image" value="1">
+                    </template>
+                    <button
+                        type="button"
+                        @click="toggleRemoveCover()"
+                        class="inline-flex items-center gap-2 rounded-sm border px-3 py-1.5 text-xs font-medium transition-colors"
+                        :class="removeCover
+                            ? 'border-emerald-500/60 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-900/20'
+                            : 'border-red-500/60 text-red-700 dark:text-red-300 hover:bg-red-50 dark:hover:bg-red-900/20'"
+                    >
+                        <span x-text="removeCover ? 'Kaldırmayı Geri Al' : '{{ __('messages.blog_admin.remove_cover_image') }}'"></span>
+                    </button>
                 @endif
 
                 @error('cover_image')<p class="text-xs text-red-600">{{ $message }}</p>@enderror
@@ -207,6 +250,9 @@
                     class="sr-only"
                     x-on:change="
                         galleryPreviews = Array.from($event.target.files).map(file => URL.createObjectURL(file));
+                        if (galleryPreviews.length > 0) {
+                            window.dispatchEvent(new CustomEvent('autosave:trigger', { detail: { media: true, files: true } }));
+                        }
                     "
                 >
 
@@ -219,13 +265,29 @@
                                     : asset('storage/' . ltrim($existingImage, '/'));
                             @endphp
                             <div class="space-y-2">
-                                <div class="rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] overflow-hidden">
+                                <div
+                                    class="rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] overflow-hidden transition-opacity"
+                                    :class="isGalleryRemoved(@js($existingImage)) ? 'opacity-40' : ''"
+                                >
                                     <img src="{{ $existingUrl }}" alt="gallery" class="w-full h-24 object-cover">
                                 </div>
-                                <label class="inline-flex items-center gap-2 text-[11px] text-[#706f6c] dark:text-[#8F8F8B]">
-                                    <input type="checkbox" name="remove_gallery_images[]" value="{{ $existingImage }}">
-                                    {{ __('messages.blog_admin.remove') }}
-                                </label>
+                                <button
+                                    type="button"
+                                    @click="toggleGalleryRemove(@js($existingImage))"
+                                    class="inline-flex items-center gap-2 rounded-sm border px-2.5 py-1 text-[11px] font-medium transition-colors"
+                                    :class="isGalleryRemoved(@js($existingImage))
+                                        ? 'border-emerald-500/60 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-900/20'
+                                        : 'border-red-500/60 text-red-700 dark:text-red-300 hover:bg-red-50 dark:hover:bg-red-900/20'"
+                                >
+                                    <span x-text="isGalleryRemoved(@js($existingImage)) ? 'Silmeyi Geri Al' : '{{ __('messages.blog_admin.remove') }}'"></span>
+                                </button>
+                                <template x-if="isGalleryRemoved(@js($existingImage))">
+                                    <input
+                                        type="hidden"
+                                        name="remove_gallery_images[]"
+                                        value="{{ $existingImage }}"
+                                    >
+                                </template>
                                 <input type="hidden" name="gallery_images_existing[]" value="{{ $existingImage }}">
                             </div>
                         @endforeach
@@ -553,6 +615,8 @@
                 let inFlight = false;
                 let dirty = false;
                 let lastSignature = '';
+                let pendingMediaSync = false;
+                let pendingFileSync = false;
 
                 const setStatus = (text, tone = 'muted') => {
                     if (!statusEl) {
@@ -593,7 +657,13 @@
 
                 const signatureFrom = (formData) => {
                     return Array.from(formData.entries())
-                        .map(([key, value]) => [key, typeof value === 'string' ? value.trim() : ''])
+                        .map(([key, value]) => {
+                            if (value instanceof File) {
+                                return [key, `${value.name}:${value.size}:${value.lastModified}`];
+                            }
+
+                            return [key, typeof value === 'string' ? value.trim() : ''];
+                        })
                         .sort(([aKey, aValue], [bKey, bValue]) => {
                             if (aKey === bKey) return aValue.localeCompare(bValue);
                             return aKey.localeCompare(bKey);
@@ -605,12 +675,18 @@
                 const toAutosavePayload = () => {
                     const formData = new FormData(form);
 
-                    formData.delete('cover_image');
-                    formData.delete('gallery_images[]');
-                    formData.delete('remove_cover_image');
-                    formData.delete('remove_gallery_images[]');
                     formData.delete('cover_image_existing');
                     formData.delete('gallery_images_existing[]');
+
+                    if (!pendingFileSync) {
+                        formData.delete('cover_image');
+                        formData.delete('gallery_images[]');
+                    }
+
+                    if (!pendingMediaSync) {
+                        formData.delete('remove_cover_image');
+                        formData.delete('remove_gallery_images[]');
+                    }
 
                     return formData;
                 };
@@ -707,7 +783,9 @@
                             promoteFormToUpdateMode(data.post_id);
                         }
 
-                        lastSignature = signature;
+                        pendingMediaSync = false;
+                        pendingFileSync = false;
+                        lastSignature = signatureFrom(toAutosavePayload());
                         dirty = false;
                         const timeLabel = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
                         setStatus(`Taslak: kaydedildi (${timeLabel})`, 'ok');
@@ -739,6 +817,16 @@
                     if (timerId) {
                         window.clearTimeout(timerId);
                     }
+                });
+
+                window.addEventListener('autosave:trigger', (event) => {
+                    if (event?.detail?.media) {
+                        pendingMediaSync = true;
+                    }
+                    if (event?.detail?.files) {
+                        pendingFileSync = true;
+                    }
+                    scheduleAutosave();
                 });
             })();
         </script>

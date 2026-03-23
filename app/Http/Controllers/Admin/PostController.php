@@ -68,21 +68,30 @@ class PostController extends Controller
     {
         $locales = config('app.supported_locales', ['tr', 'en']);
         $validated = $this->validateAutosaveRequest($request, $locales);
+        $coverImagePath = null;
+
+        if (! empty($validated['remove_cover_image'])) {
+            $coverImagePath = null;
+        } elseif ($request->hasFile('cover_image')) {
+            $coverImagePath = $this->imageOptimizer->optimizeCoverImage($request->file('cover_image'));
+        }
 
         /** @var Post $post */
-        $post = DB::transaction(function () use ($request, $validated, $locales): Post {
+        $post = DB::transaction(function () use ($request, $validated, $locales, $coverImagePath): Post {
             $createdPost = Post::create([
                 'user_id' => (int) $request->user()->id,
                 'published' => false,
                 'published_at' => null,
                 'is_featured' => (bool) ($validated['is_featured'] ?? false),
-                'cover_image' => null,
+                'cover_image' => $coverImagePath,
             ]);
 
             $this->upsertTranslations($createdPost, Arr::get($validated, 'translations', []), $locales);
 
             return $createdPost;
         });
+
+        $this->appendUploadedGalleryImages($post, $request->file('gallery_images', []));
 
         return response()->json([
             'ok' => true,
@@ -93,17 +102,46 @@ class PostController extends Controller
 
     public function autosaveUpdate(Request $request, Post $post): JsonResponse
     {
-        $post->load('translations');
+        $post->load(['translations', 'galleryImages']);
         $locales = config('app.supported_locales', ['tr', 'en']);
         $validated = $this->validateAutosaveRequest($request, $locales, $post);
+        $coverImagePath = $post->cover_image;
 
-        DB::transaction(function () use ($post, $validated, $locales): void {
+        if (! empty($validated['remove_cover_image'])) {
+            $this->deleteStoredFile($coverImagePath);
+            $coverImagePath = null;
+        }
+
+        if ($request->hasFile('cover_image')) {
+            $this->deleteStoredFile($coverImagePath);
+            $coverImagePath = $this->imageOptimizer->optimizeCoverImage($request->file('cover_image'));
+        }
+
+        $removedGalleryPaths = collect($validated['remove_gallery_images'] ?? [])
+            ->filter(fn ($path) => is_string($path) && trim($path) !== '')
+            ->values();
+
+        DB::transaction(function () use ($post, $validated, $locales, $coverImagePath, $removedGalleryPaths): void {
             $post->update([
                 'is_featured' => (bool) ($validated['is_featured'] ?? $post->is_featured),
+                'cover_image' => $coverImagePath,
             ]);
+
+            if ($removedGalleryPaths->isNotEmpty()) {
+                $imagesToRemove = $post->galleryImages()
+                    ->whereIn('image_path', $removedGalleryPaths->all())
+                    ->get();
+
+                foreach ($imagesToRemove as $image) {
+                    $this->deleteStoredFile($image->image_path);
+                    $image->delete();
+                }
+            }
 
             $this->upsertTranslations($post, Arr::get($validated, 'translations', []), $locales);
         });
+
+        $this->appendUploadedGalleryImages($post, $request->file('gallery_images', []));
 
         return response()->json([
             'ok' => true,
@@ -330,6 +368,12 @@ class PostController extends Controller
     {
         $rules = [
             'is_featured' => ['nullable', 'boolean'],
+            'cover_image' => ['nullable', 'image', 'max:5120'],
+            'remove_cover_image' => ['nullable', 'boolean'],
+            'gallery_images' => ['nullable', 'array'],
+            'gallery_images.*' => ['nullable', 'image', 'max:5120'],
+            'remove_gallery_images' => ['nullable', 'array'],
+            'remove_gallery_images.*' => ['nullable', 'string', 'max:2048'],
             'translations' => ['nullable', 'array'],
         ];
 
