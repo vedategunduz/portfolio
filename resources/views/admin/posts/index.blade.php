@@ -69,8 +69,26 @@
                     @forelse($posts as $post)
                         <tr class="border-b border-[#e3e3e0] dark:border-[#3E3E3A]/70">
                             <td class="px-4 py-3 align-top">
-                                <p class="font-medium text-[#1b1b18] dark:text-[#EDEDEC]">{{ $post->translated_title ?? '-' }}</p>
-                                <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">{{ $post->translated_slug ?? '-' }}</p>
+                                @if($post->translated_slug)
+                                    <a
+                                        href="{{ route('blog.show', $post->translated_slug) }}"
+                                        class="font-medium text-[#1b1b18] dark:text-[#EDEDEC] hover:text-[#D62113] transition-colors"
+                                        title="{{ __('messages.blog_admin.view_post') }}"
+                                    >
+                                        {{ $post->translated_title ?? '-' }}
+                                    </a>
+                                    <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">
+                                        <a
+                                            href="{{ route('blog.show', $post->translated_slug) }}"
+                                            class="hover:text-[#D62113] transition-colors"
+                                        >
+                                            {{ $post->translated_slug }}
+                                        </a>
+                                    </p>
+                                @else
+                                    <p class="font-medium text-[#1b1b18] dark:text-[#EDEDEC]">{{ $post->translated_title ?? '-' }}</p>
+                                    <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">-</p>
+                                @endif
                             </td>
                             <td class="px-4 py-3 align-top">
                                 @if($post->published)

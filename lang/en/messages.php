@@ -6,6 +6,7 @@ return [
     'nav.about' => 'About',
     'nav.projects' => 'Projects',
     'nav.contact' => 'Contact',
+    'nav.admin_panel' => 'Admin Panel',
 
     // Social links
     'social.github' => 'GitHub',
@@ -385,6 +386,7 @@ return [
     'blog_admin.yes' => 'Yes',
     'blog_admin.no' => 'No',
     'blog_admin.edit' => 'Edit',
+    'blog_admin.view_post' => 'View post',
     'blog_admin.delete' => 'Delete',
     'blog_admin.confirm_delete' => 'Are you sure you want to delete this post?',
     'blog_admin.no_posts' => 'No blog posts yet.',

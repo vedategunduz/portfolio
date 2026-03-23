@@ -10,7 +10,7 @@
         />
 
         @if ($posts->count())
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 @foreach ($posts as $post)
                     <x-blog.post-card :post="$post" imageHeight="h-52" />
                 @endforeach

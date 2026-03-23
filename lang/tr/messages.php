@@ -6,6 +6,7 @@ return [
     'nav.about' => 'Hakkımda',
     'nav.projects' => 'Projeler',
     'nav.contact' => 'İletişim',
+    'nav.admin_panel' => 'Admin Paneli',
 
     // Social links
     'social.github' => 'GitHub',
@@ -385,6 +386,7 @@ return [
     'blog_admin.yes' => 'Evet',
     'blog_admin.no' => 'Hayır',
     'blog_admin.edit' => 'Düzenle',
+    'blog_admin.view_post' => 'Yazıyı görüntüle',
     'blog_admin.delete' => 'Sil',
     'blog_admin.confirm_delete' => 'Bu yazıyı silmek istediğinize emin misiniz?',
     'blog_admin.no_posts' => 'Henüz blog yazısı bulunmuyor.',

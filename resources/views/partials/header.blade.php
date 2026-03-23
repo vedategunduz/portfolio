@@ -32,6 +32,14 @@
                 </div>
 
                 <div class="flex items-center gap-3">
+                    @auth
+                        <a
+                            href="{{ route('admin.dashboard') }}"
+                            class="hidden sm:inline-flex items-center justify-center px-3 py-1.5 rounded-sm text-xs font-medium border border-[#e3e3e0] dark:border-[#3E3E3A] text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#D62113] hover:border-[#D62113]/40 transition-colors"
+                        >
+                            {{ __('messages.nav.admin_panel') }}
+                        </a>
+                    @endauth
                     <div class="hidden sm:flex items-center gap-2">
                         <a href="https://github.com/vedategunduz" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center leading-none p-1.5 text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#D62113] transition-colors" title="{{ __('messages.social.github') }}" aria-label="{{ __('messages.social.aria.github') }}">
                             <i data-lucide="github" class="w-4 h-4"></i>
@@ -55,6 +63,11 @@
 
             <div class="md:hidden max-h-0 overflow-hidden opacity-0 transition-all duration-300 ease-out px-6 border-t border-[#e3e3e0] dark:border-[#3E3E3A]" id="mobile-menu">
                 <div class="flex flex-col gap-4">
+                    @auth
+                        <a href="{{ route('admin.dashboard') }}" class="text-xs text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#D62113] transition-colors">
+                            {{ __('messages.nav.admin_panel') }}
+                        </a>
+                    @endauth
                     <a href="{{ $homeUrl }}#home" class="text-xs text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#D62113] transition-colors">
                         {{ __('messages.nav.home') }}
                     </a>

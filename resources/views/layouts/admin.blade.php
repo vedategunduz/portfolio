@@ -78,7 +78,12 @@
                                 </option>
                             @endforeach
                         </select>
-                        <a href="{{ route('home', ['locale' => app()->getLocale()]) }}" class="text-xs font-medium text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#D62113] transition-colors duration-200 whitespace-nowrap">
+                        <a
+                            href="{{ route('home', ['locale' => app()->getLocale()]) }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="text-xs font-medium text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#D62113] transition-colors duration-200 whitespace-nowrap"
+                        >
                             {{ __('messages.admin.home') }}
                         </a>
                         <button type="button" id="theme-toggle" class="inline-flex items-center justify-center p-2 rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#D62113] transition-colors" title="{{ __('messages.admin.theme_toggle') }}" aria-label="{{ __('messages.theme.light_dark') }}">
