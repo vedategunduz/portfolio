@@ -45,6 +45,16 @@
         coverPreview: null,
         removeCover: {{ old('remove_cover_image') ? 'true' : 'false' }},
         galleryPreviews: [],
+        seoCounterVersion: 0,
+        getInputLength(id) {
+            return document.getElementById(id)?.value?.length || 0;
+        },
+        getSeoCounterClass(id, warningThreshold, maxLength) {
+            const length = this.getInputLength(id);
+            if (length > maxLength) return 'text-red-600';
+            if (length >= warningThreshold) return 'text-emerald-600';
+            return 'text-amber-600';
+        },
         isStepComplete(step) {
             if (step === 1) return true;
             if (step === 2) return true;
@@ -58,6 +68,7 @@
             if (this.currentStep > 1) this.currentStep--;
         }
     }"
+    x-on:seo-update.window="seoCounterVersion++"
     x-init="typeof window.createIcons !== 'undefined' && window.createIcons(); setTimeout(() => { typeof window.initAllEditors !== 'undefined' && window.initAllEditors(); }, 100)"
 >
 
@@ -323,7 +334,7 @@
                         <input id="meta_title_{{ $locale }}" name="translations[{{ $locale }}][meta_title]" type="text" value="{{ old("translations.$locale.meta_title", $translation?->meta_title) }}" class="w-full rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] bg-white dark:bg-[#161615] px-3 py-2 text-sm" x-on:input="$dispatch('seo-update')">
                         <div class="flex items-center justify-between mt-1">
                             <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">En fazla 60 karakter (ideal: 50-60)</p>
-                            <span class="text-xs font-medium" :class="document.getElementById('meta_title_{{ $locale }}')?.value?.length > 60 ? 'text-red-600' : document.getElementById('meta_title_{{ $locale }}')?.value?.length >= 50 ? 'text-emerald-600' : 'text-amber-600'" x-text="(document.getElementById('meta_title_{{ $locale }}')?.value?.length || 0) + '/60'"></span>
+                            <span class="text-xs font-medium" :class="(seoCounterVersion, getSeoCounterClass('meta_title_{{ $locale }}', 50, 60))" x-text="(seoCounterVersion, getInputLength('meta_title_{{ $locale }}') + '/60')"></span>
                         </div>
                         @error("translations.$locale.meta_title")<p class="text-xs text-red-600 mt-1">{{ $message }}</p>@enderror
                     </div>
@@ -333,7 +344,7 @@
                         <textarea id="meta_description_{{ $locale }}" name="translations[{{ $locale }}][meta_description]" rows="2" class="w-full rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] bg-white dark:bg-[#161615] px-3 py-2 text-sm" x-on:input="$dispatch('seo-update')">{{ old("translations.$locale.meta_description", $translation?->meta_description) }}</textarea>
                         <div class="flex items-center justify-between mt-1">
                             <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">En fazla 160 karakter (ideal: 150-160)</p>
-                            <span class="text-xs font-medium" :class="document.getElementById('meta_description_{{ $locale }}')?.value?.length > 160 ? 'text-red-600' : document.getElementById('meta_description_{{ $locale }}')?.value?.length >= 150 ? 'text-emerald-600' : 'text-amber-600'" x-text="(document.getElementById('meta_description_{{ $locale }}')?.value?.length || 0) + '/160'"></span>
+                            <span class="text-xs font-medium" :class="(seoCounterVersion, getSeoCounterClass('meta_description_{{ $locale }}', 150, 160))" x-text="(seoCounterVersion, getInputLength('meta_description_{{ $locale }}') + '/160')"></span>
                         </div>
                         @error("translations.$locale.meta_description")<p class="text-xs text-red-600 mt-1">{{ $message }}</p>@enderror
                     </div>
@@ -537,7 +548,12 @@
 
                 const signatureFrom = (formData) => {
                     return Array.from(formData.entries())
-                        .map(([key, value]) => `${key}:${typeof value === 'string' ? value : ''}`)
+                        .map(([key, value]) => [key, typeof value === 'string' ? value.trim() : ''])
+                        .sort(([aKey, aValue], [bKey, bValue]) => {
+                            if (aKey === bKey) return aValue.localeCompare(bValue);
+                            return aKey.localeCompare(bKey);
+                        })
+                        .map(([key, value]) => `${key}:${value}`)
                         .join('|');
                 };
 
@@ -580,6 +596,12 @@
 
                 const scheduleAutosave = () => {
                     if (isSubmitting) {
+                        return;
+                    }
+
+                    const currentSignature = signatureFrom(toAutosavePayload());
+                    if (currentSignature === lastSignature) {
+                        dirty = false;
                         return;
                     }
 
