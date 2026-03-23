@@ -66,6 +66,8 @@
         <div class="mt-8 pt-8 border-t border-[#e3e3e0] dark:border-[#3E3E3A]">
             <p class="text-sm text-[#706f6c] dark:text-[#D4D3D0] text-center">
                 &copy; {{ date('Y') }} {{ __('messages.footer.owner_name') }}. {{ __('messages.all_rights_reserved') }}
+                <span class="text-[#706f6c]/70 dark:text-[#8F8F8B]">·</span>
+                <span class="tabular-nums" title="{{ config('app.version') }}">{{ __('messages.footer.version', ['version' => config('app.version')]) }}</span>
             </p>
         </div>
 

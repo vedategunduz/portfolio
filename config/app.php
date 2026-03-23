@@ -17,6 +17,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Application Version (UI / footer; override with APP_VERSION in .env)
+    |--------------------------------------------------------------------------
+    | Minor (12) reflects cumulative feature tracks over the repo history
+    | (i18n, contact, blog+admin, autosave, media/SEO, sitemap, scheduling,
+    | admin UX, logging, tests, etc.)—not a “day zero” 1.0.0 snapshot.
+    |--------------------------------------------------------------------------
+    */
+
+    'version' => env('APP_VERSION', '1.12.0'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Environment
     |--------------------------------------------------------------------------
     |

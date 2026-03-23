@@ -161,6 +161,7 @@ return [
     'footer.quick_links' => 'Quick Links',
     'footer.social_media' => 'Social Media',
     'footer.owner_name' => 'Vedat Emre Gündüz',
+    'footer.version' => 'Version :version',
 
     // Generic
     'language' => 'Language',
