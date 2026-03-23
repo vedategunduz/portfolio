@@ -5,8 +5,6 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 Disallow: /storage/
-Disallow: /*.json$
-Disallow: /*.xml$
 
 # Sitemap location
 Sitemap: https://vedategunduz.dev/sitemap.xml

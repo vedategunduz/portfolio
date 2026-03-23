@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Route;
 // Locale-free routes (no language in URL)
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
+Route::permanentRedirect('/favicon.ico', '/favicons/favicon-32x32.png');
+Route::permanentRedirect('/site.webmanifest', '/manifest.json');
 
 // Redirect root to locale: session preference, else browser Accept-Language, else config default
 Route::get('/', function (Request $request) {
