@@ -1,3 +1,7 @@
+@php
+    $homeUrl = route('home', ['locale' => app()->getLocale()]);
+@endphp
+
 <footer class="w-full border-t border-[#e3e3e0] dark:border-[#3E3E3A] bg-white dark:bg-[#161615] mt-auto">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -16,22 +20,22 @@
                 </h3>
                 <ul class="space-y-2">
                     <li>
-                        <a href="#home" class="text-sm text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#1b1b18] dark:hover:text-[#EDEDEC] transition-colors">
+                        <a href="{{ $homeUrl }}#home" class="text-sm text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#1b1b18] dark:hover:text-[#EDEDEC] transition-colors">
                             {{ __('messages.nav.home') }}
                         </a>
                     </li>
                     <li>
-                        <a href="#about" class="text-sm text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#1b1b18] dark:hover:text-[#EDEDEC] transition-colors">
+                        <a href="{{ $homeUrl }}#about" class="text-sm text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#1b1b18] dark:hover:text-[#EDEDEC] transition-colors">
                             {{ __('messages.nav.about') }}
                         </a>
                     </li>
                     <li>
-                        <a href="#projects" class="text-sm text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#1b1b18] dark:hover:text-[#EDEDEC] transition-colors">
+                        <a href="{{ $homeUrl }}#projects" class="text-sm text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#1b1b18] dark:hover:text-[#EDEDEC] transition-colors">
                             {{ __('messages.nav.projects') }}
                         </a>
                     </li>
                     <li>
-                        <a href="#contact" class="text-sm text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#1b1b18] dark:hover:text-[#EDEDEC] transition-colors">
+                        <a href="{{ $homeUrl }}#contact" class="text-sm text-[#706f6c] dark:text-[#D4D3D0] hover:text-[#1b1b18] dark:hover:text-[#EDEDEC] transition-colors">
                             {{ __('messages.nav.contact') }}
                         </a>
                     </li>
