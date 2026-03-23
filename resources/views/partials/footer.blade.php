@@ -70,7 +70,7 @@
         </div>
 
         <div class="mt-0 text-center overflow-hidden">
-            <p class="m-0 -mb-4 md:-mb-8 lg:-mb-10 text-[6rem] md:text-[12rem] lg:text-[16rem] font-black text-[#D62113] leading-[0.86] tracking-tighter select-none">
+            <p class="m-0 -mb-2 md:-mb-5 lg:-mb-7 text-[6rem] md:text-[12rem] lg:text-[16rem] font-black text-[#D62113] leading-[0.86] tracking-tighter select-none">
                 VEDAT
             </p>
         </div>
