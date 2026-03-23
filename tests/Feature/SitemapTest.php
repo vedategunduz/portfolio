@@ -18,7 +18,7 @@ class SitemapTest extends TestCase
             ->get(route('sitemap'));
 
         $response->assertOk();
-        $response->assertHeader('Content-Type', 'application/xml');
+        $response->assertHeader('Content-Type', 'application/xml; charset=UTF-8');
         $response->assertSee(url('/tr'), false);
         $response->assertSee(url('/en'), false);
         $response->assertSee(url('/blog'), false);

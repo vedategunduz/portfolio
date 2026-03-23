@@ -5,11 +5,26 @@ use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SitemapController;
 use App\Models\Post;
+use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
+use Illuminate\Cookie\Middleware\EncryptCookies;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Http\Request;
+use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\Route;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 // Locale-free routes (no language in URL)
-Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])
+    ->withoutMiddleware([
+        EncryptCookies::class,
+        AddQueuedCookiesToResponse::class,
+        StartSession::class,
+        ShareErrorsFromSession::class,
+        VerifyCsrfToken::class,
+        \App\Http\Middleware\SetLocaleFromSession::class,
+        \App\Http\Middleware\LogPageHistory::class,
+    ])
+    ->name('sitemap');
 Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
 Route::permanentRedirect('/favicon.ico', '/favicons/favicon-32x32.png');
 Route::permanentRedirect('/site.webmanifest', '/manifest.json');

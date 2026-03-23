@@ -17,7 +17,9 @@ class SitemapController extends Controller
         $sitemap = $this->generateSitemap();
 
         return response($sitemap, 200)
-            ->header('Content-Type', 'application/xml');
+            ->header('Content-Type', 'application/xml; charset=UTF-8')
+            ->header('Cache-Control', 'public, max-age=3600')
+            ->header('X-Robots-Tag', 'noindex, follow');
     }
 
     /**
