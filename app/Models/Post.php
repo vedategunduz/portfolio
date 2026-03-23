@@ -46,9 +46,25 @@ class Post extends Model
             ->orderBy('id');
     }
 
+    /**
+     * Yazı “yayında” işaretli ve yayın zamanı gelmiş (veya geçmiş) kayıtlar.
+     * İleri tarihli planlı yayınlar bu scope’a dahil edilmez; böylece liste/detay/sitemap otomatik uyumlu kalır.
+     */
     public function scopePublished($query)
     {
-        return $query->where('published', true)->whereNotNull('published_at');
+        return $query->where('published', true)
+            ->whereNotNull('published_at')
+            ->where('published_at', '<=', now());
+    }
+
+    /**
+     * Yayında işaretli, yayın tarihi gelecekte (henüz sitede görünmez).
+     */
+    public function scopeScheduled($query)
+    {
+        return $query->where('published', true)
+            ->whereNotNull('published_at')
+            ->where('published_at', '>', now());
     }
 
     public function scopeLatestPublished($query)
