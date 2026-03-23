@@ -27,9 +27,12 @@ class PostController extends Controller
         $locale = app()->getLocale();
         $search = $request->query('search', '');
         $status = $request->string('status')->toString();
+        $localeFilter = $request->string('locale')->toString();
+        $supportedLocales = config('app.supported_locales', ['tr', 'en']);
 
         $query = Post::query()
-            ->with(['user', 'translations', 'galleryImages']);
+            ->with(['user', 'translations', 'galleryImages'])
+            ->withCount('galleryImages');
 
         // Search by title or slug
         if ($search !== '') {
@@ -50,18 +53,25 @@ class PostController extends Controller
             $query->where('is_featured', true);
         }
 
-        $posts = $query->latest('created_at')
+        if ($localeFilter !== '' && in_array($localeFilter, $supportedLocales, true)) {
+            $query->whereHas('translations', function ($q) use ($localeFilter) {
+                $q->where('locale', $localeFilter);
+            });
+        }
+
+        $posts = $query->latest('updated_at')
             ->paginate(15)
             ->withQueryString();
 
-        return view('admin.posts.index', compact('posts', 'locale'));
+        return view('admin.posts.index', compact('posts', 'locale', 'supportedLocales'));
     }
 
     public function create(): View
     {
         $locales = config('app.supported_locales', ['tr', 'en']);
+        $formInsights = $this->buildAdminFormInsights(null, $locales);
 
-        return view('admin.posts.create', compact('locales'));
+        return view('admin.posts.create', array_merge(compact('locales'), $formInsights));
     }
 
     public function autosaveStore(Request $request): JsonResponse
@@ -200,8 +210,9 @@ class PostController extends Controller
     {
         $post->load(['translations', 'galleryImages']);
         $locales = config('app.supported_locales', ['tr', 'en']);
+        $formInsights = $this->buildAdminFormInsights($post, $locales);
 
-        return view('admin.posts.edit', compact('post', 'locales'));
+        return view('admin.posts.edit', array_merge(compact('post', 'locales'), $formInsights));
     }
 
     public function update(Request $request, Post $post): RedirectResponse
@@ -501,5 +512,106 @@ class PostController extends Controller
         if (Storage::disk('public')->exists($path)) {
             Storage::disk('public')->delete($path);
         }
+    }
+
+    /**
+     * @param  array<int, string>  $locales
+     * @return array{
+     *     adminTranslationWarnings: array<int, string>,
+     *     slugSuffixLocales: array<int, string>,
+     *     publishChecklistNotes: array<int, string>
+     * }
+     */
+    private function buildAdminFormInsights(?Post $post, array $locales): array
+    {
+        if (! $post) {
+            return [
+                'adminTranslationWarnings' => [],
+                'slugSuffixLocales' => [],
+                'publishChecklistNotes' => [],
+            ];
+        }
+
+        $adminTranslationWarnings = [];
+        $slugSuffixLocales = [];
+        $publishChecklistNotes = [];
+
+        $requiredLocale = config('app.fallback_locale', 'en');
+
+        foreach ($locales as $loc) {
+            $t = $post->translations->firstWhere('locale', $loc);
+            $slug = $t?->slug ?? '';
+            if ($slug !== '' && preg_match('/-\d+$/', $slug)) {
+                $slugSuffixLocales[] = $loc;
+            }
+        }
+
+        $requiredTranslation = $post->translations->firstWhere('locale', $requiredLocale);
+        $requiredReady = $this->adminTranslationIsComplete($requiredTranslation);
+
+        if (! $post->published && $requiredReady) {
+            foreach ($locales as $loc) {
+                if ($loc === $requiredLocale) {
+                    continue;
+                }
+                $t = $post->translations->firstWhere('locale', $loc);
+                if ($this->adminTranslationHasStarted($t) && ! $this->adminTranslationIsComplete($t)) {
+                    $adminTranslationWarnings[] = __('messages.blog_admin.warning_translation_partial', [
+                        'locale' => strtoupper($loc),
+                    ]);
+                }
+            }
+        }
+
+        if ($post->published) {
+            foreach ($locales as $loc) {
+                $t = $post->translations->firstWhere('locale', $loc);
+                if (! $this->adminTranslationIsComplete($t)) {
+                    $adminTranslationWarnings[] = __('messages.blog_admin.warning_published_incomplete', [
+                        'locale' => strtoupper($loc),
+                    ]);
+                }
+            }
+        }
+
+        if ($post->published && ! $post->cover_image) {
+            $publishChecklistNotes[] = __('messages.blog_admin.checklist_no_cover');
+        }
+
+        if ($post->published) {
+            foreach ($locales as $loc) {
+                $t = $post->translations->firstWhere('locale', $loc);
+                if ($this->adminTranslationIsComplete($t) && ! filled(trim(strip_tags($t->excerpt ?? '')))) {
+                    $publishChecklistNotes[] = __('messages.blog_admin.checklist_no_excerpt', ['locale' => strtoupper($loc)]);
+                }
+            }
+        }
+
+        return [
+            'adminTranslationWarnings' => array_values(array_unique($adminTranslationWarnings)),
+            'slugSuffixLocales' => array_values(array_unique($slugSuffixLocales)),
+            'publishChecklistNotes' => array_values(array_unique($publishChecklistNotes)),
+        ];
+    }
+
+    private function adminTranslationIsComplete(?PostTranslation $translation): bool
+    {
+        if (! $translation) {
+            return false;
+        }
+
+        return filled($translation->title)
+            && filled(trim(strip_tags($translation->content ?? '')));
+    }
+
+    private function adminTranslationHasStarted(?PostTranslation $translation): bool
+    {
+        if (! $translation) {
+            return false;
+        }
+
+        return filled($translation->title)
+            || filled(trim(strip_tags($translation->content ?? '')))
+            || filled(trim(strip_tags($translation->excerpt ?? '')));
     }
 }

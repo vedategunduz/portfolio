@@ -24,11 +24,16 @@
         $existingGalleryImages = [$existingGalleryImages];
     }
     $existingGalleryImages = collect($existingGalleryImages)->filter()->values()->all();
+    $overviewHasCover = (bool) $existingCover && ! old('remove_cover_image');
     $removedGalleryImages = old('remove_gallery_images', []);
     if (is_string($removedGalleryImages)) {
         $removedGalleryImages = [$removedGalleryImages];
     }
     $removedGalleryImages = collect($removedGalleryImages)->filter()->values()->all();
+
+    $adminTranslationWarnings = $adminTranslationWarnings ?? [];
+    $slugSuffixLocales = $slugSuffixLocales ?? [];
+    $publishChecklistNotes = $publishChecklistNotes ?? [];
 
     $initialStep = 1;
     if ($errors->any()) {
@@ -135,6 +140,28 @@
 <input type="hidden" name="active_locale" x-model="activeLocale">
 <input type="hidden" id="autosave-post-id" name="_autosave_post_id" value="{{ old('_autosave_post_id', $post?->id) }}">
 
+@if(count($adminTranslationWarnings) > 0)
+    <div class="mb-6 rounded-sm border border-amber-200 dark:border-amber-900/50 bg-amber-50/90 dark:bg-amber-900/20 p-4">
+        <p class="text-xs font-semibold text-amber-900 dark:text-amber-200">{{ __('messages.blog_admin.alerts_translation_title') }}</p>
+        <ul class="mt-2 list-disc list-inside text-xs text-amber-900/90 dark:text-amber-100/90 space-y-1">
+            @foreach($adminTranslationWarnings as $warning)
+                <li>{{ $warning }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+@if(count($publishChecklistNotes) > 0)
+    <div class="mb-6 rounded-sm border border-sky-200 dark:border-sky-900/50 bg-sky-50/90 dark:bg-sky-900/20 p-4">
+        <p class="text-xs font-semibold text-sky-900 dark:text-sky-200">{{ __('messages.blog_admin.alerts_checklist_title') }}</p>
+        <ul class="mt-2 list-disc list-inside text-xs text-sky-900/90 dark:text-sky-100/90 space-y-1">
+            @foreach($publishChecklistNotes as $note)
+                <li>{{ $note }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <div class="mb-8">
     @php $steps = ['Genel Bilgiler', 'İçerik', 'SEO', 'Önizleme']; @endphp
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -180,6 +207,17 @@
 <div x-show="currentStep === 1" x-cloak class="space-y-6">
     <x-admin.card class="p-6 space-y-6">
         <h2 class="text-sm font-semibold uppercase tracking-wider text-[#1b1b18] dark:text-[#EDEDEC]">{{ __('messages.blog_admin.general_information') }}</h2>
+
+        <div class="rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] bg-[#f8f8f7] dark:bg-[#111110] p-4 space-y-2 text-xs text-[#706f6c] dark:text-[#8F8F8B]">
+            <p class="text-[11px] font-semibold uppercase tracking-wider text-[#1b1b18] dark:text-[#EDEDEC]">{{ __('messages.blog_admin.overview_title') }}</p>
+            @if($post)
+                <p>{{ __('messages.blog_admin.overview_last_saved', ['time' => $post->updated_at->timezone(config('app.timezone'))->format('d.m.Y H:i')]) }}</p>
+            @else
+                <p>{{ __('messages.blog_admin.overview_new_post') }}</p>
+            @endif
+            <p>{{ __('messages.blog_admin.overview_media', ['cover' => $overviewHasCover ? __('messages.blog_admin.yes') : __('messages.blog_admin.no'), 'gallery' => count($existingGalleryImages)]) }}</p>
+            <p class="text-[11px]">{{ __('messages.blog_admin.overview_autosave_hint') }}</p>
+        </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div class="space-y-3">
@@ -349,6 +387,7 @@
                             || $errors->has("translations.$locale.slug")
                             || $errors->has("translations.$locale.excerpt")
                             || $errors->has("translations.$locale.content");
+                        $slugSuffixHint = in_array($locale, $slugSuffixLocales, true);
                     @endphp
                     <button
                         type="button"
@@ -359,6 +398,8 @@
                         {{ strtoupper($locale) }}
                         @if($hasErrors)
                             <span class="ml-1 inline-block w-1.5 h-1.5 rounded-full bg-red-500 align-middle"></span>
+                        @elseif($slugSuffixHint)
+                            <span class="ml-1 inline-block w-1.5 h-1.5 rounded-full bg-amber-500 align-middle" title="{{ __('messages.blog_admin.slug_suffix_hint') }}"></span>
                         @endif
                     </button>
                 @endforeach
@@ -380,7 +421,17 @@
 
                         <div>
                             <label for="slug_{{ $locale }}" class="block text-xs font-medium mb-1">{{ __('messages.blog_admin.slug_optional') }}</label>
-                            <input id="slug_{{ $locale }}" name="translations[{{ $locale }}][slug]" type="text" value="{{ old("translations.$locale.slug", $translation?->slug) }}" class="w-full rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] bg-white dark:bg-[#161615] px-3 py-2 text-sm">
+                            <input id="slug_{{ $locale }}" name="translations[{{ $locale }}][slug]" type="text" value="{{ old("translations.$locale.slug", $translation?->slug) }}" class="w-full rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] bg-white dark:bg-[#161615] px-3 py-2 text-sm" autocomplete="off">
+                            <p class="mt-1 text-[11px] text-[#706f6c] dark:text-[#8F8F8B] break-all">
+                                <span class="font-medium text-[#1b1b18] dark:text-[#EDEDEC]">{{ __('messages.blog_admin.public_url') }}</span>
+                                <code class="ml-1 rounded-sm bg-[#f8f8f7] dark:bg-[#1a1a19] px-1 py-0.5" x-text="(previewVersion, '/blog/' + (document.getElementById('slug_{{ $locale }}')?.value?.trim() || @js($translation?->slug ?? '') || '…'))"></code>
+                            </p>
+                            @if(in_array($locale, $slugSuffixLocales, true))
+                                <p class="mt-1 text-[11px] text-amber-700 dark:text-amber-400">{{ __('messages.blog_admin.slug_suffix_hint') }}</p>
+                            @endif
+                            @if(! $translation?->slug)
+                                <p class="mt-1 text-[11px] text-[#706f6c] dark:text-[#8F8F8B]">{{ __('messages.blog_admin.slug_empty_hint') }}</p>
+                            @endif
                             @error("translations.$locale.slug")<p class="text-xs text-red-600 mt-1">{{ $message }}</p>@enderror
                         </div>
                     </div>
@@ -405,6 +456,25 @@
 
 <div x-show="currentStep === 3" x-cloak class="space-y-6">
     <x-admin.card class="p-6">
+        <div class="mb-6 rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] bg-[#f8f8f7] dark:bg-[#111110] p-4">
+            <p class="text-xs font-semibold uppercase tracking-wider text-[#1b1b18] dark:text-[#EDEDEC] mb-3">{{ __('messages.blog_admin.seo_summary_title') }}</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                @foreach($locales as $locale)
+                    <div class="rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] bg-white dark:bg-[#161615] p-3 text-xs space-y-2">
+                        <p class="font-semibold text-[#1b1b18] dark:text-[#EDEDEC]">{{ strtoupper($locale) }}</p>
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="text-[#706f6c] dark:text-[#8F8F8B]">{{ __('messages.blog_admin.meta_title') }}</span>
+                            <span class="font-mono font-medium shrink-0" :class="(seoCounterVersion, getSeoCounterClass('meta_title_{{ $locale }}', 50, 60))" x-text="(seoCounterVersion, getInputLength('meta_title_{{ $locale }}') + '/60')"></span>
+                        </div>
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="text-[#706f6c] dark:text-[#8F8F8B]">{{ __('messages.blog_admin.meta_description') }}</span>
+                            <span class="font-mono font-medium shrink-0" :class="(seoCounterVersion, getSeoCounterClass('meta_description_{{ $locale }}', 150, 160))" x-text="(seoCounterVersion, getInputLength('meta_description_{{ $locale }}') + '/160')"></span>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+
         <h2 class="text-sm font-semibold uppercase tracking-wider text-[#1b1b18] dark:text-[#EDEDEC] mb-4">{{ __('messages.blog_admin.seo_settings') }}</h2>
 
         <div class="border-b border-[#e3e3e0] dark:border-[#3E3E3A] mb-6">

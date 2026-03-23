@@ -10,6 +10,10 @@
         'draft' => __('messages.blog_admin.status_draft'),
         'featured' => __('messages.blog_admin.featured'),
     ];
+    $localeFilterOptions = ['' => __('messages.blog_admin.filter_locale_all')];
+    foreach ($supportedLocales ?? [] as $loc) {
+        $localeFilterOptions[$loc] = strtoupper($loc);
+    }
 @endphp
 
 @section('content')
@@ -35,6 +39,12 @@
             :options="$postStatusFilterOptions"
             :selected="request('status')"
         />
+        <x-admin.form.select
+            label="{{ __('messages.blog_admin.filter_locale_label') }}"
+            name="locale"
+            :options="$localeFilterOptions"
+            :selected="request('locale')"
+        />
         <div class="flex flex-wrap items-end gap-2 sm:col-span-2 lg:col-span-4">
             <x-admin.ui.button variant="primary" type="submit">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -54,8 +64,10 @@
                     <tr class="border-b border-[#e3e3e0] dark:border-[#3E3E3A] bg-[#f8f8f7] dark:bg-[#111110]">
                         <th class="text-left px-4 py-3 font-semibold">{{ __('messages.blog_admin.title') }}</th>
                         <th class="text-left px-4 py-3 font-semibold">{{ __('messages.blog_admin.status') }}</th>
+                        <th class="text-left px-4 py-3 font-semibold">{{ __('messages.blog_admin.media') }}</th>
                         <th class="text-left px-4 py-3 font-semibold">{{ __('messages.blog_admin.featured') }}</th>
                         <th class="text-left px-4 py-3 font-semibold">{{ __('messages.blog_admin.published_at') }}</th>
+                        <th class="text-left px-4 py-3 font-semibold">{{ __('messages.blog_admin.updated_at') }}</th>
                         <th class="text-left px-4 py-3 font-semibold">{{ __('messages.blog_admin.locales') }}</th>
                         <th class="text-right px-4 py-3 font-semibold">{{ __('messages.blog_admin.actions') }}</th>
                     </tr>
@@ -85,15 +97,28 @@
                                     <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">-</p>
                                 @endif
                             </td>
-                            <td class="px-4 py-3 align-top">
-                                @if($post->published)
+                            <td class="px-4 py-3 align-top space-y-1">
+                                @if($post->published && $post->published_at && $post->published_at->isFuture())
+                                    <span class="inline-flex px-2 py-1 rounded-sm text-xs font-medium bg-sky-500/20 text-sky-800 dark:bg-sky-500/20 dark:text-sky-300">{{ __('messages.blog_admin.status_scheduled') }}</span>
+                                @elseif($post->published)
                                     <span class="inline-flex px-2 py-1 rounded-sm text-xs font-medium bg-emerald-500/20 text-emerald-700 dark:bg-emerald-500/25 dark:text-emerald-400">{{ __('messages.blog_admin.status_published') }}</span>
                                 @else
                                     <span class="inline-flex px-2 py-1 rounded-sm text-xs font-medium bg-amber-500/20 text-amber-700 dark:bg-amber-500/25 dark:text-amber-400">{{ __('messages.blog_admin.status_draft') }}</span>
                                 @endif
                             </td>
+                            <td class="px-4 py-3 align-top text-xs text-[#706f6c] dark:text-[#8F8F8B]">
+                                <span class="block">{{ $post->cover_image ? __('messages.blog_admin.media_cover_yes') : __('messages.blog_admin.media_cover_no') }}</span>
+                                <span class="block mt-0.5">
+                                    @if($post->gallery_images_count === 0)
+                                        {{ __('messages.blog_admin.media_gallery_none') }}
+                                    @else
+                                        {{ __('messages.blog_admin.media_gallery_some', ['count' => $post->gallery_images_count]) }}
+                                    @endif
+                                </span>
+                            </td>
                             <td class="px-4 py-3 align-top">{{ $post->is_featured ? __('messages.blog_admin.yes') : __('messages.blog_admin.no') }}</td>
                             <td class="px-4 py-3 align-top">{{ $post->published_at?->format('d.m.Y H:i') ?? '-' }}</td>
+                            <td class="px-4 py-3 align-top text-xs text-[#706f6c] dark:text-[#8F8F8B] whitespace-nowrap">{{ $post->updated_at?->timezone(config('app.timezone'))->format('d.m.Y H:i') ?? '-' }}</td>
                             <td class="px-4 py-3 align-top">{{ $post->translations->pluck('locale')->map(fn ($l) => strtoupper($l))->implode(', ') ?: '-' }}</td>
                             <td class="px-4 py-3 align-top">
                                 <div class="flex items-center justify-end gap-2">
@@ -117,7 +142,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="px-4 py-10 text-center text-[#706f6c] dark:text-[#8F8F8B]">{{ __('messages.blog_admin.no_posts') }}</td>
+                            <td colspan="8" class="px-4 py-10 text-center text-[#706f6c] dark:text-[#8F8F8B]">{{ __('messages.blog_admin.no_posts') }}</td>
                         </tr>
                     @endforelse
                 </tbody>
