@@ -69,8 +69,8 @@
             </p>
         </div>
 
-        <div class="mt-0 text-center">
-            <p class="m-0 text-[6rem] md:text-[12rem] lg:text-[16rem] font-black text-[#D62113] leading-none tracking-tighter select-none">
+        <div class="mt-0 text-center overflow-hidden">
+            <p class="m-0 -mb-4 md:-mb-8 lg:-mb-10 text-[6rem] md:text-[12rem] lg:text-[16rem] font-black text-[#D62113] leading-[0.86] tracking-tighter select-none">
                 VEDAT
             </p>
         </div>
