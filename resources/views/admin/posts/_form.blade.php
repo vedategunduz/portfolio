@@ -80,26 +80,43 @@
 <input type="hidden" id="autosave-post-id" name="_autosave_post_id" value="{{ old('_autosave_post_id', $post?->id) }}">
 
 <div class="mb-8">
-    <div class="flex items-center justify-between gap-1.5">
-        @php $steps = ['Genel Bilgiler', 'İçerik', 'SEO', 'Önizleme']; @endphp
+    @php $steps = ['Genel Bilgiler', 'İçerik', 'SEO', 'Önizleme']; @endphp
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
         @foreach($steps as $index => $stepLabel)
             @php $stepNum = $index + 1; @endphp
-            <div class="flex-1 flex items-center gap-1.5">
-                <button
-                    type="button"
-                    @click="currentStep = {{ $stepNum }}"
-                    class="flex-1 px-2.5 py-2 rounded-sm text-xs font-semibold transition-all duration-200"
-                    :class="currentStep === {{ $stepNum }} ? 'bg-[#D62113] text-white shadow-md' : 'bg-[#f8f8f7] dark:bg-[#111110] text-[#706f6c] dark:text-[#8F8F8B] border border-[#e3e3e0] dark:border-[#3E3E3A] hover:border-[#D62113]/30'"
-                >
-                    <span class="flex items-center justify-center gap-1.5">
-                        <span class="inline-flex w-5 h-5 items-center justify-center rounded-full text-[10px] font-bold" :class="currentStep === {{ $stepNum }} ? 'bg-white/30' : 'border border-current'">{{ $stepNum }}</span>
-                        <span class="hidden sm:inline">{{ $stepLabel }}</span>
+            <button
+                type="button"
+                @click="currentStep = {{ $stepNum }}"
+                class="group rounded-sm border px-3 py-2.5 text-left transition-colors"
+                :class="currentStep === {{ $stepNum }}
+                    ? 'border-[#D62113] bg-[#D62113]/8 dark:bg-[#D62113]/15'
+                    : (currentStep > {{ $stepNum }}
+                        ? 'border-emerald-300/70 dark:border-emerald-900 bg-emerald-50/70 dark:bg-emerald-900/15'
+                        : 'border-[#e3e3e0] dark:border-[#3E3E3A] bg-white dark:bg-[#111110] hover:border-[#D62113]/30')"
+            >
+                <span class="flex items-start gap-2.5">
+                    <span
+                        class="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full text-[11px] font-bold transition-colors"
+                        :class="currentStep === {{ $stepNum }}
+                            ? 'bg-[#D62113] text-white'
+                            : (currentStep > {{ $stepNum }}
+                                ? 'bg-emerald-600 text-white'
+                                : 'border border-[#d1d0cc] dark:border-[#4B4B46] text-[#706f6c] dark:text-[#8F8F8B]')"
+                        x-text="currentStep > {{ $stepNum }} ? '✓' : '{{ $stepNum }}'"
+                    ></span>
+                    <span class="min-w-0">
+                        <span
+                            class="block text-[11px] font-semibold uppercase tracking-wider"
+                            :class="currentStep === {{ $stepNum }} ? 'text-[#D62113]' : 'text-[#706f6c] dark:text-[#8F8F8B]'"
+                        >
+                            Adım {{ $stepNum }}
+                        </span>
+                        <span class="block text-xs sm:text-sm font-medium text-[#1b1b18] dark:text-[#EDEDEC] truncate">
+                            {{ $stepLabel }}
+                        </span>
                     </span>
-                </button>
-                @if($index < count($steps) - 1)
-                    <div class="flex-shrink-0 w-px h-4 bg-[#e3e3e0] dark:bg-[#3E3E3A]"></div>
-                @endif
-            </div>
+                </span>
+            </button>
         @endforeach
     </div>
 </div>
@@ -378,7 +395,7 @@
             <div x-show="previewLocale === locale" x-cloak class="space-y-6">
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div class="lg:col-span-2 space-y-4">
-                        <div class="overflow-hidden rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] bg-white dark:bg-[#161615] shadow-sm">
+                        <div class="overflow-hidden rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] bg-white dark:bg-[#161615] shadow-xs">
                             <template x-if="coverPreview || (hasExistingCover && !removeCover)">
                                 <div class="relative">
                                     <img x-show="coverPreview" :src="coverPreview" alt="cover" class="w-full h-64 object-cover">
@@ -395,10 +412,13 @@
                                     <p class="text-sm text-[#706f6c] dark:text-[#D4D3D0] mb-5">
                                         <span x-text="(previewVersion, document.querySelector('[name=\'published_at\']')?.value?.replace('T', ' ') || 'Yayın tarihi belirtilmedi')"></span>
                                     </p>
-                                    <div class="prose prose-neutral dark:prose-invert max-w-none mb-4 text-sm">
-                                        <p x-text="(previewVersion, document.getElementById('excerpt_' + locale)?.value || '...Özet Girin')"></p>
-                                    </div>
-                                    <div class="p-4 rounded-sm bg-[#f8f8f7] dark:bg-[#111110] border border-[#e3e3e0] dark:border-[#3E3E3A] text-xs text-[#706f6c] dark:text-[#8F8F8B] space-y-1">
+                                    <p class="text-base text-[#706f6c] dark:text-[#D4D3D0] mb-5" x-text="(previewVersion, document.getElementById('excerpt_' + locale)?.value || '...Özet Girin')"></p>
+                                    <div
+                                        class="prose prose-neutral dark:prose-invert max-w-none text-sm md:text-base"
+                                        x-html="(previewVersion, document.getElementById('content_' + locale)?.value || '<p>...İçerik girin</p>')"
+                                    ></div>
+                                    <div class="mt-6 p-4 rounded-sm bg-[#f8f8f7] dark:bg-[#111110] border border-[#e3e3e0] dark:border-[#3E3E3A] text-xs text-[#706f6c] dark:text-[#8F8F8B] space-y-1">
+                                        <div class="font-semibold text-[#1b1b18] dark:text-[#EDEDEC]">SEO Önizleme</div>
                                         <div><strong>Meta Title:</strong> <span x-text="(previewVersion, document.getElementById('meta_title_' + locale)?.value || '—')"></span></div>
                                         <div><strong>Meta Description:</strong> <span x-text="(previewVersion, document.getElementById('meta_description_' + locale)?.value || '—')"></span></div>
                                     </div>
