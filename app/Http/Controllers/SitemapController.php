@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Response;
 
 class SitemapController extends Controller
@@ -28,13 +29,39 @@ class SitemapController extends Controller
     private function generateSitemap(): string
     {
         $baseUrl = rtrim(config('app.url'), '/') . '/';
-        $currentDate = now()->toAtomString();
         $locales = config('app.supported_locales', ['tr', 'en']);
 
         $urls = [];
         foreach ($locales as $locale) {
-            $urls[] = ['loc' => $baseUrl . $locale, 'lastmod' => $currentDate];
+            $urls[] = ['loc' => $baseUrl . $locale, 'lastmod' => now()->toAtomString()];
+            $urls[] = ['loc' => $baseUrl . 'blog', 'lastmod' => now()->toAtomString()];
         }
+
+        $publishedPosts = Post::query()
+            ->published()
+            ->with('translations')
+            ->get();
+
+        foreach ($publishedPosts as $post) {
+            foreach ($locales as $locale) {
+                $translation = $post->translations->firstWhere('locale', $locale);
+                $slug = $translation?->slug;
+
+                if (! is_string($slug) || trim($slug) === '') {
+                    continue;
+                }
+
+                $urls[] = [
+                    'loc' => $baseUrl . 'blog/' . rawurlencode($slug),
+                    'lastmod' => ($post->updated_at ?? $post->published_at ?? now())->toAtomString(),
+                ];
+            }
+        }
+
+        $urls = collect($urls)
+            ->unique('loc')
+            ->values()
+            ->all();
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;
         $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL;
