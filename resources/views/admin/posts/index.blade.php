@@ -13,11 +13,6 @@
 @endphp
 
 @section('content')
-    @if(session('success'))
-        <div class="mb-6 rounded-sm border border-emerald-200 dark:border-emerald-800 bg-emerald-50/90 dark:bg-emerald-900/20 p-4">
-            <p class="text-sm font-medium text-emerald-800 dark:text-emerald-200">{{ session('success') }}</p>
-        </div>
-    @endif
 
     <div class="mb-6 flex items-center justify-between gap-3">
         <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B]">{{ __('messages.blog_admin.total_posts', ['count' => $posts->total()]) }}</p>

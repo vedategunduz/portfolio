@@ -135,6 +135,18 @@
 
     <x-toast />
 
+    @if (session('success'))
+        <script>
+            window.dispatchEvent(new CustomEvent('toast:show', {
+                detail: {
+                    type: 'success',
+                    title: "{{ __('messages.dialog.success') }}",
+                    message: @json(session('success')),
+                }
+            }));
+        </script>
+    @endif
+
     @stack('scripts')
 </body>
 </html>
