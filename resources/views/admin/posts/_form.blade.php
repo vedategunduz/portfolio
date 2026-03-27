@@ -555,7 +555,6 @@
                                 <div class="relative">
                                     <img x-show="coverPreview" :src="coverPreview" alt="cover" class="w-full h-64 object-cover">
                                     <img x-show="!coverPreview && !removeCover" src="{{ $existingCoverUrl }}" alt="cover" class="w-full h-64 object-cover">
-                                    <div class="absolute inset-0 bg-black/10 pointer-events-none"></div>
                                 </div>
                             </template>
 

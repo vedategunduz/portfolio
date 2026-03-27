@@ -18,7 +18,6 @@
             @else
                 <div class="{{ $imageHeight }} w-full bg-linear-to-br from-[#D62113]/15 to-[#FF6B6B]/20 dark:from-[#D62113]/20 dark:to-[#FF6B6B]/10"></div>
             @endif
-            <div class="absolute inset-0 bg-black/10 dark:bg-black/20 pointer-events-none"></div>
         </div>
     </a>
 
