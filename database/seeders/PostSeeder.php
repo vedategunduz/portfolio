@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Post;
-use App\Models\PostTranslation;
+use Modules\Blog\Models\Post;
+use Modules\Blog\Models\PostTranslation;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -88,12 +88,12 @@ HTML,
                 ->for($admin, 'user')
                 ->create();
 
-            \App\Models\PostTranslation::factory()
+            \Modules\Blog\Models\PostTranslation::factory()
                 ->for($post)
                 ->state(['locale' => 'tr'])
                 ->create();
 
-            \App\Models\PostTranslation::factory()
+            \Modules\Blog\Models\PostTranslation::factory()
                 ->for($post)
                 ->state(['locale' => 'en'])
                 ->create();
@@ -105,7 +105,7 @@ HTML,
                 ->for($admin, 'user')
                 ->create();
 
-            \App\Models\PostTranslation::factory()
+            \Modules\Blog\Models\PostTranslation::factory()
                 ->for($post)
                 ->state(['locale' => 'tr'])
                 ->create();

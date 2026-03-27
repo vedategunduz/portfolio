@@ -1,9 +1,4 @@
 <?php
 
-$apiDir = __DIR__ . '/api';
-foreach (glob($apiDir . '/*.php') ?: [] as $file) {
-    require $file;
-}
-foreach (glob($apiDir . '/*/*.php') ?: [] as $file) {
-    require $file;
-}
+// Route ownership is module-first.
+// API routes are loaded from Modules/*/Routes/api.php by ModuleServiceProvider.

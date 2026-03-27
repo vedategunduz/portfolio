@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Http\Middleware\LogPageHistory;
+use Modules\Analytics\Http\Middleware\LogPageHistory;
 // use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

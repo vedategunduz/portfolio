@@ -1,5 +1,5 @@
 @props([
-    'log', // \App\Models\RawRequestLog
+    'log', // \Modules\Analytics\Models\RawRequestLog
     'closeAction' => 'closeLogDetail',
 ])
 

@@ -15,11 +15,16 @@ Modern ve responsive portfolio websitesi. Laravel ile geliştirilmiştir.
 
 ## 🛠️ Teknolojiler
 
-- **Backend:** Laravel 11.x
+- **Backend:** Laravel 12.x
 - **Frontend:** Tailwind CSS, Alpine.js
 - **Icons:** Lucide Icons
 - **Database:** MySQL
 - **Build Tool:** Vite
+
+## 🧩 Moduler Mimari Notlari
+
+- Moduller ve sahiplik sinirlari icin: `docs/MODULAR_MONOLITH_OWNERSHIP.md`
+- Analytics detay mimarisi icin: `docs/PAGE_HISTORY_ARCHITECTURE.md`
 
 ## 📦 Kurulum
 

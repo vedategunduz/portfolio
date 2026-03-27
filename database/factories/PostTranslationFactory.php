@@ -3,12 +3,15 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Blog\Models\PostTranslation;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\PostTranslation>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Modules\Blog\Models\PostTranslation>
  */
 class PostTranslationFactory extends Factory
 {
+    protected $model = PostTranslation::class;
+
     /**
      * Define the model's default state.
      *

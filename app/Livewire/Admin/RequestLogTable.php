@@ -2,9 +2,9 @@
 
 namespace App\Livewire\Admin;
 
-use App\Models\RawRequestLog;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Modules\Analytics\Models\RawRequestLog;
 
 class RequestLogTable extends Component
 {

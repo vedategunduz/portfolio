@@ -2,11 +2,11 @@
 
 namespace Tests\Feature;
 
-use App\Http\Middleware\LogPageHistory;
-use App\Models\Post;
+use Modules\Analytics\Http\Middleware\LogPageHistory;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Modules\Blog\Models\Post;
 
 class AdminPostPanelTest extends TestCase
 {

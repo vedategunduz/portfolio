@@ -13,13 +13,13 @@
     <!-- Filter Tabs -->
     <div class="mb-6 flex flex-wrap gap-2">
         <a href="{{ route('admin.contact-messages') }}" class="px-4 py-2 rounded-sm text-xs font-medium transition-colors {{ !request('status') ? 'bg-[#D62113] text-white' : 'border border-[#e3e3e0] dark:border-[#3E3E3A] text-[#706f6c] dark:text-[#8F8F8B] hover:border-[#D62113]/50 hover:text-[#D62113]' }}">
-            {{ __('messages.message.all') }} ({{ \App\Models\ContactMessage::count() }})
+            {{ __('messages.message.all') }} ({{ \Modules\Contact\Models\ContactMessage::count() }})
         </a>
         <a href="{{ route('admin.contact-messages', ['status' => 'unread']) }}" class="px-4 py-2 rounded-sm text-xs font-medium transition-colors {{ request('status') == 'unread' ? 'bg-[#D62113] text-white' : 'border border-[#e3e3e0] dark:border-[#3E3E3A] text-[#706f6c] dark:text-[#8F8F8B] hover:border-[#D62113]/50 hover:text-[#D62113]' }}">
-            {{ __('messages.message.unread') }} ({{ \App\Models\ContactMessage::where('status', 'unread')->count() }})
+            {{ __('messages.message.unread') }} ({{ \Modules\Contact\Models\ContactMessage::where('status', 'unread')->count() }})
         </a>
         <a href="{{ route('admin.contact-messages', ['status' => 'read']) }}" class="px-4 py-2 rounded-sm text-xs font-medium transition-colors {{ request('status') == 'read' ? 'bg-[#D62113] text-white' : 'border border-[#e3e3e0] dark:border-[#3E3E3A] text-[#706f6c] dark:text-[#8F8F8B] hover:border-[#D62113]/50 hover:text-[#D62113]' }}">
-            {{ __('messages.message.read') }} ({{ \App\Models\ContactMessage::where('status', 'read')->count() }})
+            {{ __('messages.message.read') }} ({{ \Modules\Contact\Models\ContactMessage::where('status', 'read')->count() }})
         </a>
     </div>
 

@@ -32,8 +32,8 @@ Normal insan trafiği ile bot/crawler/scanner/exploit denemelerini ayırmak; iki
 ## Dosya / isimlendirme tutarlılığı
 
 - **Config:** `config/page_history.php`
-- **Middleware:** `App\Http\Middleware\LogPageHistory`
-- **Controller:** `App\Http\Controllers\Admin\PageHistoryController`
+- **Middleware:** `Modules\Analytics\Http\Middleware\LogPageHistory`
+- **Controller:** `Modules\Analytics\Http\Controllers\Admin\PageHistoryController`
 - **Route prefix:** `admin/page-history` → `admin.page-history.raw`, `.classified`, `.suspicious`
 - **Views:** `resources/views/admin/page-history/raw.blade.php`, `classified.blade.php`, `suspicious.blade.php`
 - Eski `page_history` tablosu ve legacy sayfa kaldırıldı; tüm loglar yeni tablolardan (raw, classified, suspicious) yönetilir.

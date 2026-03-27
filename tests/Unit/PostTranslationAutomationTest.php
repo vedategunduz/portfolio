@@ -2,9 +2,9 @@
 
 namespace Tests\Unit;
 
-use App\Models\Post;
-use App\Models\PostTranslation;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Modules\Blog\Models\Post;
+use Modules\Blog\Models\PostTranslation;
 use Tests\TestCase;
 
 class PostTranslationAutomationTest extends TestCase
