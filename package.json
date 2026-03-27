@@ -21,6 +21,6 @@
     "dependencies": {
         "alpinejs": "^3.15.8",
         "lucide": "^0.575.0",
-        "quill": "^2.0.3"
+        "quill": "2.0.2"
     }
 }
