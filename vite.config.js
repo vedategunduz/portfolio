@@ -12,6 +12,7 @@ export default defineConfig({
                 'resources/js/admin.js',
                 'resources/js/error-page-init.js',
                 'resources/js/pages/admin/dashboard.js',
+                'resources/js/pages/admin/blog-analytics-overview.js',
                 'resources/js/pages/admin/contact-messages.js',
                 'resources/js/pages/admin/profile.js',
             ],

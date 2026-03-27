@@ -29,6 +29,7 @@ import { Dialog } from './ui/dialog.js';
 import { getHttp } from './core/http.js';
 import { initThemeToggle } from './core/theme-toggle.js';
 import { initEditor, initAllEditors } from './editor.js';
+import { initBlogAnalytics } from './modules/blog-analytics.js';
 
 const lucideIcons = {
     Github,
@@ -175,4 +176,5 @@ document.addEventListener('DOMContentLoaded', function () {
 
     initForm('#contact-form', { reset: true });
     initScrollReveal();
+    initBlogAnalytics();
 }, { once: true });

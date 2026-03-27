@@ -65,3 +65,19 @@
     </section>
 </x-sections.background>
 @endsection
+
+@push('scripts')
+<script>
+    window.__BLOG_ANALYTICS_CONTEXT = {
+        enabled: true,
+        postId: {{ $post->id }},
+        postSlug: @json($post->translated_slug),
+        endpoints: {
+            start: @json(url('/api/analytics/pageview/start')),
+            heartbeat: @json(url('/api/analytics/pageview/heartbeat')),
+            interaction: @json(url('/api/analytics/pageview/interaction')),
+            end: @json(url('/api/analytics/pageview/end')),
+        },
+    };
+</script>
+@endpush
