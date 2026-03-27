@@ -23,7 +23,6 @@
             @if ($coverUrl)
                 <div class="relative">
                     <img src="{{ $coverUrl }}" alt="{{ $post->translated_title }}" class="w-full h-64 md:h-96 object-cover" loading="lazy">
-                    <div class="absolute inset-0 bg-black/10 dark:bg-black/20 pointer-events-none"></div>
                 </div>
             @endif
 
