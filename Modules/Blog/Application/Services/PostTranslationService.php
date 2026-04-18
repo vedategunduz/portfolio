@@ -31,9 +31,13 @@ class PostTranslationService
             }
 
             $translation = $post->translations->firstWhere('locale', $locale);
-            $slug = array_key_exists('slug', $payload)
-                ? (($payload['slug'] ?? null) ?: null)
-                : ($translation?->slug ?? null);
+            if (array_key_exists('slug', $payload)) {
+                $candidate = $payload['slug'];
+                $candidate = is_string($candidate) ? trim($candidate) : $candidate;
+                $slug = filled($candidate) ? (string) $candidate : ($translation?->slug);
+            } else {
+                $slug = $translation?->slug;
+            }
 
             $attributes = [
                 'title' => $payload['title'] ?? '',

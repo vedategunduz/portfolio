@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Modules\Blog\Application\Services\PostTranslationService;
 use Modules\Blog\Models\Post;
 use Modules\Blog\Models\PostTranslation;
 use Tests\TestCase;
@@ -34,6 +35,34 @@ class PostTranslationAutomationTest extends TestCase
 
         $this->assertSame('merhaba-dunya', $first->slug);
         $this->assertSame('merhaba-dunya-1', $second->slug);
+    }
+
+    public function test_upsert_with_empty_slug_preserves_existing_slug_on_update(): void
+    {
+        $post = Post::factory()->create();
+        $post->translations()->create([
+            'locale' => 'tr',
+            'title' => 'Baslik',
+            'slug' => 'sabit-slug',
+            'excerpt' => 'Ozet',
+            'content' => 'Icerik',
+        ]);
+
+        app(PostTranslationService::class)->upsertTranslations($post, [
+            'tr' => [
+                'title' => 'Yeni Baslik',
+                'slug' => '',
+                'excerpt' => 'Yeni ozet',
+                'content' => 'Yeni icerik',
+            ],
+        ], ['tr'], false);
+
+        $this->assertDatabaseHas('post_translations', [
+            'post_id' => $post->id,
+            'locale' => 'tr',
+            'slug' => 'sabit-slug',
+            'title' => 'Yeni Baslik',
+        ]);
     }
 
     public function test_meta_description_is_auto_generated_on_create_and_update(): void
