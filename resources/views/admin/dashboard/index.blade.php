@@ -192,8 +192,8 @@
                     <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">{{ __('messages.dashboard.blog_posts_manage_desc') }}</p>
                 </a>
                 <a href="{{ route('admin.analytics.overview') }}" class="block p-4 rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] hover:border-[#D62113]/50 dark:hover:border-[#D62113]/50 hover:bg-[#D62113]/5 dark:hover:bg-[#D62113]/10 transition-all duration-200 group">
-                    <span class="font-medium text-[#1b1b18] dark:text-[#EDEDEC] group-hover:text-[#D62113] transition-colors">Blog Analytics</span>
-                    <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">Blog performansi, kaynak ve okuma davranisi raporlari.</p>
+                    <span class="font-medium text-[#1b1b18] dark:text-[#EDEDEC] group-hover:text-[#D62113] transition-colors">{{ __('messages.dashboard.blog_analytics_title') }}</span>
+                    <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">{{ __('messages.dashboard.blog_analytics_desc') }}</p>
                 </a>
                 <a href="{{ route('admin.login-history.index') }}" class="block p-4 rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] hover:border-[#D62113]/50 dark:hover:border-[#D62113]/50 hover:bg-[#D62113]/5 dark:hover:bg-[#D62113]/10 transition-all duration-200 group">
                     <span class="font-medium text-[#1b1b18] dark:text-[#EDEDEC] group-hover:text-[#D62113] transition-colors">{{ __('messages.dashboard.login_history') }}</span>

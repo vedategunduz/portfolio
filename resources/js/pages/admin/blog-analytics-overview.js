@@ -1,6 +1,22 @@
+function i18n() {
+    return window.blogAnalyticsI18n ?? {};
+}
+
 function numberFormat(value) {
     const n = Number(value || 0);
-    return Number.isFinite(n) ? n.toLocaleString('tr-TR') : '0';
+    const locale = i18n().number_locale ?? 'en-US';
+    return Number.isFinite(n) ? n.toLocaleString(locale) : '0';
+}
+
+function formatRowLabel(label) {
+    if (label === 'other') {
+        return i18n().other_bucket ?? 'Other';
+    }
+    return label;
+}
+
+function secondsAbbr() {
+    return i18n().seconds_abbr ?? 's';
 }
 
 function setText(id, value) {
@@ -50,13 +66,14 @@ async function fetchOverview() {
 
         const data = await response.json();
         const totals = data?.totals ?? {};
+        const sec = secondsAbbr();
         setText('analytics-total-views', numberFormat(totals.total_views));
         setText('analytics-unique-visitors', numberFormat(totals.unique_visitors));
         setText('analytics-completed-rate', `${totals.completed_read_rate ?? 0}%`);
         setText('analytics-engaged-rate', `${totals.engaged_read_rate ?? 0}%`);
         setText('analytics-returning-rate', `${totals.returning_visitor_rate ?? 0}%`);
-        setText('analytics-avg-active', `${numberFormat(totals.avg_active_time_seconds)} sn`);
-        setText('analytics-avg-total', `${numberFormat(totals.avg_total_time_seconds)} sn`);
+        setText('analytics-avg-active', `${numberFormat(totals.avg_active_time_seconds)} ${sec}`);
+        setText('analytics-avg-total', `${numberFormat(totals.avg_total_time_seconds)} ${sec}`);
         setText('analytics-avg-scroll', `${numberFormat(totals.avg_scroll_percent)}%`);
 
         const trendBody = document.getElementById('analytics-trend-body');
@@ -81,8 +98,9 @@ async function fetchOverview() {
             (data?.sources || []).forEach((row) => {
                 const tr = document.createElement('tr');
                 tr.className = 'border-t border-[#e3e3e0] dark:border-[#3E3E3A]';
+                const lbl = formatRowLabel(String(row.label ?? ''));
                 tr.innerHTML = `
-                    <td class="px-4 py-3">${row.label}</td>
+                    <td class="px-4 py-3">${lbl}</td>
                     <td class="px-4 py-3">${numberFormat(row.views)}</td>
                     <td class="px-4 py-3">${numberFormat(row.unique_visitors)}</td>
                 `;
@@ -96,8 +114,9 @@ async function fetchOverview() {
             (data?.devices || []).forEach((row) => {
                 const tr = document.createElement('tr');
                 tr.className = 'border-t border-[#e3e3e0] dark:border-[#3E3E3A]';
+                const lbl = formatRowLabel(String(row.label ?? ''));
                 tr.innerHTML = `
-                    <td class="px-4 py-3">${row.label}</td>
+                    <td class="px-4 py-3">${lbl}</td>
                     <td class="px-4 py-3">${numberFormat(row.views)}</td>
                     <td class="px-4 py-3">${numberFormat(row.unique_visitors)}</td>
                 `;
@@ -105,7 +124,7 @@ async function fetchOverview() {
             });
         }
     } catch (error) {
-        window.Dialog?.error('Analytics verisi alinamadi.');
+        window.Dialog?.error(i18n().load_error ?? 'Could not load analytics data.');
     }
 }
 
