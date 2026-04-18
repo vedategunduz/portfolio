@@ -897,6 +897,16 @@
                     }
                     scheduleAutosave();
                 });
+
+                window.addEventListener('autosave:editors-ready', () => {
+                    if (timerId) {
+                        window.clearTimeout(timerId);
+                        timerId = null;
+                    }
+                    dirty = false;
+                    lastSignature = signatureFrom(toAutosavePayload());
+                    setStatus('Taslak: değişiklik bekleniyor');
+                });
             })();
         </script>
     @endpush

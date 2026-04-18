@@ -28,14 +28,19 @@ export function initEditor(selector) {
     // Sync with hidden textarea
     const textarea = container.nextElementSibling;
     if (textarea && textarea.tagName === 'TEXTAREA') {
-        // Set initial content
+        // Load HTML through Quill so the document model matches the editor; SILENT avoids
+        // firing autosave "input" events during hydration (innerHTML assignment can thrash).
         if (textarea.value) {
-            quill.root.innerHTML = textarea.value;
+            const delta = quill.clipboard.convert({ html: textarea.value, text: '' });
+            quill.setContents(delta, Quill.sources.SILENT);
         }
+        textarea.value = quill.root.innerHTML;
 
-        // Sync on text change
-        quill.on('text-change', () => {
+        quill.on('text-change', (delta, oldDelta, source) => {
             textarea.value = quill.root.innerHTML;
+            if (source === Quill.sources.SILENT) {
+                return;
+            }
             textarea.dispatchEvent(new Event('input', { bubbles: true }));
         });
     }
@@ -52,4 +57,5 @@ export function initAllEditors() {
         const locale = el.getAttribute('data-editor-locale');
         initEditor(`[data-editor-content="${locale}"]`);
     });
+    window.dispatchEvent(new CustomEvent('autosave:editors-ready'));
 }
