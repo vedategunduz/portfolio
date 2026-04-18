@@ -37,7 +37,7 @@ class PostTranslationAutomationTest extends TestCase
         $this->assertSame('merhaba-dunya-1', $second->slug);
     }
 
-    public function test_upsert_with_empty_slug_preserves_existing_slug_on_update(): void
+    public function test_upsert_with_empty_slug_regenerates_from_title_on_update(): void
     {
         $post = Post::factory()->create();
         $post->translations()->create([
@@ -60,7 +60,7 @@ class PostTranslationAutomationTest extends TestCase
         $this->assertDatabaseHas('post_translations', [
             'post_id' => $post->id,
             'locale' => 'tr',
-            'slug' => 'sabit-slug',
+            'slug' => 'yeni-baslik',
             'title' => 'Yeni Baslik',
         ]);
     }

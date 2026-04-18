@@ -34,7 +34,8 @@ class PostTranslationService
             if (array_key_exists('slug', $payload)) {
                 $candidate = $payload['slug'];
                 $candidate = is_string($candidate) ? trim($candidate) : $candidate;
-                $slug = filled($candidate) ? (string) $candidate : ($translation?->slug);
+                // Empty: let PostTranslation assign from title on save; missing key: keep existing (partial save)
+                $slug = filled($candidate) ? (string) $candidate : null;
             } else {
                 $slug = $translation?->slug;
             }

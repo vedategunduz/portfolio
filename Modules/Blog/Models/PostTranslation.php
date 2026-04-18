@@ -35,31 +35,13 @@ class PostTranslation extends Model
 
     protected static function booted(): void
     {
-        static::creating(function (PostTranslation $translation) {
-            if (! $translation->slug) {
-                $baseSlug = str($translation->title)->slug()->toString();
-                $translation->slug = $baseSlug;
-
-                $existing = static::where('locale', $translation->locale)
-                    ->where('slug', $baseSlug)
-                    ->where('post_id', '!=', $translation->post_id ?? 0)
-                    ->exists();
-
-                if ($existing) {
-                    $counter = 1;
-                    do {
-                        $newSlug = "{$baseSlug}-{$counter}";
-                        $existing = static::where('locale', $translation->locale)
-                            ->where('slug', $newSlug)
-                            ->where('post_id', '!=', $translation->post_id ?? 0)
-                            ->exists();
-                        $counter++;
-                    } while ($existing);
-
-                    $translation->slug = $newSlug;
-                }
+        static::saving(function (PostTranslation $translation) {
+            if (blank($translation->slug) && filled($translation->title)) {
+                static::assignUniqueSlugFromTitle($translation);
             }
+        });
 
+        static::creating(function (PostTranslation $translation) {
             if (! $translation->meta_description && $translation->excerpt) {
                 $translation->meta_description = substr(strip_tags($translation->excerpt), 0, 160);
             } elseif (! $translation->meta_description && $translation->content) {
@@ -74,5 +56,31 @@ class PostTranslation extends Model
                 $translation->meta_description = substr(strip_tags($translation->content), 0, 160);
             }
         });
+    }
+
+    private static function assignUniqueSlugFromTitle(PostTranslation $translation): void
+    {
+        $base = str($translation->title)->slug()->toString();
+        if ($base === '') {
+            $base = 'post';
+        }
+
+        $candidate = $base;
+        $counter = 1;
+        while (static::slugTakenByAnotherRow($translation, $candidate)) {
+            $candidate = "{$base}-{$counter}";
+            $counter++;
+        }
+
+        $translation->slug = $candidate;
+    }
+
+    private static function slugTakenByAnotherRow(PostTranslation $translation, string $slug): bool
+    {
+        return static::query()
+            ->where('locale', $translation->locale)
+            ->where('slug', $slug)
+            ->when($translation->exists, fn ($query) => $query->whereKeyNot($translation->getKey()))
+            ->exists();
     }
 }
