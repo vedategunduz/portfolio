@@ -188,9 +188,12 @@
 @push('scripts')
 <script>
 (function () {
+    const copyIpLabel = @json(__('messages.log.copy_ip'));
+    const copySuccessTitle = @json(__('messages.dialog.success'));
+
     function showCopiedFeedback(btn, ip) {
         if (window.Dialog && typeof window.Dialog.success === 'function') {
-            window.Dialog.success('{{ __('messages.log.copy_ip') }}: ' + ip, 'Copied');
+            window.Dialog.success(copyIpLabel + ': ' + ip, copySuccessTitle);
         }
     }
 
