@@ -105,13 +105,16 @@
 @endsection
 
 @push('scripts')
-    <script>
-        window.blogAnalyticsI18n = @json([
+    @php
+        $blogAnalyticsI18n = [
             'seconds_abbr' => __('messages.blog_analytics.seconds_abbr'),
             'other_bucket' => __('messages.blog_analytics.other_bucket'),
             'load_error' => __('messages.blog_analytics.load_error'),
             'number_locale' => app()->getLocale() === 'tr' ? 'tr-TR' : 'en-US',
-        ]);
+        ];
+    @endphp
+    <script>
+        window.blogAnalyticsI18n = @json($blogAnalyticsI18n);
     </script>
     @vite('resources/js/pages/admin/blog-analytics-overview.js')
 @endpush
