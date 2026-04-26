@@ -25,6 +25,10 @@ class AdminBlogAnalyticsOverviewTest extends TestCase
 
         $response->assertOk();
         $response->assertSee('blog-analytics-overview', false);
+        $response->assertSee(__('messages.blog_analytics.filters_title'));
+        $response->assertSee('analytics-returning-visitors', false);
+        $response->assertSee(__('messages.blog_analytics.metric_guide_title'));
+        $response->assertSee(__('messages.blog_analytics.metric_help_returning'));
     }
 
     public function test_analytics_overview_data_excludes_bots_by_default_and_returns_expected_metrics(): void
@@ -154,13 +158,14 @@ class AdminBlogAnalyticsOverviewTest extends TestCase
             ->assertJsonPath('totals.total_views', 2)
             ->assertJsonPath('totals.bot_views', 1)
             ->assertJsonPath('totals.unique_visitors', 1)
+            ->assertJsonPath('totals.returning_visitors', 1)
             ->assertJsonPath('totals.avg_active_time_seconds', 28)
             ->assertJsonPath('totals.avg_total_time_seconds', 44)
             ->assertJsonPath('totals.avg_scroll_percent', 58)
             ->assertJsonPath('totals.completed_read_rate', 50)
             ->assertJsonPath('totals.engaged_read_rate', 50)
             ->assertJsonPath('totals.bounce_rate', 50)
-            ->assertJsonPath('totals.returning_visitor_rate', 50)
+            ->assertJsonPath('totals.returning_visitor_rate', 100)
             ->assertJsonPath('reconciliation.kpi_total_views', 2)
             ->assertJsonPath('reconciliation.sources_total_views', 2)
             ->assertJsonPath('reconciliation.devices_total_views', 2)

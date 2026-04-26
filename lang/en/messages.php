@@ -39,6 +39,7 @@ return [
 
     // Blog analytics (admin)
     'blog_analytics.page_title' => 'Blog Analytics',
+    'blog_analytics.filters_title' => 'Filters',
     'blog_analytics.date_from' => 'Start',
     'blog_analytics.date_to' => 'End',
     'blog_analytics.include_bots' => 'Include bot traffic',
@@ -48,6 +49,14 @@ return [
     'blog_analytics.completed_read_pct' => 'Completed read %',
     'blog_analytics.engaged_read_pct' => 'Engaged read %',
     'blog_analytics.returning_visitor_pct' => 'Returning visitor %',
+    'blog_analytics.returning_visitor_rate_unique' => 'Returning visitor rate (unique)',
+    'blog_analytics.returning_visitors_suffix' => 'returning visitors',
+    'blog_analytics.metric_guide_title' => 'Metric guide',
+    'blog_analytics.metric_guide_scope' => 'Rates are calculated for the selected date range.',
+    'blog_analytics.metric_help_completed' => 'Completed reads are visits that pass both the active-time and scroll-depth thresholds.',
+    'blog_analytics.metric_help_engaged' => 'Engaged reads are visits that pass the baseline active-time and scroll threshold, excluding short low-signal visits.',
+    'blog_analytics.metric_help_returning' => 'Returning visitor rate is the share of unique visitors in the selected range who already had at least one earlier read.',
+    'blog_analytics.metric_help_active_time' => 'Active read time is not just tab-open time; it is estimated from heartbeats and interaction signals.',
     'blog_analytics.avg_active_read' => 'Avg. active read time',
     'blog_analytics.avg_total_time' => 'Avg. total time',
     'blog_analytics.avg_scroll' => 'Avg. scroll',
@@ -465,4 +474,3 @@ return [
     'blog_admin.slug_suffix_hint' => 'Numeric suffix: the base slug was already used by another post. You can edit the slug manually.',
     'blog_admin.slug_empty_hint' => 'Leave empty to auto-generate from the title on save.',
 ];
-

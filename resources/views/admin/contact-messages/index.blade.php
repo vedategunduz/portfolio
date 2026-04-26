@@ -5,28 +5,33 @@
 
 @section('content')
     @if(session('success'))
-        <div class="mb-6 rounded-sm border border-emerald-200 dark:border-emerald-800 bg-emerald-50/90 dark:bg-emerald-900/20 p-4">
+        <div class="mb-6 rounded-sm border border-emerald-200 dark:border-emerald-800 bg-emerald-50/90 dark:bg-emerald-900/20 px-4 py-3">
             <p class="text-sm font-medium text-emerald-800 dark:text-emerald-200">{{ session('success') }}</p>
         </div>
     @endif
 
-    <!-- Filter Tabs -->
-    <div class="mb-6 flex flex-wrap gap-2">
-        <a href="{{ route('admin.contact-messages') }}" class="px-4 py-2 rounded-sm text-xs font-medium transition-colors {{ !request('status') ? 'bg-[#D62113] text-white' : 'border border-[#e3e3e0] dark:border-[#3E3E3A] text-[#706f6c] dark:text-[#8F8F8B] hover:border-[#D62113]/50 hover:text-[#D62113]' }}">
-            {{ __('messages.message.all') }} ({{ \Modules\Contact\Models\ContactMessage::count() }})
-        </a>
-        <a href="{{ route('admin.contact-messages', ['status' => 'unread']) }}" class="px-4 py-2 rounded-sm text-xs font-medium transition-colors {{ request('status') == 'unread' ? 'bg-[#D62113] text-white' : 'border border-[#e3e3e0] dark:border-[#3E3E3A] text-[#706f6c] dark:text-[#8F8F8B] hover:border-[#D62113]/50 hover:text-[#D62113]' }}">
-            {{ __('messages.message.unread') }} ({{ \Modules\Contact\Models\ContactMessage::where('status', 'unread')->count() }})
-        </a>
-        <a href="{{ route('admin.contact-messages', ['status' => 'read']) }}" class="px-4 py-2 rounded-sm text-xs font-medium transition-colors {{ request('status') == 'read' ? 'bg-[#D62113] text-white' : 'border border-[#e3e3e0] dark:border-[#3E3E3A] text-[#706f6c] dark:text-[#8F8F8B] hover:border-[#D62113]/50 hover:text-[#D62113]' }}">
-            {{ __('messages.message.read') }} ({{ \Modules\Contact\Models\ContactMessage::where('status', 'read')->count() }})
-        </a>
-    </div>
+    <x-admin.card class="mb-6">
+        <div class="px-4 py-3 border-b border-[#e3e3e0] dark:border-[#3E3E3A]">
+            <h2 class="text-sm font-semibold text-[#1b1b18] dark:text-[#EDEDEC] uppercase tracking-wider">{{ __('messages.filters') }}</h2>
+        </div>
+        <div class="p-4">
+            <div class="flex flex-wrap gap-2">
+                <a href="{{ route('admin.contact-messages') }}" class="px-4 py-2 rounded-sm text-xs font-medium transition-colors {{ !request('status') ? 'bg-[#D62113] text-white' : 'border border-[#e3e3e0] dark:border-[#3E3E3A] text-[#706f6c] dark:text-[#8F8F8B] hover:border-[#D62113]/50 hover:text-[#D62113]' }}">
+                    {{ __('messages.message.all') }} ({{ \Modules\Contact\Models\ContactMessage::count() }})
+                </a>
+                <a href="{{ route('admin.contact-messages', ['status' => 'unread']) }}" class="px-4 py-2 rounded-sm text-xs font-medium transition-colors {{ request('status') == 'unread' ? 'bg-[#D62113] text-white' : 'border border-[#e3e3e0] dark:border-[#3E3E3A] text-[#706f6c] dark:text-[#8F8F8B] hover:border-[#D62113]/50 hover:text-[#D62113]' }}">
+                    {{ __('messages.message.unread') }} ({{ \Modules\Contact\Models\ContactMessage::where('status', 'unread')->count() }})
+                </a>
+                <a href="{{ route('admin.contact-messages', ['status' => 'read']) }}" class="px-4 py-2 rounded-sm text-xs font-medium transition-colors {{ request('status') == 'read' ? 'bg-[#D62113] text-white' : 'border border-[#e3e3e0] dark:border-[#3E3E3A] text-[#706f6c] dark:text-[#8F8F8B] hover:border-[#D62113]/50 hover:text-[#D62113]' }}">
+                    {{ __('messages.message.read') }} ({{ \Modules\Contact\Models\ContactMessage::where('status', 'read')->count() }})
+                </a>
+            </div>
+        </div>
+    </x-admin.card>
 
-    <!-- Messages List -->
-    <div class="space-y-4">
+    <div class="space-y-3">
         @forelse($messages as $message)
-            <div class="rounded-sm border {{ $message->status == 'unread' ? 'border-l-4 border-l-[#D62113] border-[#e3e3e0] dark:border-[#3E3E3A]' : 'border-[#e3e3e0] dark:border-[#3E3E3A]' }} bg-white dark:bg-[#1a1a18] p-6 transition-shadow hover:shadow-lg dark:shadow-black/20">
+            <x-admin.card class="p-4 {{ $message->status == 'unread' ? 'border-l-4 border-l-[#D62113]' : '' }}">
                 <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4 mb-4">
                     <div class="min-w-0 flex-1">
                         <div class="flex flex-wrap items-center gap-2">
@@ -52,7 +57,7 @@
                 <div class="rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] bg-[#FDFDFC] dark:bg-[#0a0a0a]/50 p-4">
                     <p class="text-sm text-[#1b1b18] dark:text-[#EDEDEC] whitespace-pre-wrap">{{ $message->message }}</p>
                 </div>
-            </div>
+            </x-admin.card>
         @empty
             <x-admin.empty-state title="{{ __('messages.message.no_messages') }}" description="{{ __('messages.message.no_messages_desc') }}">
                 <x-slot:icon><i data-lucide="inbox" class="mx-auto w-12 h-12"></i></x-slot:icon>

@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use App\Services\ImageOptimizationService;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver as GdDriver;
@@ -45,5 +48,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        RateLimiter::for('analytics-ingest', function (Request $request) {
+            $visitorKey = (string) $request->input('visitor_uuid', 'anonymous');
+            $ipKey = (string) ($request->ip() ?? 'unknown');
+
+            return [
+                Limit::perMinute(120)->by($ipKey.'|'.$visitorKey),
+                Limit::perMinute(240)->by($ipKey),
+            ];
+        });
     }
 }

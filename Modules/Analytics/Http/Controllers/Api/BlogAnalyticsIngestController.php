@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 use Modules\Analytics\Application\Services\BlogAnalyticsIngestService;
+use Modules\Blog\Models\Post;
 
 class BlogAnalyticsIngestController extends Controller
 {
@@ -14,7 +16,7 @@ class BlogAnalyticsIngestController extends Controller
 
     public function start(Request $request): JsonResponse
     {
-        $request->validate([
+        $validated = $request->validate([
             'event_uuid' => ['nullable', 'uuid'],
             'occurred_at' => ['nullable', 'date'],
             'visitor_uuid' => ['required', 'uuid'],
@@ -41,6 +43,8 @@ class BlogAnalyticsIngestController extends Controller
             'max_scroll_percent' => ['nullable', 'integer', 'min:0', 'max:100'],
             'reading_progress_percent' => ['nullable', 'integer', 'min:0', 'max:100'],
         ]);
+
+        $this->ensurePostSlugMatchesPost((int) $validated['post_id'], (string) $validated['post_slug']);
 
         $view = $this->ingestService->startView($request);
 
@@ -125,5 +129,21 @@ class BlogAnalyticsIngestController extends Controller
             'completed_read' => $view->completed_read,
             'engaged_read' => $view->engaged_read,
         ]);
+    }
+
+    private function ensurePostSlugMatchesPost(int $postId, string $postSlug): void
+    {
+        $matches = Post::query()
+            ->whereKey($postId)
+            ->whereHas('translations', function ($query) use ($postSlug) {
+                $query->where('slug', $postSlug);
+            })
+            ->exists();
+
+        if (! $matches) {
+            throw ValidationException::withMessages([
+                'post_slug' => 'The selected post slug is invalid for the given post.',
+            ]);
+        }
     }
 }

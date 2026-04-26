@@ -5,23 +5,23 @@
 
 @section('content')
     <!-- Stats Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <x-admin.stat-card label="{{ __('messages.dashboard.total_visits') }}" :value="number_format($stats['total_visits'])" iconColor="red">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+        <x-admin.stat-card label="{{ __('messages.dashboard.total_visits') }}" :value="number_format($stats['total_visits'])" iconColor="red" compact>
             <x-slot:icon><i data-lucide="eye" class="w-6 h-6"></i></x-slot:icon>
         </x-admin.stat-card>
-        <x-admin.stat-card label="{{ __('messages.dashboard.unique_visitors') }}" :value="number_format($stats['unique_visitors'])" iconColor="emerald">
+        <x-admin.stat-card label="{{ __('messages.dashboard.unique_visitors') }}" :value="number_format($stats['unique_visitors'])" iconColor="emerald" compact>
             <x-slot:icon><i data-lucide="users" class="w-6 h-6"></i></x-slot:icon>
         </x-admin.stat-card>
-        <x-admin.stat-card label="{{ __('messages.dashboard.total_messages') }}" :value="number_format($stats['total_messages'])" iconColor="violet">
+        <x-admin.stat-card label="{{ __('messages.dashboard.total_messages') }}" :value="number_format($stats['total_messages'])" iconColor="violet" compact>
             <x-slot:icon><i data-lucide="mail" class="w-6 h-6"></i></x-slot:icon>
         </x-admin.stat-card>
-        <x-admin.stat-card label="{{ __('messages.dashboard.unread_messages') }}" :value="number_format($stats['unread_messages'])" iconColor="amber">
+        <x-admin.stat-card label="{{ __('messages.dashboard.unread_messages') }}" :value="number_format($stats['unread_messages'])" iconColor="amber" compact>
             <x-slot:icon><i data-lucide="inbox" class="w-6 h-6"></i></x-slot:icon>
         </x-admin.stat-card>
     </div>
 
     <!-- Ziyaretçi / Trafik Özeti (sınıflandırılmış) -->
-    <x-admin.card class="p-6 mb-8">
+    <x-admin.card class="p-6 mb-6">
         <h3 class="text-sm font-semibold text-[#1b1b18] dark:text-[#EDEDEC] mb-4 uppercase tracking-wider">{{ __('messages.dashboard.traffic_summary') }}</h3>
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
             <div class="min-w-0">
@@ -91,7 +91,7 @@
     </x-admin.card>
 
     <!-- Server Stats -->
-    <x-admin.card class="p-6 mb-8 relative" id="server-stats-card" data-api-url="{{ route('admin.api.server-stats') }}">
+    <x-admin.card class="p-6 mb-6 relative" id="server-stats-card" data-api-url="{{ route('admin.api.server-stats') }}">
         @php
             $cpuP = $serverStatsData['cpu_percent'] !== null ? (float) $serverStatsData['cpu_percent'] : null;
             $ramP = isset($serverStatsData['ram_percent']['percent']) ? (float) $serverStatsData['ram_percent']['percent'] : null;
@@ -167,7 +167,7 @@
     </x-admin.card>
 
     <!-- Quick Links & System Info -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <x-admin.card class="p-6">
             <h3 class="text-sm font-semibold text-[#1b1b18] dark:text-[#EDEDEC] mb-4 uppercase tracking-wider">{{ __('messages.dashboard.quick_access') }}</h3>
             <div class="space-y-3">

@@ -1,6 +1,8 @@
 @props([
     'stickyHeader' => true,
     'tableClass' => 'min-w-full text-sm',
+    'bodyId' => null,
+    'bodyClass' => 'divide-y divide-[#e5e5e5] dark:divide-[#333333]',
 ])
 
 <div {{ $attributes->merge(['class' => 'overflow-x-auto']) }}>
@@ -10,7 +12,7 @@
                 {{ $header }}
             </thead>
         @endif
-        <tbody class="divide-y divide-[#e5e5e5] dark:divide-[#333333]">
+        <tbody @if($bodyId) id="{{ $bodyId }}" @endif class="{{ $bodyClass }}">
             {{ $slot }}
         </tbody>
     </table>

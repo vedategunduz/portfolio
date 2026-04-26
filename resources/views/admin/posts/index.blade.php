@@ -58,96 +58,100 @@
     </x-admin.ui.filter-card>
 
     <x-admin.card class="overflow-hidden">
-        <div class="overflow-x-auto">
-            <table class="min-w-full text-sm">
-                <thead>
-                    <tr class="border-b border-[#e3e3e0] dark:border-[#3E3E3A] bg-[#f8f8f7] dark:bg-[#111110]">
-                        <th class="text-left px-4 py-3 font-semibold">{{ __('messages.blog_admin.title') }}</th>
-                        <th class="text-left px-4 py-3 font-semibold">{{ __('messages.blog_admin.status') }}</th>
-                        <th class="text-left px-4 py-3 font-semibold">{{ __('messages.blog_admin.media') }}</th>
-                        <th class="text-left px-4 py-3 font-semibold">{{ __('messages.blog_admin.featured') }}</th>
-                        <th class="text-left px-4 py-3 font-semibold">{{ __('messages.blog_admin.published_at') }}</th>
-                        <th class="text-left px-4 py-3 font-semibold">{{ __('messages.blog_admin.updated_at') }}</th>
-                        <th class="text-left px-4 py-3 font-semibold">{{ __('messages.blog_admin.locales') }}</th>
-                        <th class="text-right px-4 py-3 font-semibold">{{ __('messages.blog_admin.actions') }}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($posts as $post)
-                        <tr class="border-b border-[#e3e3e0] dark:border-[#3E3E3A]/70">
-                            <td class="px-4 py-3 align-top">
-                                @if($post->translated_slug)
-                                    <a
-                                        href="{{ route('blog.show', $post->translated_slug) }}"
-                                        class="font-medium text-[#1b1b18] dark:text-[#EDEDEC] hover:text-[#D62113] transition-colors"
-                                        title="{{ __('messages.blog_admin.view_post') }}"
-                                    >
-                                        {{ $post->translated_title ?? '-' }}
-                                    </a>
-                                    <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">
-                                        <a
-                                            href="{{ route('blog.show', $post->translated_slug) }}"
-                                            class="hover:text-[#D62113] transition-colors"
-                                        >
-                                            {{ $post->translated_slug }}
-                                        </a>
-                                    </p>
-                                @else
-                                    <p class="font-medium text-[#1b1b18] dark:text-[#EDEDEC]">{{ $post->translated_title ?? '-' }}</p>
-                                    <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">-</p>
-                                @endif
-                            </td>
-                            <td class="px-4 py-3 align-top space-y-1">
-                                @if($post->published && $post->published_at && $post->published_at->isFuture())
-                                    <span class="inline-flex px-2 py-1 rounded-sm text-xs font-medium bg-sky-500/20 text-sky-800 dark:bg-sky-500/20 dark:text-sky-300">{{ __('messages.blog_admin.status_scheduled') }}</span>
-                                @elseif($post->published)
-                                    <span class="inline-flex px-2 py-1 rounded-sm text-xs font-medium bg-emerald-500/20 text-emerald-700 dark:bg-emerald-500/25 dark:text-emerald-400">{{ __('messages.blog_admin.status_published') }}</span>
-                                @else
-                                    <span class="inline-flex px-2 py-1 rounded-sm text-xs font-medium bg-amber-500/20 text-amber-700 dark:bg-amber-500/25 dark:text-amber-400">{{ __('messages.blog_admin.status_draft') }}</span>
-                                @endif
-                            </td>
-                            <td class="px-4 py-3 align-top text-xs text-[#706f6c] dark:text-[#8F8F8B]">
-                                <span class="block">{{ $post->cover_image ? __('messages.blog_admin.media_cover_yes') : __('messages.blog_admin.media_cover_no') }}</span>
-                                <span class="block mt-0.5">
-                                    @if($post->gallery_images_count === 0)
-                                        {{ __('messages.blog_admin.media_gallery_none') }}
-                                    @else
-                                        {{ __('messages.blog_admin.media_gallery_some', ['count' => $post->gallery_images_count]) }}
-                                    @endif
-                                </span>
-                            </td>
-                            <td class="px-4 py-3 align-top">{{ $post->is_featured ? __('messages.blog_admin.yes') : __('messages.blog_admin.no') }}</td>
-                            <td class="px-4 py-3 align-top">{{ $post->published_at?->format('d.m.Y H:i') ?? '-' }}</td>
-                            <td class="px-4 py-3 align-top text-xs text-[#706f6c] dark:text-[#8F8F8B] whitespace-nowrap">{{ $post->updated_at?->timezone(config('app.timezone'))->format('d.m.Y H:i') ?? '-' }}</td>
-                            <td class="px-4 py-3 align-top">{{ $post->translations->pluck('locale')->map(fn ($l) => strtoupper($l))->implode(', ') ?: '-' }}</td>
-                            <td class="px-4 py-3 align-top">
-                                <div class="flex items-center justify-end gap-2">
-                                    <a href="{{ route('admin.posts.edit', $post) }}" class="px-3 py-1.5 rounded-sm text-xs border border-[#e3e3e0] dark:border-[#3E3E3A] hover:border-[#D62113]/50 hover:text-[#D62113] transition-colors">
-                                        {{ __('messages.blog_admin.edit') }}
-                                    </a>
-                                    <form
-                                        action="{{ route('admin.posts.destroy', $post) }}"
-                                        method="POST"
-                                        class="js-post-delete-form"
-                                        data-confirm-message="{{ __('messages.blog_admin.confirm_delete') }}"
-                                    >
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="px-3 py-1.5 rounded-sm text-xs border border-red-200 dark:border-red-900/50 text-red-700 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">
-                                            {{ __('messages.blog_admin.delete') }}
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="8" class="px-4 py-10 text-center text-[#706f6c] dark:text-[#8F8F8B]">{{ __('messages.blog_admin.no_posts') }}</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
+        <x-admin.ui.table-wrapper tableClass="min-w-full text-sm">
+            <x-slot:header>
+                <tr>
+                    <x-admin.ui.table-th>{{ __('messages.blog_admin.title') }}</x-admin.ui.table-th>
+                    <x-admin.ui.table-th>{{ __('messages.blog_admin.status') }}</x-admin.ui.table-th>
+                    <x-admin.ui.table-th>{{ __('messages.blog_admin.media') }}</x-admin.ui.table-th>
+                    <x-admin.ui.table-th>{{ __('messages.blog_admin.featured') }}</x-admin.ui.table-th>
+                    <x-admin.ui.table-th>{{ __('messages.blog_admin.published_at') }}</x-admin.ui.table-th>
+                    <x-admin.ui.table-th>{{ __('messages.blog_admin.updated_at') }}</x-admin.ui.table-th>
+                    <x-admin.ui.table-th>{{ __('messages.blog_admin.locales') }}</x-admin.ui.table-th>
+                    <x-admin.ui.table-th class="text-right">{{ __('messages.blog_admin.actions') }}</x-admin.ui.table-th>
+                </tr>
+            </x-slot:header>
+            @forelse($posts as $index => $post)
+                <x-admin.ui.table-row :zebra="$index % 2 === 1">
+                    <x-admin.ui.table-td class="align-top">
+                        @if($post->translated_slug)
+                            <a
+                                href="{{ route('blog.show', $post->translated_slug) }}"
+                                class="font-medium text-[#1b1b18] dark:text-[#EDEDEC] hover:text-[#D62113] transition-colors"
+                                title="{{ __('messages.blog_admin.view_post') }}"
+                            >
+                                {{ $post->translated_title ?? '-' }}
+                            </a>
+                            <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">
+                                <a
+                                    href="{{ route('blog.show', $post->translated_slug) }}"
+                                    class="hover:text-[#D62113] transition-colors"
+                                >
+                                    {{ $post->translated_slug }}
+                                </a>
+                            </p>
+                        @else
+                            <p class="font-medium text-[#1b1b18] dark:text-[#EDEDEC]">{{ $post->translated_title ?? '-' }}</p>
+                            <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">-</p>
+                        @endif
+                    </x-admin.ui.table-td>
+                    <x-admin.ui.table-td class="align-top">
+                        @if($post->published && $post->published_at && $post->published_at->isFuture())
+                            <x-admin.ui.badge variant="info">{{ __('messages.blog_admin.status_scheduled') }}</x-admin.ui.badge>
+                        @elseif($post->published)
+                            <x-admin.ui.badge variant="success">{{ __('messages.blog_admin.status_published') }}</x-admin.ui.badge>
+                        @else
+                            <x-admin.ui.badge variant="warning">{{ __('messages.blog_admin.status_draft') }}</x-admin.ui.badge>
+                        @endif
+                    </x-admin.ui.table-td>
+                    <x-admin.ui.table-td variant="secondary" class="align-top">
+                        <span class="block">{{ $post->cover_image ? __('messages.blog_admin.media_cover_yes') : __('messages.blog_admin.media_cover_no') }}</span>
+                        <span class="block mt-0.5">
+                            @if($post->gallery_images_count === 0)
+                                {{ __('messages.blog_admin.media_gallery_none') }}
+                            @else
+                                {{ __('messages.blog_admin.media_gallery_some', ['count' => $post->gallery_images_count]) }}
+                            @endif
+                        </span>
+                    </x-admin.ui.table-td>
+                    <x-admin.ui.table-td class="align-top">
+                        @if($post->is_featured)
+                            <x-admin.ui.badge variant="success">{{ __('messages.blog_admin.yes') }}</x-admin.ui.badge>
+                        @else
+                            <span class="text-[#6b7280] dark:text-[#9ca3af]">{{ __('messages.blog_admin.no') }}</span>
+                        @endif
+                    </x-admin.ui.table-td>
+                    <x-admin.ui.table-td class="align-top whitespace-nowrap">{{ $post->published_at?->format('d.m.Y H:i') ?? '-' }}</x-admin.ui.table-td>
+                    <x-admin.ui.table-td variant="secondary" class="align-top whitespace-nowrap">{{ $post->updated_at?->timezone(config('app.timezone'))->format('d.m.Y H:i') ?? '-' }}</x-admin.ui.table-td>
+                    <x-admin.ui.table-td class="align-top">{{ $post->translations->pluck('locale')->map(fn ($l) => strtoupper($l))->implode(', ') ?: '-' }}</x-admin.ui.table-td>
+                    <x-admin.ui.table-td class="align-top">
+                        <div class="flex items-center justify-end gap-2">
+                            <a href="{{ route('admin.posts.edit', $post) }}" class="px-3 py-1.5 rounded-sm text-xs border border-[#e3e3e0] dark:border-[#3E3E3A] hover:border-[#D62113]/50 hover:text-[#D62113] transition-colors">
+                                {{ __('messages.blog_admin.edit') }}
+                            </a>
+                            <form
+                                action="{{ route('admin.posts.destroy', $post) }}"
+                                method="POST"
+                                class="js-post-delete-form"
+                                data-confirm-message="{{ __('messages.blog_admin.confirm_delete') }}"
+                            >
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="px-3 py-1.5 rounded-sm text-xs border border-red-200 dark:border-red-900/50 text-red-700 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">
+                                    {{ __('messages.blog_admin.delete') }}
+                                </button>
+                            </form>
+                        </div>
+                    </x-admin.ui.table-td>
+                </x-admin.ui.table-row>
+            @empty
+                <x-admin.ui.table-row>
+                    <x-admin.ui.table-td colspan="8" variant="secondary" class="py-10 text-center">
+                        {{ __('messages.blog_admin.no_posts') }}
+                    </x-admin.ui.table-td>
+                </x-admin.ui.table-row>
+            @endforelse
+        </x-admin.ui.table-wrapper>
     </x-admin.card>
 
     <x-admin.ui.pagination :paginator="$posts" class="mt-6" />

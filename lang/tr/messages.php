@@ -39,6 +39,7 @@ return [
 
     // Blog analytics (admin)
     'blog_analytics.page_title' => 'Blog İstatistikleri',
+    'blog_analytics.filters_title' => 'Filtreler',
     'blog_analytics.date_from' => 'Başlangıç',
     'blog_analytics.date_to' => 'Bitiş',
     'blog_analytics.include_bots' => 'Bot trafiğini dahil et',
@@ -48,6 +49,14 @@ return [
     'blog_analytics.completed_read_pct' => 'Tamamlanan okuma %',
     'blog_analytics.engaged_read_pct' => 'Etkileşimli okuma %',
     'blog_analytics.returning_visitor_pct' => 'Geri dönen ziyaretçi %',
+    'blog_analytics.returning_visitor_rate_unique' => 'Geri dönen ziyaretçi oranı (tekil)',
+    'blog_analytics.returning_visitors_suffix' => 'geri dönen ziyaretçi',
+    'blog_analytics.metric_guide_title' => 'Metrik rehberi',
+    'blog_analytics.metric_guide_scope' => 'Oranlar seçilen tarih aralığına göre hesaplanır.',
+    'blog_analytics.metric_help_completed' => 'Tamamlanan okuma, aktif süre ve kaydırma seviyesi eşiklerini birlikte geçen okumaları gösterir.',
+    'blog_analytics.metric_help_engaged' => 'Etkileşimli okuma, kısa ziyaretleri dışarıda bırakmak için temel aktif süre ve kaydırma eşiğini geçen okumaları ifade eder.',
+    'blog_analytics.metric_help_returning' => 'Geri dönen ziyaretçi oranı, seçilen aralıkta en az bir önceki okuması olan tekil ziyaretçilerin tekil ziyaretçilere oranıdır.',
+    'blog_analytics.metric_help_active_time' => 'Aktif okuma süresi, sekme açık kaldığı toplam süre değil; heartbeat ve etkileşim sinyalleriyle tahmin edilen aktif süredir.',
     'blog_analytics.avg_active_read' => 'Ort. aktif okuma süresi',
     'blog_analytics.avg_total_time' => 'Ort. toplam süre',
     'blog_analytics.avg_scroll' => 'Ort. kaydırma',
@@ -465,4 +474,3 @@ return [
     'blog_admin.slug_suffix_hint' => 'Slug sonunda sayı var; aynı taban slug başka bir yazıda kullanıldığı için otomatik eklendi. İsterseniz slug alanını elle düzenleyebilirsiniz.',
     'blog_admin.slug_empty_hint' => 'Boş bırakırsanız kayıtta başlıktan otomatik üretilir.',
 ];
-

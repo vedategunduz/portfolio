@@ -26,6 +26,34 @@ function setText(id, value) {
     }
 }
 
+function createTableRow(cells, zebra = false) {
+    const tr = document.createElement('tr');
+    tr.className = [
+        'transition-colors',
+        'duration-150',
+        zebra ? 'bg-[#fafafa] dark:bg-[#1e1e1e]' : 'bg-white dark:bg-[#1a1a18]',
+        'hover:bg-[#f5f5f5] dark:hover:bg-[#252525]',
+    ].join(' ');
+
+    cells.forEach(({ value, variant = 'primary' }) => {
+        const td = document.createElement('td');
+        td.className = [
+            'px-3',
+            'lg:px-4',
+            'py-2.5',
+            'text-sm',
+            'leading-normal',
+            variant === 'secondary'
+                ? 'text-[#6b7280] dark:text-[#9ca3af]'
+                : 'text-[#111827] dark:text-[#f3f4f6]',
+        ].join(' ');
+        td.textContent = value;
+        tr.appendChild(td);
+    });
+
+    return tr;
+}
+
 function setDefaultDates() {
     const from = document.getElementById('analytics-date-from');
     const to = document.getElementById('analytics-date-to');
@@ -72,6 +100,7 @@ async function fetchOverview() {
         setText('analytics-completed-rate', `${totals.completed_read_rate ?? 0}%`);
         setText('analytics-engaged-rate', `${totals.engaged_read_rate ?? 0}%`);
         setText('analytics-returning-rate', `${totals.returning_visitor_rate ?? 0}%`);
+        setText('analytics-returning-visitors', numberFormat(totals.returning_visitors));
         setText('analytics-avg-active', `${numberFormat(totals.avg_active_time_seconds)} ${sec}`);
         setText('analytics-avg-total', `${numberFormat(totals.avg_total_time_seconds)} ${sec}`);
         setText('analytics-avg-scroll', `${numberFormat(totals.avg_scroll_percent)}%`);
@@ -79,48 +108,39 @@ async function fetchOverview() {
         const trendBody = document.getElementById('analytics-trend-body');
         if (trendBody) {
             trendBody.innerHTML = '';
-            (data?.trend || []).forEach((row) => {
-                const tr = document.createElement('tr');
-                tr.className = 'border-t border-[#e3e3e0] dark:border-[#3E3E3A]';
-                tr.innerHTML = `
-                    <td class="px-4 py-3">${row.date}</td>
-                    <td class="px-4 py-3">${numberFormat(row.views)}</td>
-                    <td class="px-4 py-3">${numberFormat(row.engaged)}</td>
-                    <td class="px-4 py-3">${numberFormat(row.completed)}</td>
-                `;
-                trendBody.appendChild(tr);
+            (data?.trend || []).forEach((row, index) => {
+                trendBody.appendChild(createTableRow([
+                    { value: row.date ?? '' },
+                    { value: numberFormat(row.views) },
+                    { value: numberFormat(row.engaged) },
+                    { value: numberFormat(row.completed) },
+                ], index % 2 === 1));
             });
         }
 
         const sourcesBody = document.getElementById('analytics-sources-body');
         if (sourcesBody) {
             sourcesBody.innerHTML = '';
-            (data?.sources || []).forEach((row) => {
-                const tr = document.createElement('tr');
-                tr.className = 'border-t border-[#e3e3e0] dark:border-[#3E3E3A]';
+            (data?.sources || []).forEach((row, index) => {
                 const lbl = formatRowLabel(String(row.label ?? ''));
-                tr.innerHTML = `
-                    <td class="px-4 py-3">${lbl}</td>
-                    <td class="px-4 py-3">${numberFormat(row.views)}</td>
-                    <td class="px-4 py-3">${numberFormat(row.unique_visitors)}</td>
-                `;
-                sourcesBody.appendChild(tr);
+                sourcesBody.appendChild(createTableRow([
+                    { value: lbl },
+                    { value: numberFormat(row.views) },
+                    { value: numberFormat(row.unique_visitors) },
+                ], index % 2 === 1));
             });
         }
 
         const devicesBody = document.getElementById('analytics-devices-body');
         if (devicesBody) {
             devicesBody.innerHTML = '';
-            (data?.devices || []).forEach((row) => {
-                const tr = document.createElement('tr');
-                tr.className = 'border-t border-[#e3e3e0] dark:border-[#3E3E3A]';
+            (data?.devices || []).forEach((row, index) => {
                 const lbl = formatRowLabel(String(row.label ?? ''));
-                tr.innerHTML = `
-                    <td class="px-4 py-3">${lbl}</td>
-                    <td class="px-4 py-3">${numberFormat(row.views)}</td>
-                    <td class="px-4 py-3">${numberFormat(row.unique_visitors)}</td>
-                `;
-                devicesBody.appendChild(tr);
+                devicesBody.appendChild(createTableRow([
+                    { value: lbl },
+                    { value: numberFormat(row.views) },
+                    { value: numberFormat(row.unique_visitors) },
+                ], index % 2 === 1));
             });
         }
     } catch (error) {

@@ -106,7 +106,9 @@ class ModuleDependencyRulesTest extends TestCase
 
     private function resolveOwningModule(string $absolutePath): ?string
     {
-        if (preg_match('#/Modules/([^/]+)/#', $absolutePath, $matches) !== 1) {
+        $normalizedPath = str_replace('\\', '/', $absolutePath);
+
+        if (preg_match('#/Modules/([^/]+)/#', $normalizedPath, $matches) !== 1) {
             return null;
         }
 
@@ -121,6 +123,8 @@ class ModuleDependencyRulesTest extends TestCase
             return $absolutePath;
         }
 
-        return ltrim(str_replace($root, '', $realPath), '/');
+        $relativePath = str_replace($root, '', $realPath);
+
+        return ltrim(str_replace('\\', '/', $relativePath), '/');
     }
 }

@@ -1,116 +1,81 @@
-# Vedat Egündüz - Portfolio Website
+# Vedat Egunduz Portfolio
 
-Modern ve responsive portfolio websitesi. Laravel ile geliştirilmiştir.
+Laravel tabanli portfolio, blog ve admin paneli uygulamasi.
 
-## 🚀 Özellikler
+## Ozellikler
 
-- ✨ Modern ve minimalist tasarım
-- 🌓 Dark/Light mode desteği
-- 📱 Responsive (Mobil uyumlu)
-- 🎭 Smooth animasyonlar
-- 📧 İletişim formu
-- 🔍 SEO optimize edilmiş
-- 🗺️ XML Sitemap
-- 📊 Structured Data (Schema.org)
+- Cok dilli public site (`tr`, `en`)
+- Blog listeleme ve detay sayfalari
+- Admin panelinden yazi yonetimi
+- Otomatik kaydetme destekli editor akisi
+- Iletisim formu ve admin mesaj takibi
+- Sitemap, SEO ve Open Graph altyapisi
+- Ziyaret siniflandirma ve blog analytics toplama
 
-## 🛠️ Teknolojiler
-
-- **Backend:** Laravel 12.x
-- **Frontend:** Tailwind CSS, Alpine.js
-- **Icons:** Lucide Icons
-- **Database:** MySQL
-- **Build Tool:** Vite
-
-## 🧩 Moduler Mimari Notlari
-
-- Moduller ve sahiplik sinirlari icin: `docs/MODULAR_MONOLITH_OWNERSHIP.md`
-- Analytics detay mimarisi icin: `docs/PAGE_HISTORY_ARCHITECTURE.md`
-
-## 📦 Kurulum
-
-### Gereksinimler
+## Teknolojiler
 
 - PHP 8.2+
-- Composer
-- Node.js & NPM
+- Laravel 12
+- Livewire 4
+- Tailwind CSS 4
+- Vite 7
+- Alpine.js
 - MySQL
 
-### Adımlar
+## Proje Yapisi
 
-1. Repository'yi klonlayın:
-```bash
-git clone https://github.com/vedategunduz/portfolio.git
-cd portfolio
-```
+- `Modules/Admin`: admin auth, dashboard, profil, login gecmisi
+- `Modules/Blog`: public blog, admin yazi paneli, post domain modeli
+- `Modules/Contact`: iletisim formu ve mesaj yonetimi
+- `Modules/Analytics`: request logging, traffic classification, blog analytics
+- `Modules/PublicSite`: ana sayfa, locale, sitemap, error page akislari
 
-2. Composer bağımlılıklarını yükleyin:
+Mimari sahiplik kurallari icin:
+
+- `docs/MODULAR_MONOLITH_OWNERSHIP.md`
+- `docs/PAGE_HISTORY_ARCHITECTURE.md`
+- `docs/FRONTEND_ASSET_ARCHITECTURE.md`
+
+## Kurulum
+
 ```bash
 composer install
-```
-
-3. NPM bağımlılıklarını yükleyin:
-```bash
-npm install
-```
-
-4. `.env` dosyasını oluşturun:
-```bash
 cp .env.example .env
-```
-
-5. Uygulama anahtarını oluşturun:
-```bash
 php artisan key:generate
-```
-
-6. Veritabanı ayarlarını yapın (`.env` dosyasında):
-```env
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=your_database
-DB_USERNAME=your_username
-DB_PASSWORD=your_password
-```
-
-7. Veritabanı migration'larını çalıştırın:
-```bash
 php artisan migrate
-```
-
-8. Asset'leri derleyin:
-```bash
+npm install
 npm run build
 ```
 
-9. Geliştirme sunucusunu başlatın:
+Gelistirme icin:
+
 ```bash
-php artisan serve
+composer run dev
 ```
 
-## 🌐 Production Deployment
+Bu komut Laravel server, queue listener, log izleme ve Vite dev server'i birlikte calistirir.
 
-### SEO Ayarları
+## Test
 
-Production'a deploy etmeden önce:
+```bash
+php artisan test
+```
 
-1. **`.env.production` dosyasını düzenleyin:**
-   - `APP_ENV=production`
-   - `APP_DEBUG=false`
-   - `APP_URL=https://vedategunduz.dev`
-   - Database bilgilerini güncelleyin
+Test paketi su alanlari kapsar:
 
-2. **SEO Config güncelleyin (`config/seo.php`):**
-   - Sosyal medya linkleri ✅ (Zaten ayarlandı)
-   - Meta description ve keywords ✅
+- public blog akislari
+- sitemap uretimi
+- admin post paneli
+- analytics overview
+- moduller arasi bagimlilik kurallari
 
-3. **Robots.txt kontrolü:**
-   - Domain: `https://vedategunduz.dev` ✅
+## Production Notlari
 
-4. **Open Graph görseli ekleyin:**
-   - `/public/images/og-image.jpg` konumuna 1200x630px boyutunda görsel ekleyin
+- `APP_DEBUG=false` kullanin
+- `APP_URL` degerini dogru domain ile ayarlayin
+- `public/images/og-image.jpg` dosyasini gercek paylasim gorseli ile guncelleyin
+- deploy sonrasi cache komutlarini calistirin:
 
-5. **Cache'leri temizleyin ve optimize edin:**
 ```bash
 php artisan config:cache
 php artisan route:cache
@@ -118,38 +83,8 @@ php artisan view:cache
 php artisan optimize
 ```
 
-### SSL Sertifikası
+## Iletisim
 
-SSL sertifikası zaten mevcut ✅
-
-### Sitemap
-
-- Sitemap otomatik oluşturulur: `https://vedategunduz.dev/sitemap.xml`
-- Google Search Console'a eklenmelidir
-
-## 📝 Lisans
-
-Bu proje özel bir projedir ve tüm hakları saklıdır.
-
-## 👤 İletişim
-
-- **Website:** [vedategunduz.dev](https://vedategunduz.dev)
-- **Email:** vedat.bilisim@outlook.com
-- **GitHub:** [@vedategunduz](https://github.com/vedategunduz)
-- **LinkedIn:** [vedategunduz](https://www.linkedin.com/in/vedategunduz)
-- **Instagram:** [@vedategunduz](https://www.instagram.com/vedategunduz)
-
----
-
-© 2026 Vedat Egündüz. Tüm hakları saklıdır.
-
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- Website: `https://vedategunduz.dev`
+- Email: `vedat.bilisim@outlook.com`
+- GitHub: `https://github.com/vedategunduz`

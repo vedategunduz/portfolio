@@ -40,6 +40,7 @@ class GetBlogAnalyticsOverviewDataAction
             ->count();
 
         $totalViews = (int) ($overview->total_views ?? 0);
+        $uniqueVisitors = (int) ($overview->unique_visitors ?? 0);
         $completed = (int) ($overview->completed_reads ?? 0);
         $engaged = (int) ($overview->engaged_reads ?? 0);
         $bounce = (int) ($overview->bounce_views ?? 0);
@@ -124,14 +125,15 @@ class GetBlogAnalyticsOverviewDataAction
                 'total_views' => $totalViews,
                 'total_views_raw' => $totalViews,
                 'bot_views' => $rawBotViews,
-                'unique_visitors' => (int) ($overview->unique_visitors ?? 0),
+                'unique_visitors' => $uniqueVisitors,
                 'avg_active_time_seconds' => (int) round((float) ($overview->avg_active_time_seconds ?? 0)),
                 'avg_total_time_seconds' => (int) round((float) ($overview->avg_total_time_seconds ?? 0)),
                 'avg_scroll_percent' => (int) round((float) ($overview->avg_scroll_percent ?? 0)),
                 'completed_read_rate' => $totalViews > 0 ? round(($completed / $totalViews) * 100, 2) : 0,
                 'engaged_read_rate' => $totalViews > 0 ? round(($engaged / $totalViews) * 100, 2) : 0,
                 'bounce_rate' => $totalViews > 0 ? round(($bounce / $totalViews) * 100, 2) : 0,
-                'returning_visitor_rate' => $totalViews > 0 ? round(($returning / $totalViews) * 100, 2) : 0,
+                'returning_visitors' => $returning,
+                'returning_visitor_rate' => $uniqueVisitors > 0 ? round(($returning / $uniqueVisitors) * 100, 2) : 0,
             ],
             'trend' => $trendRows,
             'sources' => $sourceRows->map(fn ($row) => [
