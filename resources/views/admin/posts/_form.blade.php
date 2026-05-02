@@ -141,25 +141,23 @@
 <input type="hidden" id="autosave-post-id" name="_autosave_post_id" value="{{ old('_autosave_post_id', $post?->id) }}">
 
 @if(count($adminTranslationWarnings) > 0)
-    <div class="mb-6 rounded-sm border border-amber-200 dark:border-amber-900/50 bg-amber-50/90 dark:bg-amber-900/20 p-4">
-        <p class="text-xs font-semibold text-amber-900 dark:text-amber-200">{{ __('messages.blog_admin.alerts_translation_title') }}</p>
+    <x-admin.notice variant="warning" :title="__('messages.blog_admin.alerts_translation_title')" class="mb-6">
         <ul class="mt-2 list-disc list-inside text-xs text-amber-900/90 dark:text-amber-100/90 space-y-1">
             @foreach($adminTranslationWarnings as $warning)
                 <li>{{ $warning }}</li>
             @endforeach
         </ul>
-    </div>
+    </x-admin.notice>
 @endif
 
 @if(count($publishChecklistNotes) > 0)
-    <div class="mb-6 rounded-sm border border-sky-200 dark:border-sky-900/50 bg-sky-50/90 dark:bg-sky-900/20 p-4">
-        <p class="text-xs font-semibold text-sky-900 dark:text-sky-200">{{ __('messages.blog_admin.alerts_checklist_title') }}</p>
+    <x-admin.notice variant="info" :title="__('messages.blog_admin.alerts_checklist_title')" class="mb-6">
         <ul class="mt-2 list-disc list-inside text-xs text-sky-900/90 dark:text-sky-100/90 space-y-1">
             @foreach($publishChecklistNotes as $note)
                 <li>{{ $note }}</li>
             @endforeach
         </ul>
-    </div>
+    </x-admin.notice>
 @endif
 
 <div class="mb-8">
@@ -208,8 +206,7 @@
     <x-admin.card class="p-6 space-y-6">
         <h2 class="text-sm font-semibold uppercase tracking-wider text-[#1b1b18] dark:text-[#EDEDEC]">{{ __('messages.blog_admin.general_information') }}</h2>
 
-        <div class="rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] bg-[#f8f8f7] dark:bg-[#111110] p-4 space-y-2 text-xs text-[#706f6c] dark:text-[#8F8F8B]">
-            <p class="text-[11px] font-semibold uppercase tracking-wider text-[#1b1b18] dark:text-[#EDEDEC]">{{ __('messages.blog_admin.overview_title') }}</p>
+        <x-admin.notice :title="__('messages.blog_admin.overview_title')" class="space-y-2">
             @if($post)
                 <p>{{ __('messages.blog_admin.overview_last_saved', ['time' => $post->updated_at->timezone(config('app.timezone'))->format('d.m.Y H:i')]) }}</p>
             @else
@@ -217,7 +214,7 @@
             @endif
             <p>{{ __('messages.blog_admin.overview_media', ['cover' => $overviewHasCover ? __('messages.blog_admin.yes') : __('messages.blog_admin.no'), 'gallery' => count($existingGalleryImages)]) }}</p>
             <p class="text-[11px]">{{ __('messages.blog_admin.overview_autosave_hint') }}</p>
-        </div>
+        </x-admin.notice>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div class="space-y-3">
@@ -456,8 +453,7 @@
 
 <div x-show="currentStep === 3" x-cloak class="space-y-6">
     <x-admin.card class="p-6">
-        <div class="mb-6 rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] bg-[#f8f8f7] dark:bg-[#111110] p-4">
-            <p class="text-xs font-semibold uppercase tracking-wider text-[#1b1b18] dark:text-[#EDEDEC] mb-3">{{ __('messages.blog_admin.seo_summary_title') }}</p>
+        <x-admin.notice :title="__('messages.blog_admin.seo_summary_title')" class="mb-6">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 @foreach($locales as $locale)
                     <div class="rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] bg-white dark:bg-[#161615] p-3 text-xs space-y-2">
@@ -473,7 +469,7 @@
                     </div>
                 @endforeach
             </div>
-        </div>
+        </x-admin.notice>
 
         <h2 class="text-sm font-semibold uppercase tracking-wider text-[#1b1b18] dark:text-[#EDEDEC] mb-4">{{ __('messages.blog_admin.seo_settings') }}</h2>
 
@@ -571,44 +567,44 @@
                                         class="prose prose-neutral dark:prose-invert max-w-none text-sm md:text-base"
                                         x-html="(previewVersion, document.getElementById('content_' + locale)?.value || '<p>...İçerik girin</p>')"
                                     ></div>
-                                    <div class="mt-6 p-4 rounded-sm bg-[#f8f8f7] dark:bg-[#111110] border border-[#e3e3e0] dark:border-[#3E3E3A] text-xs text-[#706f6c] dark:text-[#8F8F8B] space-y-1">
+                                    <x-admin.notice class="mt-6 space-y-1">
                                         <div class="font-semibold text-[#1b1b18] dark:text-[#EDEDEC]">SEO Önizleme</div>
                                         <div><strong>Meta Title:</strong> <span x-text="(previewVersion, document.getElementById('meta_title_' + locale)?.value || '—')"></span></div>
                                         <div><strong>Meta Description:</strong> <span x-text="(previewVersion, document.getElementById('meta_description_' + locale)?.value || '—')"></span></div>
-                                    </div>
+                                    </x-admin.notice>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="space-y-3">
-                        <div class="rounded-sm bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-900/50 p-3">
+                        <x-admin.notice variant="success">
                             <p class="text-xs font-medium text-emerald-800 dark:text-emerald-300">Status</p>
                             <p class="text-xs text-emerald-700 dark:text-emerald-400 mt-1">
                                 <span x-text="(previewVersion, document.getElementById('published_toggle')?.checked ? 'Yayında' : 'Taslak')"></span>
                             </p>
-                        </div>
+                        </x-admin.notice>
 
-                        <div class="rounded-sm bg-[#f8f8f7] dark:bg-[#111110] border border-[#e3e3e0] dark:border-[#3E3E3A] p-3">
+                        <x-admin.notice>
                             <p class="text-xs font-medium text-[#1b1b18] dark:text-[#EDEDEC]">Öne Çıkan</p>
                             <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">
                                 <span x-text="(previewVersion, document.getElementById('featured_toggle')?.checked ? 'Evet' : 'Hayır')"></span>
                             </p>
-                        </div>
+                        </x-admin.notice>
 
-                        <div class="rounded-sm bg-[#f8f8f7] dark:bg-[#111110] border border-[#e3e3e0] dark:border-[#3E3E3A] p-3">
+                        <x-admin.notice>
                             <p class="text-xs font-medium text-[#1b1b18] dark:text-[#EDEDEC]">Dil</p>
                             <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1" x-text="locale.toUpperCase()"></p>
-                        </div>
+                        </x-admin.notice>
 
-                        <div class="rounded-sm bg-violet-50 dark:bg-violet-900/20 border border-violet-200 dark:border-violet-900/50 p-3 space-y-2">
+                        <x-admin.notice variant="info" class="space-y-2">
                             <p class="text-xs font-medium text-violet-800 dark:text-violet-300">📊 İçerik İstatistikleri</p>
                             <div class="text-xs text-violet-700 dark:text-violet-400 space-y-1">
                                 <div><span class="font-medium">Kelime:</span> <span x-text="(previewVersion, getContentStats(locale).wordCount)"></span></div>
                                 <div><span class="font-medium">Okuma Süresi:</span> <span x-text="(previewVersion, (() => { const minutes = getContentStats(locale).readingMinutes; return minutes === 1 ? '1 dk' : minutes + '-' + (minutes + 1) + ' dk'; })())"></span></div>
                                 <div><span class="font-medium">Paragraf:</span> <span x-text="(previewVersion, getContentStats(locale).paragraphCount)"></span></div>
                             </div>
-                        </div>
+                        </x-admin.notice>
                     </div>
                 </div>
             </div>

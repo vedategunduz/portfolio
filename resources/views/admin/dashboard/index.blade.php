@@ -171,38 +171,14 @@
         <x-admin.card class="p-6">
             <h3 class="text-sm font-semibold text-[#1b1b18] dark:text-[#EDEDEC] mb-4 uppercase tracking-wider">{{ __('messages.dashboard.quick_access') }}</h3>
             <div class="space-y-3">
-                <a href="{{ route('admin.page-history.raw') }}" class="block p-4 rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] hover:border-[#D62113]/50 dark:hover:border-[#D62113]/50 hover:bg-[#D62113]/5 dark:hover:bg-[#D62113]/10 transition-all duration-200 group">
-                    <span class="font-medium text-[#1b1b18] dark:text-[#EDEDEC] group-hover:text-[#D62113] transition-colors">{{ __('messages.dashboard.page_history_raw') }}</span>
-                    <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">{{ __('messages.dashboard.page_history_raw_desc') }}</p>
-                </a>
-                <a href="{{ route('admin.page-history.classified') }}" class="block p-4 rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] hover:border-[#D62113]/50 dark:hover:border-[#D62113]/50 hover:bg-[#D62113]/5 dark:hover:bg-[#D62113]/10 transition-all duration-200 group">
-                    <span class="font-medium text-[#1b1b18] dark:text-[#EDEDEC] group-hover:text-[#D62113] transition-colors">{{ __('messages.dashboard.page_history_classified') }}</span>
-                    <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">{{ __('messages.dashboard.page_history_classified_desc') }}</p>
-                </a>
-                <a href="{{ route('admin.page-history.suspicious') }}" class="block p-4 rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] hover:border-[#D62113]/50 dark:hover:border-[#D62113]/50 hover:bg-[#D62113]/5 dark:hover:bg-[#D62113]/10 transition-all duration-200 group">
-                    <span class="font-medium text-[#1b1b18] dark:text-[#EDEDEC] group-hover:text-[#D62113] transition-colors">{{ __('messages.dashboard.page_history_suspicious') }}</span>
-                    <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">{{ __('messages.dashboard.page_history_suspicious_desc') }}</p>
-                </a>
-                <a href="{{ route('admin.contact-messages') }}" class="block p-4 rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] hover:border-[#D62113]/50 dark:hover:border-[#D62113]/50 hover:bg-[#D62113]/5 dark:hover:bg-[#D62113]/10 transition-all duration-200 group">
-                    <span class="font-medium text-[#1b1b18] dark:text-[#EDEDEC] group-hover:text-[#D62113] transition-colors">{{ __('messages.dashboard.contact_messages_view') }}</span>
-                    <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">{{ __('messages.dashboard.contact_messages_desc') }}</p>
-                </a>
-                <a href="{{ route('admin.posts.index') }}" class="block p-4 rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] hover:border-[#D62113]/50 dark:hover:border-[#D62113]/50 hover:bg-[#D62113]/5 dark:hover:bg-[#D62113]/10 transition-all duration-200 group">
-                    <span class="font-medium text-[#1b1b18] dark:text-[#EDEDEC] group-hover:text-[#D62113] transition-colors">{{ __('messages.dashboard.blog_posts_manage') }}</span>
-                    <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">{{ __('messages.dashboard.blog_posts_manage_desc') }}</p>
-                </a>
-                <a href="{{ route('admin.analytics.overview') }}" class="block p-4 rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] hover:border-[#D62113]/50 dark:hover:border-[#D62113]/50 hover:bg-[#D62113]/5 dark:hover:bg-[#D62113]/10 transition-all duration-200 group">
-                    <span class="font-medium text-[#1b1b18] dark:text-[#EDEDEC] group-hover:text-[#D62113] transition-colors">{{ __('messages.dashboard.blog_analytics_title') }}</span>
-                    <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">{{ __('messages.dashboard.blog_analytics_desc') }}</p>
-                </a>
-                <a href="{{ route('admin.login-history.index') }}" class="block p-4 rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] hover:border-[#D62113]/50 dark:hover:border-[#D62113]/50 hover:bg-[#D62113]/5 dark:hover:bg-[#D62113]/10 transition-all duration-200 group">
-                    <span class="font-medium text-[#1b1b18] dark:text-[#EDEDEC] group-hover:text-[#D62113] transition-colors">{{ __('messages.dashboard.login_history') }}</span>
-                    <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">{{ __('messages.dashboard.login_history_desc') }}</p>
-                </a>
-                <a href="{{ route('admin.profile.edit') }}" class="block p-4 rounded-sm border border-[#e3e3e0] dark:border-[#3E3E3A] hover:border-[#D62113]/50 dark:hover:border-[#D62113]/50 hover:bg-[#D62113]/5 dark:hover:bg-[#D62113]/10 transition-all duration-200 group">
-                    <span class="font-medium text-[#1b1b18] dark:text-[#EDEDEC] group-hover:text-[#D62113] transition-colors">{{ __('messages.dashboard.account_update') }}</span>
-                    <p class="text-xs text-[#706f6c] dark:text-[#8F8F8B] mt-1">{{ __('messages.dashboard.account_update_desc') }}</p>
-                </a>
+                <x-admin.link-tile :href="route('admin.page-history.raw')" :title="__('messages.dashboard.page_history_raw')" :description="__('messages.dashboard.page_history_raw_desc')" />
+                <x-admin.link-tile :href="route('admin.page-history.classified')" :title="__('messages.dashboard.page_history_classified')" :description="__('messages.dashboard.page_history_classified_desc')" />
+                <x-admin.link-tile :href="route('admin.page-history.suspicious')" :title="__('messages.dashboard.page_history_suspicious')" :description="__('messages.dashboard.page_history_suspicious_desc')" />
+                <x-admin.link-tile :href="route('admin.contact-messages')" :title="__('messages.dashboard.contact_messages_view')" :description="__('messages.dashboard.contact_messages_desc')" />
+                <x-admin.link-tile :href="route('admin.posts.index')" :title="__('messages.dashboard.blog_posts_manage')" :description="__('messages.dashboard.blog_posts_manage_desc')" />
+                <x-admin.link-tile :href="route('admin.analytics.overview')" :title="__('messages.dashboard.blog_analytics_title')" :description="__('messages.dashboard.blog_analytics_desc')" />
+                <x-admin.link-tile :href="route('admin.login-history.index')" :title="__('messages.dashboard.login_history')" :description="__('messages.dashboard.login_history_desc')" />
+                <x-admin.link-tile :href="route('admin.profile.edit')" :title="__('messages.dashboard.account_update')" :description="__('messages.dashboard.account_update_desc')" />
             </div>
         </x-admin.card>
 

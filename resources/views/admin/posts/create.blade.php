@@ -5,9 +5,9 @@
 
 @section('content')
     @if($errors->any())
-        <div class="mb-6 rounded-sm border border-red-200 dark:border-red-900/50 bg-red-50/90 dark:bg-red-900/20 p-4">
-            <p class="text-sm font-medium text-red-700 dark:text-red-300">{{ __('messages.blog_admin.fix_form_errors') }}</p>
-        </div>
+        <x-admin.notice variant="danger" class="mb-6">
+            {{ __('messages.blog_admin.fix_form_errors') }}
+        </x-admin.notice>
     @endif
 
     <form

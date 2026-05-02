@@ -6,6 +6,7 @@
     'value' => null,
     'placeholder' => null,
     'error' => null,
+    'errorField' => null,
 ])
 
 @php
@@ -27,6 +28,6 @@
         {{ $attributes->except('class')->merge(['class' => $inputClass]) }}
     />
     @if($error)
-        <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $error }}</p>
+        <p @if($errorField) data-field-error="{{ $errorField }}" @endif class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $error }}</p>
     @endif
 </div>
